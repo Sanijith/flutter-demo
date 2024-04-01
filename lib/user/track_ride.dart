@@ -20,7 +20,7 @@ class _TrackRideState extends State<TrackRide> {
         padding: const EdgeInsets.symmetric(horizontal: 50,vertical: 50),
         child: Container(
           padding: const EdgeInsets.all(50),
-          color: Colors.grey,
+          color: Colors.white,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -29,7 +29,7 @@ class _TrackRideState extends State<TrackRide> {
               TextFormField(
                 decoration: const InputDecoration(
                     filled: true,
-                    fillColor: Colors.white,
+                    fillColor: Colors.grey,
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(30)),
                     ),

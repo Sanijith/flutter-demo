@@ -14,7 +14,7 @@ class _TripRequestState extends State<TripRequest> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.blueAccent,
+        backgroundColor: Colors.white,
         title: const Text('FLEETRIDE'),
         actions: [
           IconButton(onPressed: (){
@@ -22,18 +22,20 @@ class _TripRequestState extends State<TripRequest> {
           }, icon: const Icon(Icons.home)),
         ],
       ),
-      backgroundColor: Colors.cyan,
+      backgroundColor: Colors.white,
       body: Container(
         padding: const EdgeInsets.all(50),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text('Trip Request'),
+            const Text('Trip Request',style: TextStyle(
+              fontSize: 35,
+            ),),
             const SizedBox(height: 30),
             TextFormField(
               decoration: const InputDecoration(
                 filled: true,
-                fillColor: Colors.white,
+                fillColor: Colors.grey,
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.all(Radius.circular(30.0)),
                 ),
@@ -44,7 +46,7 @@ class _TripRequestState extends State<TripRequest> {
             TextFormField(
               decoration: const InputDecoration(
                 filled: true,
-                fillColor: Colors.white,
+                fillColor: Colors.grey,
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.all(Radius.circular(30.0)),
                 ),

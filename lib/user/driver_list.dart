@@ -13,7 +13,7 @@ class _DriversState extends State<Drivers> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.blueAccent,
+        backgroundColor: Colors.white,
         title: const Text('FLEETRIDE'),
         actions: [
           IconButton(
@@ -24,7 +24,7 @@ class _DriversState extends State<Drivers> {
               icon: const Icon(Icons.home)),
         ],
       ),
-      backgroundColor: Colors.cyan,
+      backgroundColor: Colors.white,
       body: Container(
         padding: const EdgeInsets.symmetric(horizontal: 40),
         child: ListView.separated(

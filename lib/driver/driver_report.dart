@@ -13,9 +13,9 @@ class _DriverReportState extends State<DriverReport> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('FLEETRIDE'),
-        backgroundColor: Colors.blueAccent,
+        backgroundColor: Colors.white,
       ),
-      backgroundColor: Colors.cyan,
+      backgroundColor: Colors.white,
       body: Container(
         padding: const EdgeInsets.symmetric(horizontal: 50),
         child: Column(
@@ -24,7 +24,7 @@ class _DriverReportState extends State<DriverReport> {
             TextFormField(
               decoration: InputDecoration(
                 filled: true,
-                fillColor: Colors.white,
+                fillColor: Colors.grey,
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(30),
                 ),
@@ -35,7 +35,7 @@ class _DriverReportState extends State<DriverReport> {
             TextFormField(
               decoration: InputDecoration(
                 filled: true,
-                fillColor: Colors.white,
+                fillColor: Colors.grey,
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(30),
                 ),
@@ -46,7 +46,7 @@ class _DriverReportState extends State<DriverReport> {
             TextFormField(
               decoration: InputDecoration(
                 filled: true,
-                fillColor: Colors.white,
+                fillColor: Colors.grey,
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(30),
                 ),

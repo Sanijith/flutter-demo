@@ -16,14 +16,14 @@ class _ProfileState extends State<Profile> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('FLEETRIDE'),
-        backgroundColor: Colors.blueAccent,
+        backgroundColor: Colors.white,
         actions: [
           IconButton(onPressed: (){
             Navigator.push((context), MaterialPageRoute(builder: (context)=>const Userhome()));
           }, icon: const Icon(Icons.home)),
         ],
       ),
-      backgroundColor: Colors.cyan,
+      backgroundColor: Colors.white,
       body: Container(
           padding: const EdgeInsets.all(50),
           child: Column(
@@ -34,7 +34,7 @@ class _ProfileState extends State<Profile> {
                 children: [
                   CircleAvatar(
                     radius: 50,
-                    backgroundColor: Colors.white,
+                    backgroundColor: Colors.grey,
                     child: Icon(
                       Icons.person,
                       size: 50,

@@ -1,6 +1,3 @@
-import 'package:fleetride/login.dart';
-import 'package:fleetride/user/edit.dart';
-import 'package:fleetride/user/user_home.dart';
 import 'package:flutter/material.dart';
 
 class RepairProfile extends StatefulWidget {
@@ -16,14 +13,12 @@ class _RepairProfileState extends State<RepairProfile> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('FLEETRIDE'),
-        backgroundColor: Colors.blueAccent,
+        backgroundColor: Colors.white,
         actions: [
-          IconButton(onPressed: (){
-            Navigator.push((context), MaterialPageRoute(builder: (context)=>const Userhome()));
-          }, icon: const Icon(Icons.home)),
+          IconButton(onPressed: (){}, icon: const Icon(Icons.home)),
         ],
       ),
-      backgroundColor: Colors.cyan,
+      backgroundColor: Colors.white,
       body: Container(
           padding: const EdgeInsets.all(50),
           child: Column(
@@ -34,7 +29,7 @@ class _RepairProfileState extends State<RepairProfile> {
                 children: [
                   CircleAvatar(
                     radius: 50,
-                    backgroundColor: Colors.white,
+                    backgroundColor: Colors.grey,
                     child: Icon(
                       Icons.person,
                       size: 50,
@@ -79,18 +74,13 @@ class _RepairProfileState extends State<RepairProfile> {
                 ],
               ),
               const SizedBox(height: 30,),
-              ElevatedButton(onPressed: (){
-                Navigator.push((context),MaterialPageRoute(builder: (context)=>const Edit()));
-              },
+              ElevatedButton(onPressed: (){},
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.lightGreenAccent,
                 ), child: const Text('Edit'),),
               const SizedBox(height: 30),
               TextButton(
-                  onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => const Login()));
-                  },
+                  onPressed: () {},
                   child: const Text('Logout')),
             ],
           )),
