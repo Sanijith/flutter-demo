@@ -1,4 +1,5 @@
 import 'package:fleetride/user/delivery_request.dart';
+import 'package:fleetride/user/help_line.dart';
 import 'package:fleetride/user/profile.dart';
 import 'package:fleetride/user/track_ride.dart';
 import 'package:fleetride/user/trip_request.dart';
@@ -71,19 +72,12 @@ class _UserhomeState extends State<Userhome> {
                 Container(
                   padding: const EdgeInsets.all(50),
                   child: ElevatedButton(
-                    onPressed: (){},
+                    onPressed: (){
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=>HelpLine()));
+                    },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.white,
-                    ),child: const Text('Manage Delivery'),
-                  ),
-                ),
-                Container(
-                  padding: const EdgeInsets.all(50),
-                  child: ElevatedButton(
-                    onPressed: (){},
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.white,
-                    ),child: const Text('Complaints'),
+                    ),child: const Text('HelpLine'),
                   ),
                 )
               ],

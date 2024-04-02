@@ -1,3 +1,4 @@
+import 'package:fleetride/Repair/repair_home.dart';
 import 'package:flutter/material.dart';
 
 class Schedule extends StatefulWidget {
@@ -16,7 +17,9 @@ class _ScheduleState extends State<Schedule> {
         title: const Text('FLEETRIDE'),
         actions: [
           IconButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>const RepairHome()));
+              },
               icon: const Icon(Icons.home)),
         ],
       ),
@@ -39,6 +42,12 @@ class _ScheduleState extends State<Schedule> {
               return const Divider();
             },
             itemCount: 5),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: (){},
+        child: Icon(
+          Icons.add
+        ),
       ),
     );
   }

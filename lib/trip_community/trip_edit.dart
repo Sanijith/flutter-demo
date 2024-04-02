@@ -1,3 +1,4 @@
+import 'package:fleetride/trip_community/trip_comm_home.dart';
 import 'package:flutter/material.dart';
 
 class TripEdit extends StatefulWidget {
@@ -13,10 +14,12 @@ class _TripEditState extends State<TripEdit> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('FLEETRIDE'),
-        backgroundColor: Colors.blueAccent,
-        actions: [IconButton(onPressed: (){}, icon: const Icon(Icons.home))],
+        backgroundColor: Colors.white,
+        actions: [IconButton(onPressed: (){
+          Navigator.push(context, MaterialPageRoute(builder: (context)=>const TripHomeScreen()));
+        }, icon: const Icon(Icons.home))],
       ),
-      backgroundColor: Colors.cyan,
+      backgroundColor: Colors.white,
       body: Container(
         padding: const EdgeInsets.symmetric(horizontal: 40),
         child: Column(
@@ -27,7 +30,7 @@ class _TripEditState extends State<TripEdit> {
             TextFormField(
               decoration: const InputDecoration(
                 filled: true,
-                fillColor: Colors.white,
+                fillColor: Colors.grey,
                 border: OutlineInputBorder(
                   borderRadius:BorderRadius.all(Radius.circular(30)),
                 ),
@@ -38,7 +41,7 @@ class _TripEditState extends State<TripEdit> {
             TextFormField(
               decoration: const InputDecoration(
                 filled: true,
-                fillColor: Colors.white,
+                fillColor: Colors.grey,
                 border: OutlineInputBorder(
                   borderRadius:BorderRadius.all(Radius.circular(30)),
                 ),
@@ -49,7 +52,7 @@ class _TripEditState extends State<TripEdit> {
             TextFormField(
               decoration: const InputDecoration(
                 filled: true,
-                fillColor: Colors.white,
+                fillColor: Colors.grey,
                 border: OutlineInputBorder(
                   borderRadius:BorderRadius.all(Radius.circular(30)),
                 ),

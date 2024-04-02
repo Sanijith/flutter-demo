@@ -1,3 +1,4 @@
+import 'package:fleetride/driver/driver_home.dart';
 import 'package:flutter/material.dart';
 
 class DriverReport extends StatefulWidget {
@@ -14,6 +15,9 @@ class _DriverReportState extends State<DriverReport> {
       appBar: AppBar(
         title: const Text('FLEETRIDE'),
         backgroundColor: Colors.white,
+        actions: [IconButton(onPressed: (){
+          Navigator.push(context, MaterialPageRoute(builder: (context)=>DriverHome()));
+        }, icon: Icon(Icons.home))],
       ),
       backgroundColor: Colors.white,
       body: Container(

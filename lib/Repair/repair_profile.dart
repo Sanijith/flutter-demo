@@ -1,3 +1,6 @@
+import 'package:fleetride/Repair/repair_edit.dart';
+import 'package:fleetride/Repair/repair_home.dart';
+import 'package:fleetride/login.dart';
 import 'package:flutter/material.dart';
 
 class RepairProfile extends StatefulWidget {
@@ -15,7 +18,9 @@ class _RepairProfileState extends State<RepairProfile> {
         title: const Text('FLEETRIDE'),
         backgroundColor: Colors.white,
         actions: [
-          IconButton(onPressed: (){}, icon: const Icon(Icons.home)),
+          IconButton(onPressed: (){
+            Navigator.push(context, MaterialPageRoute(builder: (context)=>RepairHome()));
+          }, icon: const Icon(Icons.home)),
         ],
       ),
       backgroundColor: Colors.white,
@@ -74,13 +79,17 @@ class _RepairProfileState extends State<RepairProfile> {
                 ],
               ),
               const SizedBox(height: 30,),
-              ElevatedButton(onPressed: (){},
+              ElevatedButton(onPressed: (){
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>const RepairEdit()));
+              },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.lightGreenAccent,
                 ), child: const Text('Edit'),),
               const SizedBox(height: 30),
               TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>const Login()));
+                  },
                   child: const Text('Logout')),
             ],
           )),

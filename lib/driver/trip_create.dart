@@ -1,3 +1,4 @@
+import 'package:fleetride/driver/driver_home.dart';
 import 'package:flutter/material.dart';
 
 class CreateTrip extends StatefulWidget {
@@ -13,9 +14,12 @@ class _CreateTripState extends State<CreateTrip> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('FLEETRIDE'),
-        backgroundColor: Colors.blueAccent,
+        actions: [IconButton(onPressed: (){
+          Navigator.push(context, MaterialPageRoute(builder: (context)=>DriverHome()));
+        }, icon: Icon(Icons.home))],
+        backgroundColor: Colors.white,
       ),
-      backgroundColor: Colors.cyan,
+      backgroundColor: Colors.white,
       body: Container(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -23,7 +27,7 @@ class _CreateTripState extends State<CreateTrip> {
             TextFormField(
               decoration: const InputDecoration(
                 filled: true,
-                fillColor: Colors.white,
+                fillColor: Colors.grey,
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.all(Radius.circular(30.0)),
                 ),
@@ -36,7 +40,7 @@ class _CreateTripState extends State<CreateTrip> {
             TextFormField(
               decoration: const InputDecoration(
                 filled: true,
-                fillColor: Colors.white,
+                fillColor: Colors.grey,
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.all(Radius.circular(30.0)),
                 ),

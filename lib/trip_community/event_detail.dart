@@ -1,14 +1,14 @@
-import 'package:fleetride/Repair/repair_home.dart';
+import 'package:fleetride/trip_community/trip_comm_home.dart';
 import 'package:flutter/material.dart';
 
-class VehicleIssue extends StatefulWidget {
-  const VehicleIssue({super.key});
+class EventDetail extends StatefulWidget {
+  const EventDetail({super.key});
 
   @override
-  State<VehicleIssue> createState() => _VehicleIssueState();
+  State<EventDetail> createState() => _EventDetailState();
 }
 
-class _VehicleIssueState extends State<VehicleIssue> {
+class _EventDetailState extends State<EventDetail> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -16,9 +16,14 @@ class _VehicleIssueState extends State<VehicleIssue> {
         backgroundColor: Colors.white,
         title: const Text('FLEETRIDE'),
         actions: [
-          IconButton(onPressed: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context)=>const RepairHome()));
-          }, icon: const Icon(Icons.home)),
+          IconButton(
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const TripHomeScreen()));
+              },
+              icon: const Icon(Icons.home)),
         ],
       ),
       backgroundColor: Colors.white,
@@ -28,15 +33,15 @@ class _VehicleIssueState extends State<VehicleIssue> {
             itemBuilder: (context, index) {
               return Card(
                 child: ListTile(
-                  title: Text('Vehicle Issue $index'),
+                  title: Text('Event $index'),
                   subtitle: const Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('Vehicle No:'),
+                      Text(' Location :'),
                       SizedBox(width: 30),
-                      Text('Driver Name:'),
+                      Text('Time :'),
                       SizedBox(width: 30),
-                      Text('Phone Number'),
+                      Text('Phone Number:')
                     ],
                   ),
                 ),
@@ -46,6 +51,10 @@ class _VehicleIssueState extends State<VehicleIssue> {
               return const Divider();
             },
             itemCount: 5),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: (){},
+        child: const Icon(Icons.add),
       ),
     );
   }

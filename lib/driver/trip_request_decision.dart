@@ -1,14 +1,14 @@
 import 'package:fleetride/driver/driver_home.dart';
 import 'package:flutter/material.dart';
 
-class UserRequest extends StatefulWidget {
-  const UserRequest({super.key});
+class UserTripRequest extends StatefulWidget {
+  const UserTripRequest({super.key});
 
   @override
-  State<UserRequest> createState() => _UserRequestState();
+  State<UserTripRequest> createState() => _UserTripRequestState();
 }
 
-class _UserRequestState extends State<UserRequest> {
+class _UserTripRequestState extends State<UserTripRequest> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,8 +18,10 @@ class _UserRequestState extends State<UserRequest> {
         actions: [
           IconButton(
               onPressed: () {
-                Navigator.push((context),
-                    MaterialPageRoute(builder: (context) => const DriverHome()));
+                Navigator.push(
+                    (context),
+                    MaterialPageRoute(
+                        builder: (context) => const DriverHome()));
               },
               icon: const Icon(Icons.home)),
         ],
@@ -31,29 +33,36 @@ class _UserRequestState extends State<UserRequest> {
             itemBuilder: (context, index) {
               return Card(
                 child: ListTile(
-                    title: Text('User Request $index'),
-                    subtitle: const Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [Text('User Name:')],
-                    ),
-                    trailing: Row(
-                      children: [
-                        ElevatedButton(
-                          onPressed: () {},
-                          child: const Text('Accept'),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.lightGreenAccent,
+                  title: Text('User Request $index'),
+                  subtitle: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('User Name:'),
+                      SizedBox(height: 30,),
+                      Text('Phone Number'),
+                      SizedBox(height: 30,),
+                      Row(
+                        children: [
+                          ElevatedButton(
+                            onPressed: () {},
+                            child: const Text('Accept'),
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.lightGreenAccent,
+                            ),
                           ),
-                        ),
-                        ElevatedButton(
-                          onPressed: () {},
-                          child: const Text('Reject'),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.red,
+                          SizedBox(width: 30,),
+                          ElevatedButton(
+                            onPressed: () {},
+                            child: const Text('Reject'),
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.red,
+                            ),
                           ),
-                        ),
-                      ],
-                    )),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
               );
             },
             separatorBuilder: (context, index) {

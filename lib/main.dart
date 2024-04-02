@@ -1,5 +1,11 @@
-import 'package:fleetride/driver/driver_register.dart';
-import 'package:fleetride/driver/driver_report.dart';
+import 'package:fleetride/Police/police_home.dart';
+import 'package:fleetride/Repair/repair_home.dart';
+import 'package:fleetride/driver/delivery_decision.dart';
+import 'package:fleetride/driver/driver_home.dart';
+import 'package:fleetride/first.dart';
+import 'package:fleetride/landing%20pages/screen1.dart';
+import 'package:fleetride/trip_community/trip_comm_home.dart';
+import 'package:fleetride/user/user_home.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -19,7 +25,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home:DriverReport(),
+      home:PoliceHome(),
     );
   }
 }

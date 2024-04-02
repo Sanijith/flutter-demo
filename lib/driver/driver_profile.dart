@@ -1,28 +1,27 @@
+import 'package:fleetride/driver/driver_edit.dart';
+import 'package:fleetride/driver/driver_home.dart';
 import 'package:fleetride/login.dart';
-import 'package:fleetride/trip_community/trip_comm_home.dart';
-import 'package:fleetride/trip_community/trip_edit.dart';
 import 'package:fleetride/user/edit.dart';
 import 'package:fleetride/user/user_home.dart';
 import 'package:flutter/material.dart';
 
-class FacilityProfile extends StatefulWidget {
-  const FacilityProfile({super.key});
+class Profile extends StatefulWidget {
+  const Profile({super.key});
 
   @override
-  State<FacilityProfile> createState() => _FacilityProfileState();
+  State<Profile> createState() => _ProfileState();
 }
 
-class _FacilityProfileState extends State<FacilityProfile> {
+class _ProfileState extends State<Profile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
       appBar: AppBar(
         title: const Text('FLEETRIDE'),
         backgroundColor: Colors.white,
         actions: [
           IconButton(onPressed: (){
-            Navigator.push((context), MaterialPageRoute(builder: (context)=>const TripHomeScreen()));
+            Navigator.push((context), MaterialPageRoute(builder: (context)=>const DriverHome()));
           }, icon: const Icon(Icons.home)),
         ],
       ),
@@ -30,7 +29,7 @@ class _FacilityProfileState extends State<FacilityProfile> {
       body: Container(
           padding: const EdgeInsets.all(50),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -49,16 +48,16 @@ class _FacilityProfileState extends State<FacilityProfile> {
                   Column(
                     children: [
                       Text(
-                        'Facility Name',
-                        style: TextStyle(fontSize: 20),
+                        'Username',
+                        style: TextStyle(fontSize: 30),
                       ),
-                      Text('Facility Id'),
+                      Text('User Id'),
                     ],
                   ),
                 ],
               ),
               const SizedBox(
-                height: 50,
+                height: 30,
               ),
               Container(
                 child: const Row(
@@ -83,7 +82,7 @@ class _FacilityProfileState extends State<FacilityProfile> {
               ),
               const SizedBox(height: 30,),
               ElevatedButton(onPressed: (){
-                Navigator.push((context),MaterialPageRoute(builder: (context)=>const TripEdit()));
+                Navigator.push((context),MaterialPageRoute(builder: (context)=>const DriverEdit()));
               },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.lightGreenAccent,

@@ -1,5 +1,4 @@
-import 'package:fleetride/login.dart';
-import 'package:fleetride/user/register.dart';
+import 'package:fleetride/landing%20pages/screen1.dart';
 import 'package:flutter/material.dart';
 
 class FirstPage extends StatefulWidget {
@@ -33,30 +32,22 @@ class _FirstPageState extends State<FirstPage> {
                 ),
               ),
             ),
-            const SizedBox(height: 20),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => const Login()));
-                  },
-                  style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.lightGreenAccent),
-                  child: const Text('Login'),
-                ),
-                const SizedBox(width: 20),
-                ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => const Register()));
-                  },
-                  style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.lightGreenAccent),
-                  child: const Text('Register'),
-                ),
-              ],
+            const SizedBox(height: 60),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => const LandingPage()));
+              },
+              style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.lightGreenAccent),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text('Next'),
+                  SizedBox(width: 20),
+                  Icon(Icons.arrow_forward),
+                ],
+              ),
             ),
           ],
         ),

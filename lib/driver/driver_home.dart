@@ -1,4 +1,8 @@
 
+import 'package:fleetride/driver/delivery_decision.dart';
+import 'package:fleetride/driver/driver_report.dart';
+import 'package:fleetride/driver/trip_create.dart';
+import 'package:fleetride/driver/trip_request_decision.dart';
 import 'package:fleetride/user/delivery_request.dart';
 import 'package:fleetride/user/profile.dart';
 import 'package:fleetride/user/track_ride.dart';
@@ -25,52 +29,64 @@ class _DriverHomeState extends State<DriverHome> {
         ],
         backgroundColor: Colors.blueAccent,
       ),
-      backgroundColor: Colors.white,
-      body:  ListView(
-        primary: false,
-        padding: const EdgeInsets.symmetric(horizontal: 50,vertical: 50),
-        children: [
-          Container(
-            padding: const EdgeInsets.all(50),
-            child: ElevatedButton(
-              onPressed: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context)=>const TripRequest()));
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.grey,
-              ),child: const Text('Set Routes/Trip'),
+      body:  Container(
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage('assets/bg image.jpeg'),
+              fit: BoxFit.fill,
+            )
+        ),
+        child: ListView(
+          primary: false,
+          padding: const EdgeInsets.symmetric(horizontal: 50,vertical: 50),
+          children: [
+            Container(
+              padding: const EdgeInsets.all(50),
+              child: ElevatedButton(
+                onPressed: (){
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>const CreateTrip( )));
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.white,
+                ),child: const Text('Set Routes/Trip'),
+              ),
             ),
-          ),
-          Container(
-            padding: const EdgeInsets.all(50),
-            child: ElevatedButton(
-              onPressed: (){},
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.grey,
-              ),child: const Text('Trip Request'),
+            Container(
+              padding: const EdgeInsets.all(50),
+              child: ElevatedButton(
+                onPressed: (){
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=> const UserTripRequest()));
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.white,
+                ),child: const Text('Trip Request'),
+              ),
             ),
-          ),
-          Container(
-            padding: const EdgeInsets.all(50),
-            child: ElevatedButton(
-              onPressed: (){
-                Navigator.push((context), MaterialPageRoute(builder: (context)=>const DeliveryRequest()));
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.grey,
-              ),child: const Text('Delivery Request'),
+            Container(
+              padding: const EdgeInsets.all(50),
+              child: ElevatedButton(
+                onPressed: (){
+                  Navigator.push((context), MaterialPageRoute(builder: (context)=>const DeliveryDecision()));
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.white,
+                ),child: const Text('Delivery Request'),
+              ),
             ),
-          ),
-          Container(
-            padding: const EdgeInsets.all(50),
-            child: ElevatedButton(
-              onPressed: (){},
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.grey,
-              ),child: const Text('Report Vehicle Issues'),
+            Container(
+              padding: const EdgeInsets.all(50),
+              child: ElevatedButton(
+                onPressed: (){
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>const DriverReport()));
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.white,
+                ),child: const Text('Report Vehicle Issues'),
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

@@ -1,3 +1,4 @@
+import 'package:fleetride/Repair/repair_home.dart';
 import 'package:flutter/material.dart';
 
 class RepairEdit extends StatefulWidget {
@@ -13,10 +14,12 @@ class _RepairEditState extends State<RepairEdit> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('FLEETRIDE'),
-        backgroundColor: Colors.blueAccent,
-        actions: [IconButton(onPressed: (){}, icon: const Icon(Icons.home))],
+        backgroundColor: Colors.white,
+        actions: [IconButton(onPressed: (){
+          Navigator.push(context, MaterialPageRoute(builder: (context)=>const RepairHome()));
+        }, icon: const Icon(Icons.home))],
       ),
-      backgroundColor: Colors.cyan,
+      backgroundColor: Colors.white,
       body: Container(
         padding: const EdgeInsets.symmetric(horizontal: 40),
         child: Column(
@@ -27,7 +30,7 @@ class _RepairEditState extends State<RepairEdit> {
             TextFormField(
               decoration: const InputDecoration(
                 filled: true,
-                fillColor: Colors.white,
+                fillColor: Colors.grey,
                 border: OutlineInputBorder(
                   borderRadius:BorderRadius.all(Radius.circular(30)),
                 ),
@@ -38,7 +41,7 @@ class _RepairEditState extends State<RepairEdit> {
             TextFormField(
               decoration: const InputDecoration(
                 filled: true,
-                fillColor: Colors.white,
+                fillColor: Colors.grey,
                 border: OutlineInputBorder(
                   borderRadius:BorderRadius.all(Radius.circular(30)),
                 ),
@@ -49,7 +52,7 @@ class _RepairEditState extends State<RepairEdit> {
             TextFormField(
               decoration: const InputDecoration(
                 filled: true,
-                fillColor: Colors.white,
+                fillColor: Colors.grey,
                 border: OutlineInputBorder(
                   borderRadius:BorderRadius.all(Radius.circular(30)),
                 ),

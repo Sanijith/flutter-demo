@@ -1,3 +1,4 @@
+import 'package:fleetride/user/user_home.dart';
 import 'package:flutter/material.dart';
 
 class HelpLine extends StatefulWidget {
@@ -13,7 +14,9 @@ class _HelpLineState extends State<HelpLine> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('FLEETRIDE'),
-        actions: [IconButton(onPressed: (){}, icon: const Icon(Icons.home))],
+        actions: [IconButton(onPressed: (){
+          Navigator.push(context, MaterialPageRoute(builder: (context)=>Userhome()));
+        }, icon: const Icon(Icons.home))],
       ),
       body: Container(
         padding: const EdgeInsets.symmetric(horizontal: 40),

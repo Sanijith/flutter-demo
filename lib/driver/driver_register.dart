@@ -1,4 +1,5 @@
 import 'package:fleetride/driver/driver_home.dart';
+import 'package:fleetride/driver/driver_login.dart';
 import 'package:fleetride/login.dart';
 import 'package:flutter/material.dart';
 
@@ -103,7 +104,7 @@ class _DriverRegisterState extends State<DriverRegister> {
                   const Text('Already have an account?'),
                   TextButton(
                       onPressed: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => const Login()));
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => const DriverLogin()));
                       },
                       child: const Text('Login')),
                 ],
