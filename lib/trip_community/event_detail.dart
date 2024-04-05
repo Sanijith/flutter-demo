@@ -9,6 +9,7 @@ class EventDetail extends StatefulWidget {
 }
 
 class _EventDetailState extends State<EventDetail> {
+  int _itemcount=0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,10 +51,14 @@ class _EventDetailState extends State<EventDetail> {
             separatorBuilder: (context, index) {
               return const Divider();
             },
-            itemCount: 5),
+            itemCount: _itemcount),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: (){},
+        onPressed: (){
+          setState(() {
+            _itemcount++; // Increase item count on FAB press
+          });
+        },
         child: const Icon(Icons.add),
       ),
     );

@@ -9,53 +9,58 @@ class FacilityDetail extends StatefulWidget {
 }
 
 class _FacilityDetailState extends State<FacilityDetail> {
+  int _itemcount = 0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
+        appBar: AppBar(
+          backgroundColor: Colors.white,
+          title: const Text('FLEETRIDE'),
+          actions: [
+            IconButton(
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const TripHomeScreen()));
+                },
+                icon: const Icon(Icons.home)),
+          ],
+        ),
         backgroundColor: Colors.white,
-        title: const Text('FLEETRIDE'),
-        actions: [
-          IconButton(
-              onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const TripHomeScreen()));
-              },
-              icon: const Icon(Icons.home)),
-        ],
-      ),
-      backgroundColor: Colors.white,
-      body: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 40),
-        child: ListView.separated(
-            itemBuilder: (context, index) {
-              return Card(
-                child: ListTile(
-                  title: Text('Facility $index'),
-                  subtitle: const Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(' Location:'),
-                      SizedBox(width: 30),
-                      Text('Reg Fee:'),
-                      SizedBox(width: 30),
-                      Text('Phone Number:')
-                    ],
+        body: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 40),
+          child: ListView.separated(
+              itemBuilder: (context, index) {
+                return Card(
+                  child: ListTile(
+                    title: Text('Facility $index'),
+                    subtitle: const Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(' Location:'),
+                        SizedBox(width: 30),
+                        Text('Reg Fee:'),
+                        SizedBox(width: 30),
+                        Text('Phone Number:')
+                      ],
+                    ),
                   ),
-                ),
-              );
-            },
-            separatorBuilder: (context, index) {
-              return const Divider();
-            },
-            itemCount: 5),
-      ),
-      floatingActionButton:FloatingActionButton(
-        onPressed: (){},
-        child: const Icon(Icons.add),
-      )
-    );
+                );
+              },
+              separatorBuilder: (context, index) {
+                return const Divider();
+              },
+              itemCount: _itemcount),
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            setState(() {
+              _itemcount++;
+            });
+          },
+          child: const Icon(Icons.add),
+        ));
   }
 }

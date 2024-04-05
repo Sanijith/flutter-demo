@@ -1,16 +1,15 @@
-import 'package:fleetride/Police/police_home.dart';
+import 'package:fleetride/trip_community/trip_comm_home.dart';
+import 'package:fleetride/user/user_home.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
-class SectionList extends StatefulWidget {
-  const SectionList({super.key});
+class FacilitySearch1 extends StatefulWidget {
+  const FacilitySearch1({super.key});
 
   @override
-  State<SectionList> createState() => _SectionListState();
+  State<FacilitySearch1> createState() => _FacilitySearch1State();
 }
 
-class _SectionListState extends State<SectionList> {
-  int _itemCount = 0;
+class _FacilitySearch1State extends State<FacilitySearch1> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,7 +22,7 @@ class _SectionListState extends State<SectionList> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const PoliceHome()));
+                        builder: (context) => const Userhome()));
               },
               icon: const Icon(Icons.home)),
         ],
@@ -35,12 +34,15 @@ class _SectionListState extends State<SectionList> {
             itemBuilder: (context, index) {
               return Card(
                 child: ListTile(
-                  title: Text('Section $index'),
-                  subtitle:   Column(
+                  title: Text('Facility $index'),
+                  subtitle: const Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      Text(' Location:'),
                       SizedBox(width: 30),
-                      Text('Phone Number:',)
+                      Text('Reg Fee:'),
+                      SizedBox(width: 30),
+                      Text('Phone Number:')
                     ],
                   ),
                 ),
@@ -49,15 +51,7 @@ class _SectionListState extends State<SectionList> {
             separatorBuilder: (context, index) {
               return const Divider();
             },
-            itemCount: _itemCount),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: (){
-          setState(() {
-            _itemCount++; // Increase item count on FAB press
-          });
-        },
-        child: const Icon(Icons.add),
+            itemCount: 5),
       ),
     );
   }

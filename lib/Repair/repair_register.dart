@@ -1,25 +1,26 @@
-import 'package:fleetride/driver/driver_home.dart';
-import 'package:fleetride/driver/driver_login.dart';
+import 'package:fleetride/Repair/repair_home.dart';
+import 'package:fleetride/Repair/repair_login.dart';
 import 'package:fleetride/user/login.dart';
+import 'package:fleetride/user/user_home.dart';
 import 'package:flutter/material.dart';
 
-class DriverRegister extends StatefulWidget {
-  const DriverRegister({super.key});
+class RepairRegister extends StatefulWidget {
+  const RepairRegister({super.key});
 
   @override
-  State<DriverRegister> createState() => _DriverRegisterState();
+  State<RepairRegister> createState() => _RepairRegisterState();
 }
 
-class _DriverRegisterState extends State<DriverRegister> {
+class _RepairRegisterState extends State<RepairRegister> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body:Container(
+      body:  Container(
           decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage('assets/bg image.jpeg'),
-                fit: BoxFit.fill,
-              )
+            image: DecorationImage(
+              image: AssetImage('assets/bg image.jpeg'),
+              fit: BoxFit.fill
+            )
           ),
           padding: const EdgeInsets.all(50),
           child: Column(
@@ -77,21 +78,9 @@ class _DriverRegisterState extends State<DriverRegister> {
                 ),
               ),
               const SizedBox(height: 30),
-              TextFormField(
-                decoration: InputDecoration(
-                  filled: true,
-                  fillColor: Colors.white,
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(50),
-                  ),
-                  icon: const Icon(Icons.credit_card),
-                  labelText: "License Number",
-                ),
-              ),
-              const SizedBox(height: 30),
               ElevatedButton(
                 onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=>const DriverHome()));
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=> const RepairHome()));
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.lightGreenAccent,
@@ -104,7 +93,7 @@ class _DriverRegisterState extends State<DriverRegister> {
                   const Text('Already have an account?'),
                   TextButton(
                       onPressed: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => const DriverLogin()));
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => const RepairLogin()));
                       },
                       child: const Text('Login')),
                 ],

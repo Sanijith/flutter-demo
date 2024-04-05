@@ -1,5 +1,5 @@
 import 'package:fleetride/driver/driver_home.dart';
-import 'package:fleetride/user/user_home.dart';
+import 'package:fleetride/user/driver_list.dart';
 import 'package:flutter/material.dart';
 
 class DeliveryRequest extends StatefulWidget {
@@ -52,12 +52,25 @@ class _DeliveryRequestState extends State<DeliveryRequest> {
               ),
             ),
             const SizedBox(height: 30),
+            TextFormField(
+              decoration: const InputDecoration(
+                filled: true,
+                fillColor: Colors.grey,
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(30.0)),
+                ),
+                labelText: 'Weight',
+              ),
+            ),
+            SizedBox(height: 30,),
             ElevatedButton(
-              onPressed: (){},
+              onPressed: (){
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>const Drivers()));
+              },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.lightGreenAccent,
               ),
-              child: const Text('Request Sent'),
+              child: const Text('Search Drivers'),
             ),
           ],
         ),

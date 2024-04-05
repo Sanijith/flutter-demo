@@ -1,19 +1,20 @@
-
-import 'package:fleetride/driver/delivery_decision.dart';
-import 'package:fleetride/driver/driver_report.dart';
-import 'package:fleetride/driver/trip_create.dart';
-import 'package:fleetride/driver/trip_request_decision.dart';
-import 'package:fleetride/user/profile.dart';
+import 'package:fleetride/admin/admin_login.dart';
+import 'package:fleetride/admin/contact_manage.dart';
+import 'package:fleetride/admin/delivery_manage.dart';
+import 'package:fleetride/admin/driver_manage.dart';
+import 'package:fleetride/admin/trip_manage.dart';
+import 'package:fleetride/admin/user_manage.dart';
+import 'package:fleetride/admin/view_laws.dart';
 import 'package:flutter/material.dart';
 
-class DriverHome extends StatefulWidget {
-  const DriverHome({super.key});
+class Adminhome extends StatefulWidget {
+  const Adminhome({super.key});
 
   @override
-  State<DriverHome> createState() => _DriverHomeState();
+  State<Adminhome> createState() => _AdminhomeState();
 }
 
-class _DriverHomeState extends State<DriverHome> {
+class _AdminhomeState extends State<Adminhome> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,14 +22,13 @@ class _DriverHomeState extends State<DriverHome> {
         title: const Text('FleetRide'),
         actions: [
           IconButton(onPressed: (){
-            Navigator.push((context), MaterialPageRoute(builder: (context)=>const Profile()));
-          }, icon: const Icon(Icons.person)),
+            Navigator.push((context), MaterialPageRoute(builder: (context)=>const AdminLogin()));
+          }, icon: const Icon(Icons.logout)),
         ],
-        backgroundColor: Colors.blueAccent,
+        backgroundColor: Colors.white,
       ),
       body:  Container(
-        alignment: Alignment.center,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
             image: DecorationImage(
               image: AssetImage('assets/bg image.jpeg'),
               fit: BoxFit.fill,
@@ -43,11 +43,11 @@ class _DriverHomeState extends State<DriverHome> {
               padding: const EdgeInsets.all(50),
               child: ElevatedButton(
                 onPressed: (){
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=>const CreateTrip( )));
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>const UserManage()));
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.white,
-                ),child: const Text('Set Routes/Trip'),
+                ),child: const Text('User Manage'),
               ),
             ),
             Container(
@@ -55,11 +55,11 @@ class _DriverHomeState extends State<DriverHome> {
               padding: const EdgeInsets.all(50),
               child: ElevatedButton(
                 onPressed: (){
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=> const UserTripRequest()));
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>const DriverManage()));
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.white,
-                ),child: const Text('Trip Request'),
+                ),child: const Text('Driver Manage'),
               ),
             ),
             Container(
@@ -67,11 +67,11 @@ class _DriverHomeState extends State<DriverHome> {
               padding: const EdgeInsets.all(50),
               child: ElevatedButton(
                 onPressed: (){
-                  Navigator.push((context), MaterialPageRoute(builder: (context)=>const DeliveryDecision()));
+                  Navigator.push((context), MaterialPageRoute(builder: (context)=>const TripManage()));
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.white,
-                ),child: const Text('Delivery Request'),
+                ),child: const Text('Trip Manage'),
               ),
             ),
             Container(
@@ -79,11 +79,11 @@ class _DriverHomeState extends State<DriverHome> {
               padding: const EdgeInsets.all(50),
               child: ElevatedButton(
                 onPressed: (){
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=>const DriverReport()));
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>const DeliveryManage()));
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.white,
-                ),child: const Text('Report Vehicle Issues'),
+                ),child: const Text('Delivery Manage'),
               ),
             ),
             Container(
@@ -91,11 +91,23 @@ class _DriverHomeState extends State<DriverHome> {
               padding: const EdgeInsets.all(50),
               child: ElevatedButton(
                 onPressed: (){
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=>const DriverReport()));
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>const ContactManage()));
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.white,
-                ),child: const Text('Facility Search'),
+                ),child: const Text('Contact Manage'),
+              ),
+            ),
+            Container(
+              height: 150,
+              padding: const EdgeInsets.all(50),
+              child: ElevatedButton(
+                onPressed: (){
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>const ViewLaw()));
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.white,
+                ),child: const Text(' View Laws'),
               ),
             ),
           ],

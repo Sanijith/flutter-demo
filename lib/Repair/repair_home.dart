@@ -35,6 +35,7 @@ class _RepairHomeState extends State<RepairHome> {
             padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 50),
             children: [
               Container(
+                height: 150,
                 padding: const EdgeInsets.all(50),
                 child: ElevatedButton(
                   onPressed: () {
@@ -47,6 +48,7 @@ class _RepairHomeState extends State<RepairHome> {
                 ),
               ),
               Container(
+                height: 150,
                 padding: const EdgeInsets.all(50),
                 child: ElevatedButton(
                   onPressed: () {

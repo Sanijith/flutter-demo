@@ -1,14 +1,14 @@
 import 'package:fleetride/Police/police_home.dart';
 import 'package:flutter/material.dart';
 
-class DriverDetail1 extends StatefulWidget {
-  const DriverDetail1({super.key});
+class Section1 extends StatefulWidget {
+  const Section1({super.key});
 
   @override
-  State<DriverDetail1> createState() => _DriverDetail1State();
+  State<Section1> createState() => _Section1State();
 }
 
-class _DriverDetail1State extends State<DriverDetail1> {
+class _Section1State extends State<Section1> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

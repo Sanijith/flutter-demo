@@ -42,6 +42,7 @@ class _TripHomeScreenState extends State<TripHomeScreen> {
             padding: const EdgeInsets.symmetric(horizontal: 50,vertical: 50),
             children: [
               Container(
+                height: 150,
                 padding: const EdgeInsets.all(50),
                 child: ElevatedButton(
                   onPressed: (){
@@ -53,6 +54,7 @@ class _TripHomeScreenState extends State<TripHomeScreen> {
                 ),
               ),
               Container(
+                height: 150,
                 padding: const EdgeInsets.all(50),
                 child: ElevatedButton(
                   onPressed: (){

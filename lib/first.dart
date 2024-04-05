@@ -1,5 +1,6 @@
 import 'package:fleetride/landing%20pages/screen1.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class FirstPage extends StatefulWidget {
   const FirstPage({super.key});
@@ -24,33 +25,23 @@ class _FirstPageState extends State<FirstPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            CircleAvatar(
+              radius: 50,
+              child: Image.asset('assets/logo1.png',fit: BoxFit.cover,),
+              ),
             const Center(
               child: Text(
                 'FLEETRIDE',
-                style: TextStyle(
-                  fontSize: 40,
                 ),
               ),
-            ),
-            const SizedBox(height: 60),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => const LandingPage()));
-              },
-              style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.lightGreenAccent),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Text('Next'),
-                  SizedBox(width: 20),
-                  Icon(Icons.arrow_forward),
-                ],
-              ),
-            ),
           ],
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: (){
+          Navigator.push(context, MaterialPageRoute(builder: (context)=>const LandingPage()));
+        },
+        child: Icon(Icons.arrow_forward),
       ),
     );
   }
