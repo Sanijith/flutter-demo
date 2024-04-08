@@ -1,7 +1,5 @@
 import 'package:fleetride/Repair/repair_home.dart';
 import 'package:fleetride/Repair/repair_login.dart';
-import 'package:fleetride/user/login.dart';
-import 'package:fleetride/user/user_home.dart';
 import 'package:flutter/material.dart';
 
 class RepairRegister extends StatefulWidget {
@@ -38,7 +36,7 @@ class _RepairRegisterState extends State<RepairRegister> {
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(50))),
                   icon: Icon(Icons.person),
-                  labelText: "Username",
+                  hintText: "Username",
                 ),
               ),
               const SizedBox(height: 30),
@@ -50,7 +48,7 @@ class _RepairRegisterState extends State<RepairRegister> {
                     borderRadius: BorderRadius.circular(50),
                   ),
                   icon: const Icon(Icons.lock),
-                  labelText: "Password",
+                  hintText: "Password",
                 ),
               ),
               const SizedBox(height: 30),
@@ -62,7 +60,7 @@ class _RepairRegisterState extends State<RepairRegister> {
                     borderRadius: BorderRadius.circular(50),
                   ),
                   icon: const Icon(Icons.email),
-                  labelText: "Email",
+                  hintText: "Email",
                 ),
               ),
               const SizedBox(height: 30),
@@ -74,7 +72,7 @@ class _RepairRegisterState extends State<RepairRegister> {
                     borderRadius: BorderRadius.circular(50),
                   ),
                   icon: const Icon(Icons.phone),
-                  labelText: "Phone Number",
+                  hintText: "Phone Number",
                 ),
               ),
               const SizedBox(height: 30),

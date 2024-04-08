@@ -27,11 +27,13 @@ class _FirstPageState extends State<FirstPage> {
           children: [
             CircleAvatar(
               radius: 50,
-              child: Image.asset('assets/logo1.png',fit: BoxFit.cover,),
+              backgroundImage: AssetImage('assets/logonew.jpg'),
               ),
-            const Center(
+             SizedBox(height: 40,),
+             Center(
               child: Text(
                 'FLEETRIDE',
+                style: GoogleFonts.itim(fontSize:40,color:Colors.red)
                 ),
               ),
           ],

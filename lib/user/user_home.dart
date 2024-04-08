@@ -4,6 +4,7 @@ import 'package:fleetride/user/help_line.dart';
 import 'package:fleetride/user/profile.dart';
 import 'package:fleetride/user/track_ride.dart';
 import 'package:fleetride/user/trip_request.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class Userhome extends StatefulWidget {
@@ -27,7 +28,7 @@ class _UserhomeState extends State<Userhome> {
           backgroundColor: Colors.white,
         ),
         body:  Container(
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
               image: DecorationImage(
                 image: AssetImage('assets/bg image.jpeg'),
                 fit: BoxFit.fill,
@@ -37,65 +38,89 @@ class _UserhomeState extends State<Userhome> {
               primary: false,
               padding: const EdgeInsets.symmetric(horizontal: 50,vertical: 50),
               children: [
-                Container(
-                  height: 150,
-                  padding: const EdgeInsets.all(50),
-                  child: ElevatedButton(
-                    onPressed: (){
-                      Navigator.push(context, MaterialPageRoute(builder: (context)=>const TripRequest()));
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.white,
-                    ),child: const Text('Trip Request'),
+                InkWell(
+                  onTap: (){
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>const TripRequest()));
+                  }, child: const Card(
+                  child: Row(
+                    children: [
+                      CircleAvatar(
+                        radius: 30,
+                        child: Icon(CupertinoIcons.car_detailed,size: 40),
+                      ),
+                      SizedBox(width: 30,),
+                      Text('Trip Request')
+                    ],
                   ),
                 ),
-                Container(
-                  height: 150,
-                  padding: const EdgeInsets.all(50),
-                  child: ElevatedButton(
-                    onPressed: (){
-                      Navigator.push(context, MaterialPageRoute(builder: (context)=>const TrackRide()));
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.white,
-                    ),child: const Text('Track Ride'),
+                ),
+                const SizedBox(height: 40,),
+                InkWell(
+                  onTap: (){
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>const TrackRide()));
+                  }, child: const Card(
+                  child: Row(
+                    children: [
+                      CircleAvatar(
+                        radius: 30,
+                        child: Icon(Icons.route_outlined,size: 40),
+                      ),
+                      SizedBox(width: 30,),
+                      Text('Track Ride')
+                    ],
                   ),
                 ),
-                Container(
-                  height: 150,
-                  padding: const EdgeInsets.all(50),
-                  child: ElevatedButton(
-                    onPressed: (){
-                      Navigator.push((context), MaterialPageRoute(builder: (context)=>const DeliveryRequest()));
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.white,
-                    ),child: const Text('Delivery Request'),
+                ),
+                const SizedBox(height: 40,),
+                InkWell(
+                  onTap: (){
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>const DeliveryRequest()));
+                  }, child: const Card(
+                  child: Row(
+                    children: [
+                      CircleAvatar(
+                        radius: 30,
+                        child: Icon(Icons.delivery_dining_outlined,size: 40),
+                      ),
+                      SizedBox(width: 30,),
+                      Text('Delivery Request')
+                    ],
                   ),
                 ),
-                Container(
-                  height: 150,
-                  padding: const EdgeInsets.all(50),
-                  child: ElevatedButton(
-                    onPressed: (){
-                      Navigator.push(context, MaterialPageRoute(builder: (context)=>const FacilitySearch1()));
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.white,
-                    ),child: const Text('Facility Search'),
+                ),
+                const SizedBox(height: 40,),
+                InkWell(
+                  onTap: (){
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>const FacilitySearch1()));
+                  }, child: const Card(
+                  child: Row(
+                    children: [
+                      CircleAvatar(
+                        radius: 30,
+                        child: Icon(Icons.search,size: 40),
+                      ),
+                      SizedBox(width: 30,),
+                      Text('Facility Search')
+                    ],
                   ),
                 ),
-                Container(
-                  height: 150,
-                  padding: const EdgeInsets.all(50),
-                  child: ElevatedButton(
-                    onPressed: (){
-                      Navigator.push(context, MaterialPageRoute(builder: (context)=>HelpLine()));
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.white,
-                    ),child: const Text('HelpLine'),
+                ),
+                const SizedBox(height: 40,),
+                InkWell(
+                  onTap: (){
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>const HelpLine()));
+                  }, child: const Card(
+                  child: Row(
+                    children: [
+                      CircleAvatar(
+                        radius: 30,
+                        child: Icon(Icons.help_outline,size: 40),
+                      ),
+                      SizedBox(width: 30,),
+                      Text('HelpLine')
+                    ],
                   ),
+                ),
                 )
               ],
             ),

@@ -17,9 +17,12 @@ class _DeliveryRequestState extends State<DeliveryRequest> {
         backgroundColor: Colors.white,
         title: const Text('FLEETRIDE'),
         actions: [
-          IconButton(onPressed: (){
-            Navigator.push((context), MaterialPageRoute(builder: (context)=>DriverHome()));
-          }, icon: const Icon(Icons.home)),
+          IconButton(
+              onPressed: () {
+                Navigator.push((context),
+                    MaterialPageRoute(builder: (context) => DriverHome()));
+              },
+              icon: const Icon(Icons.home)),
         ],
       ),
       backgroundColor: Colors.white,
@@ -28,12 +31,17 @@ class _DeliveryRequestState extends State<DeliveryRequest> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text('Delivery Request'),
+            const Text(
+              'Delivery Request',
+              style: TextStyle(
+                fontSize: 35,
+              ),
+            ),
             const SizedBox(height: 30),
             TextFormField(
               decoration: const InputDecoration(
                 filled: true,
-                fillColor: Colors.grey,
+                fillColor: Colors.white,
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.all(Radius.circular(30.0)),
                 ),
@@ -44,7 +52,7 @@ class _DeliveryRequestState extends State<DeliveryRequest> {
             TextFormField(
               decoration: const InputDecoration(
                 filled: true,
-                fillColor: Colors.grey,
+                fillColor: Colors.white,
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.all(Radius.circular(30.0)),
                 ),
@@ -55,17 +63,20 @@ class _DeliveryRequestState extends State<DeliveryRequest> {
             TextFormField(
               decoration: const InputDecoration(
                 filled: true,
-                fillColor: Colors.grey,
+                fillColor: Colors.white,
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.all(Radius.circular(30.0)),
                 ),
                 labelText: 'Weight',
               ),
             ),
-            SizedBox(height: 30,),
+            SizedBox(
+              height: 30,
+            ),
             ElevatedButton(
-              onPressed: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context)=>const Drivers()));
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => const Drivers()));
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.lightGreenAccent,

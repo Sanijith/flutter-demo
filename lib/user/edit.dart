@@ -27,7 +27,7 @@ class _EditState extends State<Edit> {
             TextFormField(
               decoration: const InputDecoration(
                 filled: true,
-                fillColor: Colors.grey,
+                fillColor: Colors.white,
                 border: OutlineInputBorder(
                   borderRadius:BorderRadius.all(Radius.circular(30)),
                 ),
@@ -38,7 +38,7 @@ class _EditState extends State<Edit> {
             TextFormField(
               decoration: const InputDecoration(
                 filled: true,
-                fillColor: Colors.grey,
+                fillColor: Colors.white,
                 border: OutlineInputBorder(
                   borderRadius:BorderRadius.all(Radius.circular(30)),
                 ),

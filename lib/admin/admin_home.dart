@@ -38,77 +38,106 @@ class _AdminhomeState extends State<Adminhome> {
           primary: false,
           padding: const EdgeInsets.symmetric(horizontal: 50,vertical: 50),
           children: [
-            Container(
-              height: 150,
-              padding: const EdgeInsets.all(50),
-              child: ElevatedButton(
-                onPressed: (){
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=>const UserManage()));
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.white,
-                ),child: const Text('User Manage'),
+            InkWell(
+              onTap: (){
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>const UserManage()));
+              }, child: const Card(
+              child: Row(
+                children: [
+                  CircleAvatar(
+                    radius: 30,
+                    child: Icon(Icons.manage_accounts_outlined,size: 40),
+                  ),
+                  SizedBox(width: 30,),
+                  Text('User Manage')
+                ],
               ),
             ),
-            Container(
-              height: 150,
-              padding: const EdgeInsets.all(50),
-              child: ElevatedButton(
-                onPressed: (){
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=>const DriverManage()));
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.white,
-                ),child: const Text('Driver Manage'),
+            ),
+            const SizedBox(height: 40,),
+            InkWell(
+              onTap: (){
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>const DriverManage()));
+              }, child: const Card(
+              child: Row(
+                children: [
+                  CircleAvatar(
+                    radius: 30,
+                    child: Icon(Icons.manage_accounts_outlined,size: 40),
+                  ),
+                  SizedBox(width: 30,),
+                  Text('Driver Manage')
+                ],
               ),
             ),
-            Container(
-              height: 150,
-              padding: const EdgeInsets.all(50),
-              child: ElevatedButton(
-                onPressed: (){
-                  Navigator.push((context), MaterialPageRoute(builder: (context)=>const TripManage()));
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.white,
-                ),child: const Text('Trip Manage'),
+            ),
+            const SizedBox(height: 40,),
+            InkWell(
+              onTap: (){
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>const TripManage()));
+              }, child: const Card(
+              child: Row(
+                children: [
+                  CircleAvatar(
+                    radius: 30,
+                    child: Icon(Icons.manage_accounts_outlined,size: 40),
+                  ),
+                  SizedBox(width: 30,),
+                  Text('Trip Manage')
+                ],
               ),
             ),
-            Container(
-              height: 150,
-              padding: const EdgeInsets.all(50),
-              child: ElevatedButton(
-                onPressed: (){
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=>const DeliveryManage()));
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.white,
-                ),child: const Text('Delivery Manage'),
+            ),
+            const SizedBox(height: 40,),
+            InkWell(
+              onTap: (){
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>const DeliveryManage()));
+              }, child: const Card(
+              child: Row(
+                children: [
+                  CircleAvatar(
+                    radius: 30,
+                    child: Icon(Icons.manage_accounts_outlined,size: 40),
+                  ),
+                  SizedBox(width: 30,),
+                  Text('Delivery Manage')
+                ],
               ),
             ),
-            Container(
-              height: 150,
-              padding: const EdgeInsets.all(50),
-              child: ElevatedButton(
-                onPressed: (){
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=>const ContactManage()));
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.white,
-                ),child: const Text('Contact Manage'),
+            ),
+            const SizedBox(height: 40,),
+            InkWell(
+              onTap: (){
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>const ContactManage()));
+              }, child: const Card(
+              child: Row(
+                children: [
+                  CircleAvatar(
+                    radius: 30,
+                    child: Icon(Icons.manage_accounts_outlined,size: 40,),
+                  ),
+                  SizedBox(width: 30,),
+                  Text('Contact Manage')
+                ],
               ),
             ),
-            Container(
-              height: 150,
-              padding: const EdgeInsets.all(50),
-              child: ElevatedButton(
-                onPressed: (){
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=>const ViewLaw()));
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.white,
-                ),child: const Text(' View Laws'),
+            ),
+            const SizedBox(height: 40,),
+            InkWell(
+              onTap: (){
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>const ViewLaw()));
+              }, child: const Card(
+              child: Row(
+                children: [
+                  CircleAvatar(
+                    radius: 30,
+                    child: Icon(Icons.remove_red_eye_outlined,size: 40),
+                  ),
+                  SizedBox(width: 30,),
+                  Text('View Laws')
+                ],
               ),
+            ),
             ),
           ],
         ),

@@ -1,4 +1,5 @@
 import 'package:fleetride/trip_community/trip_comm_home.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 class FacilityDetail extends StatefulWidget {
@@ -56,11 +57,87 @@ class _FacilityDetailState extends State<FacilityDetail> {
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
+            Navigator.push(context, MaterialPageRoute(builder: (context)=>EditFacilityPage()));
             setState(() {
               _itemcount++;
             });
           },
           child: const Icon(Icons.add),
         ));
+  }
+}
+class EditFacilityPage extends StatelessWidget {
+  const EditFacilityPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Edit Facility'),
+      ),
+      body:
+      Container(
+        padding: EdgeInsets.symmetric(horizontal: 50),
+        child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              TextFormField(
+                decoration: const InputDecoration(
+                  filled: true,
+                  fillColor: Colors.white,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(30.0)),
+                  ),
+                  icon: Icon(Icons.person),
+                  labelText: "Facility Name",
+                ),
+              ),
+              SizedBox(height: 30),
+              TextFormField(
+                decoration: const InputDecoration(
+                  filled: true,
+                  fillColor: Colors.white,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(30.0)),
+                  ),
+                  icon: Icon(Icons.location_on_outlined),
+                  labelText: "Location",
+                ),
+              ),
+              const SizedBox(height: 30),
+              TextFormField(
+                decoration: const InputDecoration(
+                  filled: true,
+                  fillColor: Colors.white,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(30.0)),
+                  ),
+                  icon: Icon(Icons.currency_rupee),
+                  labelText: "Register Fee",
+                ),
+              ),
+              const SizedBox(height: 30),
+              TextFormField(
+                decoration: const InputDecoration(
+                  filled: true,
+                  fillColor: Colors.white,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(30.0)),
+                  ),
+                  icon: Icon(Icons.phone),
+                  labelText: "Phone Number",
+                ),
+              ),
+              SizedBox(height: 30),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child:  Text('SAVE'),
+              ),
+            ]
+        ),
+      ),
+    );
   }
 }

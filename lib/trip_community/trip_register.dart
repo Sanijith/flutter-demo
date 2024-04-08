@@ -1,7 +1,5 @@
 import 'package:fleetride/trip_community/trip_comm_home.dart';
 import 'package:fleetride/trip_community/trip_login.dart';
-import 'package:fleetride/user/login.dart';
-import 'package:fleetride/user/user_home.dart';
 import 'package:flutter/material.dart';
 
 class TripRegister extends StatefulWidget {
@@ -38,7 +36,7 @@ class _TripRegisterState extends State<TripRegister> {
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(50))),
                   icon: Icon(Icons.person),
-                  labelText: "Username",
+                  hintText: "Username",
                 ),
               ),
               const SizedBox(height: 30),
@@ -50,7 +48,7 @@ class _TripRegisterState extends State<TripRegister> {
                     borderRadius: BorderRadius.circular(50),
                   ),
                   icon: const Icon(Icons.lock),
-                  labelText: "Password",
+                  hintText: "Password",
                 ),
               ),
               const SizedBox(height: 30),
@@ -62,7 +60,7 @@ class _TripRegisterState extends State<TripRegister> {
                     borderRadius: BorderRadius.circular(50),
                   ),
                   icon: const Icon(Icons.email),
-                  labelText: "Email",
+                  hintText: "Email",
                 ),
               ),
               const SizedBox(height: 30),
@@ -74,7 +72,7 @@ class _TripRegisterState extends State<TripRegister> {
                     borderRadius: BorderRadius.circular(50),
                   ),
                   icon: const Icon(Icons.phone),
-                  labelText: "Phone Number",
+                  hintText: "Phone Number",
                 ),
               ),
               const SizedBox(height: 30),

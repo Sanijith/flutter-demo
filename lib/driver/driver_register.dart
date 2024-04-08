@@ -1,6 +1,5 @@
 import 'package:fleetride/driver/driver_home.dart';
 import 'package:fleetride/driver/driver_login.dart';
-import 'package:fleetride/user/login.dart';
 import 'package:flutter/material.dart';
 
 class DriverRegister extends StatefulWidget {
@@ -15,7 +14,7 @@ class _DriverRegisterState extends State<DriverRegister> {
   Widget build(BuildContext context) {
     return Scaffold(
       body:Container(
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
               image: DecorationImage(
                 image: AssetImage('assets/bg image.jpeg'),
                 fit: BoxFit.fill,
@@ -37,7 +36,7 @@ class _DriverRegisterState extends State<DriverRegister> {
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(50))),
                   icon: Icon(Icons.person),
-                  labelText: "Username",
+                  hintText: "Username",
                 ),
               ),
               const SizedBox(height: 30),
@@ -49,7 +48,7 @@ class _DriverRegisterState extends State<DriverRegister> {
                     borderRadius: BorderRadius.circular(50),
                   ),
                   icon: const Icon(Icons.lock),
-                  labelText: "Password",
+                  hintText: "Password",
                 ),
               ),
               const SizedBox(height: 30),
@@ -61,7 +60,7 @@ class _DriverRegisterState extends State<DriverRegister> {
                     borderRadius: BorderRadius.circular(50),
                   ),
                   icon: const Icon(Icons.email),
-                  labelText: "Email",
+                  hintText: "Email",
                 ),
               ),
               const SizedBox(height: 30),
@@ -73,7 +72,7 @@ class _DriverRegisterState extends State<DriverRegister> {
                     borderRadius: BorderRadius.circular(50),
                   ),
                   icon: const Icon(Icons.phone),
-                  labelText: "Phone Number",
+                  hintText: "Phone Number",
                 ),
               ),
               const SizedBox(height: 30),
@@ -85,7 +84,7 @@ class _DriverRegisterState extends State<DriverRegister> {
                     borderRadius: BorderRadius.circular(50),
                   ),
                   icon: const Icon(Icons.credit_card),
-                  labelText: "License Number",
+                  hintText: "License Number",
                 ),
               ),
               const SizedBox(height: 30),

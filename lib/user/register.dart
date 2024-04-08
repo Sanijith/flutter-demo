@@ -14,7 +14,7 @@ class _RegisterState extends State<Register> {
   Widget build(BuildContext context) {
     return Scaffold(
       body:  Container(
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             image: DecorationImage(
               image: AssetImage('assets/bg image.jpeg'),
               fit: BoxFit.fill
@@ -36,7 +36,7 @@ class _RegisterState extends State<Register> {
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(50))),
                   icon: Icon(Icons.person),
-                  labelText: "Username",
+                  hintText: "Username",
                 ),
               ),
               const SizedBox(height: 30),
@@ -48,7 +48,7 @@ class _RegisterState extends State<Register> {
                     borderRadius: BorderRadius.circular(50),
                   ),
                   icon: const Icon(Icons.lock),
-                  labelText: "Password",
+                  hintText: "Password",
                 ),
               ),
               const SizedBox(height: 30),
@@ -60,7 +60,7 @@ class _RegisterState extends State<Register> {
                     borderRadius: BorderRadius.circular(50),
                   ),
                   icon: const Icon(Icons.email),
-                  labelText: "Email",
+                  hintText: "Email",
                 ),
               ),
               const SizedBox(height: 30),
@@ -72,13 +72,13 @@ class _RegisterState extends State<Register> {
                     borderRadius: BorderRadius.circular(50),
                   ),
                   icon: const Icon(Icons.phone),
-                  labelText: "Phone Number",
+                  hintText: "Phone Number",
                 ),
               ),
               const SizedBox(height: 30),
               ElevatedButton(
                 onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=> Userhome()));
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=> const Userhome()));
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.lightGreenAccent,

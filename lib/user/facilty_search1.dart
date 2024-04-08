@@ -1,4 +1,3 @@
-import 'package:fleetride/trip_community/trip_comm_home.dart';
 import 'package:fleetride/user/user_home.dart';
 import 'package:flutter/material.dart';
 

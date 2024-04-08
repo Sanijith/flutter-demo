@@ -1,10 +1,11 @@
-import 'package:fleetride/Police/police_home.dart';
+import 'package:fleetride/Police/police_login.dart';
 import 'package:fleetride/Repair/repair_login.dart';
 import 'package:fleetride/admin/admin_login.dart';
 import 'package:fleetride/driver/driver_login.dart';
 import 'package:fleetride/trip_community/trip_login.dart';
 import 'package:fleetride/user/login.dart';
 import 'package:flutter/material.dart';
+
 class LandingPage extends StatefulWidget {
   const LandingPage({super.key});
 
@@ -16,18 +17,21 @@ class _LandingPageState extends State<LandingPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(automaticallyImplyLeading: false,
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
         actions: [
-          TextButton(onPressed: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context)=>const PoliceHome()));
-          }, child: const Text('Police')),
-          TextButton(onPressed: (){
-            Navigator.push(context, MaterialPageRoute(builder: (context)=>const AdminLogin()));
-          }, child: const Text('Admin'))
+          TextButton(
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const AdminLogin()));
+              },
+              child: const Text('Admin'))
         ],
       ),
       body: Container(
-        padding: const EdgeInsets.all(50),
+        // padding: const EdgeInsets.all(50),
         alignment: Alignment.center,
         decoration: const BoxDecoration(
             image: DecorationImage(
@@ -35,8 +39,24 @@ class _LandingPageState extends State<LandingPage> {
           fit: BoxFit.fill,
         )),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+
           children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Card(
+                  child: TextButton(
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const PoliceLogin()));
+                      },
+                      child: const Text('Police')),
+                ),
+              ],
+            ),
+            SizedBox(height: 90,),
             const Text(
               'Select User Type',
               style: TextStyle(
@@ -58,6 +78,7 @@ class _LandingPageState extends State<LandingPage> {
                         image: AssetImage('assets/user.jpg'),
                         fit: BoxFit.cover,
                       ),
+                      shape: BoxShape.circle
                     ),
                     height: 120,
                     width: 120,
@@ -76,16 +97,19 @@ class _LandingPageState extends State<LandingPage> {
                   height: 50,
                 ),
                 InkWell(
-                    onTap: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => const DriverLogin()));
-                    },
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const DriverLogin()));
+                  },
                   child: Container(
                     decoration: const BoxDecoration(
                       image: DecorationImage(
                         image: AssetImage('assets/driver.jpg'),
                         fit: BoxFit.cover,
                       ),
+                        shape: BoxShape.circle
                     ),
                     height: 120,
                     width: 120,
@@ -108,8 +132,10 @@ class _LandingPageState extends State<LandingPage> {
               children: [
                 InkWell(
                   onTap: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => const TripLogin()));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const TripLogin()));
                   },
                   child: Container(
                     decoration: const BoxDecoration(
@@ -117,6 +143,7 @@ class _LandingPageState extends State<LandingPage> {
                         image: AssetImage('assets/trip community.jpg'),
                         fit: BoxFit.cover,
                       ),
+                        shape: BoxShape.circle
                     ),
                     height: 120,
                     width: 120,
@@ -139,8 +166,10 @@ class _LandingPageState extends State<LandingPage> {
                 ),
                 InkWell(
                   onTap: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => const RepairLogin()));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const RepairLogin()));
                   },
                   child: Container(
                     decoration: const BoxDecoration(
@@ -148,6 +177,7 @@ class _LandingPageState extends State<LandingPage> {
                         image: AssetImage('assets/repair.jpg'),
                         fit: BoxFit.cover,
                       ),
+                        shape: BoxShape.circle
                     ),
                     height: 120,
                     width: 120,

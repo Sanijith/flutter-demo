@@ -1,5 +1,6 @@
 import 'package:fleetride/user/track.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class TrackRide extends StatefulWidget {
   const TrackRide({super.key});
@@ -24,12 +25,14 @@ class _TrackRideState extends State<TrackRide> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Text('Track Ride'),
+               Text('Track Ride',style: GoogleFonts.itim(
+                 fontSize:20,
+               )),
               const SizedBox(height: 30),
               TextFormField(
                 decoration: const InputDecoration(
                     filled: true,
-                    fillColor: Colors.grey,
+                    fillColor: Colors.white,
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(30)),
                     ),

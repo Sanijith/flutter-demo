@@ -52,12 +52,66 @@ class _ContactDetailState extends State<ContactDetail> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: (){
+          Navigator.push(context, MaterialPageRoute(builder: (context)=>EditContactPage()));
           setState(() {
             _itemCount++; // Increase item count on FAB press
           });
         },
+        tooltip:'Add',
         child: const Icon(Icons.add),
       ),
     );
   }
 }
+class EditContactPage extends StatelessWidget {
+  const EditContactPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Edit Contact'),
+      ),
+      body:
+      Container(
+        padding: EdgeInsets.symmetric(horizontal: 50),
+        child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              TextFormField(
+                decoration: const InputDecoration(
+                  filled: true,
+                  fillColor: Colors.white,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(30.0)),
+                  ),
+                  icon: Icon(Icons.person),
+                  labelText: "Contact Name",
+                ),
+              ),
+              const SizedBox(height: 30),
+              TextFormField(
+                decoration: const InputDecoration(
+                  filled: true,
+                  fillColor: Colors.white,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(30.0)),
+                  ),
+                  icon: Icon(Icons.phone),
+                  labelText: "Phone Number",
+                ),
+              ),
+              SizedBox(height: 30),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child:  Text('SAVE'),
+              ),
+            ]
+        ),
+      ),
+    );
+  }
+}
+

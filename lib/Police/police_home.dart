@@ -1,5 +1,6 @@
 import 'package:fleetride/Police/contact_list.dart';
 import 'package:fleetride/Police/section_list.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class PoliceHome extends StatefulWidget {
@@ -20,7 +21,7 @@ class _PoliceHomeState extends State<PoliceHome> {
 
         body: Container(
           alignment: Alignment.center,
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             image: DecorationImage(
               image: AssetImage('assets/bg image.jpeg'),
               fit: BoxFit.fill,
@@ -30,31 +31,38 @@ class _PoliceHomeState extends State<PoliceHome> {
             primary: true,
             padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 50),
             children: [
-              Container(
-                height: 150,
-                padding: const EdgeInsets.all(50),
-                child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context)=>SectionList()));
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.white,
-                  ),
-                  child: const Text('Laws'),
+              InkWell(
+                onTap: (){
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>const SectionList()));
+                }, child: const Card(
+                child: Row(
+                  children: [
+                    CircleAvatar(
+                      radius: 30,
+                      child: Icon(CupertinoIcons.book_solid,size: 40),
+                    ),
+                    SizedBox(width: 30,),
+                    Text('Laws')
+                  ],
                 ),
               ),
-              Container(
-                height: 150,
-                padding: const EdgeInsets.all(50),
-                child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context)=>const ContactDetail()));
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.white,
-                  ),
-                  child: const Text('HelpLine Numbers'),
+              ),
+              const SizedBox(height: 40,),
+              InkWell(
+                onTap: (){
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>const ContactDetail()));
+                }, child: const Card(
+                child: Row(
+                  children: [
+                    CircleAvatar(
+                      radius: 30,
+                      child: Icon(Icons.contact_phone_outlined,size: 40),
+                    ),
+                    SizedBox(width: 30,),
+                    Text('HelpLine Numbers')
+                  ],
                 ),
+              ),
               ),
             ],
           ),

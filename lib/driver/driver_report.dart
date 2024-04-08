@@ -28,7 +28,7 @@ class _DriverReportState extends State<DriverReport> {
             TextFormField(
               decoration: InputDecoration(
                 filled: true,
-                fillColor: Colors.grey,
+                fillColor: Colors.white,
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(30),
                 ),
@@ -39,7 +39,7 @@ class _DriverReportState extends State<DriverReport> {
             TextFormField(
               decoration: InputDecoration(
                 filled: true,
-                fillColor: Colors.grey,
+                fillColor: Colors.white,
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(30),
                 ),
@@ -50,7 +50,7 @@ class _DriverReportState extends State<DriverReport> {
             TextFormField(
               decoration: InputDecoration(
                 filled: true,
-                fillColor: Colors.grey,
+                fillColor: Colors.white,
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(30),
                 ),

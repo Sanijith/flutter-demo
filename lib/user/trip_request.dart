@@ -35,7 +35,7 @@ class _TripRequestState extends State<TripRequest> {
             TextFormField(
               decoration: const InputDecoration(
                 filled: true,
-                fillColor: Colors.grey,
+                fillColor: Colors.white,
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.all(Radius.circular(30.0)),
                 ),
@@ -46,7 +46,7 @@ class _TripRequestState extends State<TripRequest> {
             TextFormField(
               decoration: const InputDecoration(
                 filled: true,
-                fillColor: Colors.grey,
+                fillColor: Colors.white,
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.all(Radius.circular(30.0)),
                 ),

@@ -24,7 +24,7 @@ class _RepairHomeState extends State<RepairHome> {
         ),
         body: Container(
           alignment: Alignment.center,
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             image: DecorationImage(
               image: AssetImage('assets/bg image.jpeg'),
               fit: BoxFit.fill
@@ -34,31 +34,38 @@ class _RepairHomeState extends State<RepairHome> {
             primary: true,
             padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 50),
             children: [
-              Container(
-                height: 150,
-                padding: const EdgeInsets.all(50),
-                child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context)=>const Schedule()));
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.white,
-                  ),
-                  child: const Text('Schedule Repair'),
+              InkWell(
+                onTap: (){
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>const RepairNames()));
+                }, child: const Card(
+                child: Row(
+                  children: [
+                    CircleAvatar(
+                      radius: 30,
+                      child: Icon(Icons.calendar_month_outlined,size: 40),
+                    ),
+                    SizedBox(width: 30,),
+                    Text('Schedule Repair')
+                  ],
                 ),
               ),
-              Container(
-                height: 150,
-                padding: const EdgeInsets.all(50),
-                child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context)=>const VehicleIssue()));
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.white,
-                  ),
-                  child: const Text('View Vehicle Issues'),
+              ),
+              const SizedBox(height: 40,),
+              InkWell(
+                onTap: (){
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>const VehicleIssue()));
+                }, child: const Card(
+                child: Row(
+                  children: [
+                    CircleAvatar(
+                      radius: 30,
+                      child: Icon(Icons.remove_red_eye_outlined,size: 40),
+                    ),
+                    SizedBox(width: 30,),
+                    Text('View Vehicle Issues')
+                  ],
                 ),
+              ),
               ),
             ],
           ),

@@ -1,19 +1,23 @@
-import 'package:fleetride/admin/admin_home.dart';
+
+import 'package:fleetride/Police/police_home.dart';
+import 'package:fleetride/Police/police_register.dart';
+import 'package:fleetride/user/register.dart';
+import 'package:fleetride/user/user_home.dart';
 import 'package:flutter/material.dart';
 
-class AdminLogin extends StatefulWidget {
-  const AdminLogin({super.key});
+class PoliceLogin extends StatefulWidget {
+  const PoliceLogin({super.key});
 
   @override
-  State<AdminLogin> createState() => _AdminLoginState();
+  State<PoliceLogin> createState() => _PoliceLoginState();
 }
 
-class _AdminLoginState extends State<AdminLogin> {
+class _PoliceLoginState extends State<PoliceLogin> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(
             image: DecorationImage(
               image: AssetImage('assets/bg image.jpeg'),
               fit: BoxFit.fill,
@@ -36,7 +40,7 @@ class _AdminLoginState extends State<AdminLogin> {
                   borderRadius: BorderRadius.all(Radius.circular(30.0)),
                 ),
                 icon: Icon(Icons.person),
-                hintText: "Username/Email/Phone Number",
+                hintText: "Username",
               ),
             ),
             const SizedBox(height: 30),
@@ -54,12 +58,23 @@ class _AdminLoginState extends State<AdminLogin> {
             const SizedBox(height: 30),
             ElevatedButton(
               onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context)=>const Adminhome()));
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>const PoliceHome()));
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.lightGreenAccent,
               ),
               child: const Text('LOGIN'),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text('Dont have an accout?'),
+                TextButton(
+                    onPressed: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => const PoliceRegister()));
+                    },
+                    child: const Text('SignUp')),
+              ],
             ),
           ],
         ),

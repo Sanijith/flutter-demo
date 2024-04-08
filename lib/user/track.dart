@@ -25,7 +25,7 @@ class _TrackState extends State<Track> {
           padding: const EdgeInsets.all(20),
           width: 600,
           height: 600,
-          color: Colors.grey,
+          color: Colors.white,
           child: const Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.center,
@@ -45,6 +45,28 @@ class _TrackState extends State<Track> {
               SizedBox(height: 30),
               Row(
                 children: [
+                  Icon(Icons.person),
+                  Text(
+                    'Driver Name',
+                    style: TextStyle(fontSize: 16),
+                    textAlign: TextAlign.left,
+                  ),
+                ],
+              ),
+              SizedBox(height: 30),
+              Row(
+                children: [
+                  Icon(Icons.phone  ),
+                  Text(
+                    'Phone Number',
+                    style: TextStyle(fontSize: 16),
+                    textAlign: TextAlign.left,
+                  ),
+                ],
+              ),
+              SizedBox(height:30),
+              Row(
+                children: [
                   Icon(Icons.start_outlined),
                   Text(
                     'From',
@@ -53,13 +75,23 @@ class _TrackState extends State<Track> {
                   ),
                 ],
               ),
-
-              SizedBox(height: 60),
+              SizedBox(height: 30),
+              Row(
+                children: [
+                  Icon(Icons.location_pin),
+                  Text(
+                    'To',
+                    style: TextStyle(fontSize: 16),
+                    textAlign: TextAlign.left,
+                  ),
+                ],
+              ),
+              SizedBox(height: 30),
               Row(
                 children: [
                   Icon(Icons.location_on_outlined),
                   Text(
-                    'To',
+                    'Current Location',
                     style: TextStyle(fontSize: 16),
                     textAlign: TextAlign.left,
                   ),

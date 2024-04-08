@@ -23,10 +23,10 @@ class _HelpLineState extends State<HelpLine> {
         child:
         ListView.separated(itemBuilder: (context, index) {
           return Card(
-            color: Colors.grey,
+            color: Colors.white,
             child: ListTile(
               title: Text('Contact $index'),
-              trailing: IconButton(onPressed: (){}, icon:Icon(Icons.copy)),
+              trailing: IconButton(onPressed: (){}, icon:Icon(Icons.phone)),
             
               subtitle: const Column(
                 crossAxisAlignment: CrossAxisAlignment.start,

@@ -55,6 +55,7 @@ class _EventDetailState extends State<EventDetail> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: (){
+          Navigator.push(context, MaterialPageRoute(builder: (context)=>EditEventPage()));
           setState(() {
             _itemcount++; // Increase item count on FAB press
           });
@@ -64,3 +65,79 @@ class _EventDetailState extends State<EventDetail> {
     );
   }
 }
+class EditEventPage extends StatelessWidget {
+  const EditEventPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Edit Event'),
+      ),
+      body:
+      Container(
+        padding: EdgeInsets.symmetric(horizontal: 50),
+        child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              TextFormField(
+                decoration: const InputDecoration(
+                  filled: true,
+                  fillColor: Colors.white,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(30.0)),
+                  ),
+                  icon: Icon(Icons.person),
+                  labelText: "Event Name",
+                ),
+              ),
+              SizedBox(height: 30),
+              TextFormField(
+                decoration: const InputDecoration(
+                  filled: true,
+                  fillColor: Colors.white,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(30.0)),
+                  ),
+                  icon: Icon(Icons.location_on_outlined),
+                  labelText: "Location",
+                ),
+              ),
+              const SizedBox(height: 30),
+              TextFormField(
+                decoration: const InputDecoration(
+                  filled: true,
+                  fillColor: Colors.white,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(30.0)),
+                  ),
+                  icon: Icon(Icons.schedule),
+                  labelText: "Time",
+                ),
+              ),
+              const SizedBox(height: 30),
+              TextFormField(
+                decoration: const InputDecoration(
+                  filled: true,
+                  fillColor: Colors.white,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(30.0)),
+                  ),
+                  icon: Icon(Icons.phone),
+                  labelText: "Phone Number",
+                ),
+              ),
+              SizedBox(height: 30),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child:  Text('SAVE'),
+              ),
+            ]
+        ),
+      ),
+    );
+  }
+}
+
