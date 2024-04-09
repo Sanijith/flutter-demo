@@ -30,7 +30,7 @@ class _RepairEditState extends State<RepairEdit> {
             TextFormField(
               decoration: const InputDecoration(
                 filled: true,
-                fillColor: Colors.grey,
+                fillColor: Colors.white,
                 border: OutlineInputBorder(
                   borderRadius:BorderRadius.all(Radius.circular(30)),
                 ),
@@ -41,7 +41,7 @@ class _RepairEditState extends State<RepairEdit> {
             TextFormField(
               decoration: const InputDecoration(
                 filled: true,
-                fillColor: Colors.grey,
+                fillColor: Colors.white,
                 border: OutlineInputBorder(
                   borderRadius:BorderRadius.all(Radius.circular(30)),
                 ),
@@ -52,7 +52,7 @@ class _RepairEditState extends State<RepairEdit> {
             TextFormField(
               decoration: const InputDecoration(
                 filled: true,
-                fillColor: Colors.grey,
+                fillColor: Colors.white,
                 border: OutlineInputBorder(
                   borderRadius:BorderRadius.all(Radius.circular(30)),
                 ),

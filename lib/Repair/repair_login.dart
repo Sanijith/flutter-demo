@@ -1,8 +1,6 @@
 
 import 'package:fleetride/Repair/repair_home.dart';
 import 'package:fleetride/Repair/repair_register.dart';
-import 'package:fleetride/user/register.dart';
-import 'package:fleetride/user/user_home.dart';
 import 'package:flutter/material.dart';
 
 class RepairLogin extends StatefulWidget {
@@ -17,7 +15,7 @@ class _RepairLoginState extends State<RepairLogin> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           image: DecorationImage(
             image: AssetImage('assets/bg image.jpeg'),
             fit: BoxFit.fill,
@@ -39,8 +37,8 @@ class _RepairLoginState extends State<RepairLogin> {
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.all(Radius.circular(30.0)),
                 ),
-                icon: Icon(Icons.person),
-                hintText: "Username/Email/Phone Number",
+                icon: Icon(Icons.email_outlined),
+                hintText: "Email",
               ),
             ),
             const SizedBox(height: 30),

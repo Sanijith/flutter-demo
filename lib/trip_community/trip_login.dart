@@ -1,8 +1,6 @@
 
 import 'package:fleetride/trip_community/trip_comm_home.dart';
 import 'package:fleetride/trip_community/trip_register.dart';
-import 'package:fleetride/user/register.dart';
-import 'package:fleetride/user/user_home.dart';
 import 'package:flutter/material.dart';
 
 class TripLogin extends StatefulWidget {
@@ -17,7 +15,7 @@ class _TripLoginState extends State<TripLogin> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           image: DecorationImage(
             image: AssetImage('assets/bg image.jpeg'),
             fit: BoxFit.fill,
@@ -40,7 +38,7 @@ class _TripLoginState extends State<TripLogin> {
                   borderRadius: BorderRadius.all(Radius.circular(30.0)),
                 ),
                 icon: Icon(Icons.person),
-                hintText: "Username/Email/Phone Number",
+                hintText: "Email",
               ),
             ),
             const SizedBox(height: 30),

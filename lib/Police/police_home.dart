@@ -1,4 +1,6 @@
 import 'package:fleetride/Police/contact_list.dart';
+import 'package:fleetride/Police/police_edit.dart';
+import 'package:fleetride/Police/police_profile.dart';
 import 'package:fleetride/Police/section_list.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -17,6 +19,11 @@ class _PoliceHomeState extends State<PoliceHome> {
         appBar: AppBar(
           title: const Text('FleetRide'),
           backgroundColor: Colors.white,
+          actions: [
+            IconButton(onPressed: (){
+              Navigator.push(context, MaterialPageRoute(builder: (context)=>const PoliceProfile()));
+            }, icon: Icon(Icons.person))
+          ],
         ),
 
         body: Container(

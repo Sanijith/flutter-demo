@@ -35,8 +35,8 @@ class _AdminLoginState extends State<AdminLogin> {
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.all(Radius.circular(30.0)),
                 ),
-                icon: Icon(Icons.person),
-                hintText: "Username/Email/Phone Number",
+                icon: Icon(Icons.email_outlined),
+                hintText: "Email",
               ),
             ),
             const SizedBox(height: 30),

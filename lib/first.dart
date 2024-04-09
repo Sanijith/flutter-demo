@@ -43,6 +43,7 @@ class _FirstPageState extends State<FirstPage> {
         onPressed: (){
           Navigator.push(context, MaterialPageRoute(builder: (context)=>const LandingPage()));
         },
+        tooltip: 'Next',
         child: Icon(Icons.arrow_forward),
       ),
     );

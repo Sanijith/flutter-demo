@@ -14,7 +14,7 @@ class _DriverLoginState extends State<DriverLogin> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
             image: DecorationImage(
               image: AssetImage('assets/bg image.jpeg'),
               fit: BoxFit.fill,
@@ -36,8 +36,8 @@ class _DriverLoginState extends State<DriverLogin> {
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.all(Radius.circular(30.0)),
                 ),
-                icon: Icon(Icons.person),
-                hintText: "Username/Email/Phone Number",
+                icon: Icon(Icons.email_outlined),
+                hintText: "Email",
               ),
             ),
             const SizedBox(height: 30),

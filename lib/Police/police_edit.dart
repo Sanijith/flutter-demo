@@ -1,14 +1,14 @@
-import 'package:fleetride/trip_community/trip_comm_home.dart';
+import 'package:fleetride/Police/police_home.dart';
 import 'package:flutter/material.dart';
 
-class TripEdit extends StatefulWidget {
-  const TripEdit({super.key});
+class PoliceEdit extends StatefulWidget {
+  const PoliceEdit({super.key});
 
   @override
-  State<TripEdit> createState() => _TripEditState();
+  State<PoliceEdit> createState() => _PoliceEditState();
 }
 
-class _TripEditState extends State<TripEdit> {
+class _PoliceEditState extends State<PoliceEdit> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -16,7 +16,7 @@ class _TripEditState extends State<TripEdit> {
         title: const Text('FLEETRIDE'),
         backgroundColor: Colors.white,
         actions: [IconButton(onPressed: (){
-          Navigator.push(context, MaterialPageRoute(builder: (context)=>const TripHomeScreen()));
+          Navigator.push(context, MaterialPageRoute(builder: (context)=>const PoliceHome()));
         }, icon: const Icon(Icons.home))],
       ),
       backgroundColor: Colors.white,

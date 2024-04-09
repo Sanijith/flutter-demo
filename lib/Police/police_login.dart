@@ -1,8 +1,5 @@
-
 import 'package:fleetride/Police/police_home.dart';
 import 'package:fleetride/Police/police_register.dart';
-import 'package:fleetride/user/register.dart';
-import 'package:fleetride/user/user_home.dart';
 import 'package:flutter/material.dart';
 
 class PoliceLogin extends StatefulWidget {
@@ -17,7 +14,7 @@ class _PoliceLoginState extends State<PoliceLogin> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
             image: DecorationImage(
               image: AssetImage('assets/bg image.jpeg'),
               fit: BoxFit.fill,
@@ -39,8 +36,8 @@ class _PoliceLoginState extends State<PoliceLogin> {
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.all(Radius.circular(30.0)),
                 ),
-                icon: Icon(Icons.person),
-                hintText: "Username",
+                icon: Icon(Icons.email_outlined),
+                hintText: "Email",
               ),
             ),
             const SizedBox(height: 30),

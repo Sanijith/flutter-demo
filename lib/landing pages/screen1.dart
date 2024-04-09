@@ -84,6 +84,7 @@ class _LandingPageState extends State<LandingPage> {
                     width: 120,
                     child: const Column(
                       children: [
+                        SizedBox(height: 10,),
                         Text(
                           'USER',
                           style: TextStyle(fontSize: 18),
@@ -115,6 +116,7 @@ class _LandingPageState extends State<LandingPage> {
                     width: 120,
                     child: const Column(
                       children: [
+                        SizedBox(height: 10,),
                         Text(
                           'DRIVER',
                           textAlign: TextAlign.center,
@@ -149,6 +151,7 @@ class _LandingPageState extends State<LandingPage> {
                     width: 120,
                     child: const Column(
                       children: [
+                        SizedBox(height: 10,),
                         Text(
                           'TRIP COMMUNITY',
                           textAlign: TextAlign.center,
@@ -183,6 +186,7 @@ class _LandingPageState extends State<LandingPage> {
                     width: 120,
                     child: const Column(
                       children: [
+                        SizedBox(height: 10,),
                         Text(
                           'REPAIR',
                           textAlign: TextAlign.center,
