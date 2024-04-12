@@ -16,7 +16,7 @@ class _TripRegisterState extends State<TripRegister> {
       body:  Container(
           decoration: BoxDecoration(
             image: DecorationImage(
-              image: AssetImage('assets/bg image.jpeg'),
+              image: AssetImage('assets/background.jpeg'),
               fit: BoxFit.fill
             )
           ),

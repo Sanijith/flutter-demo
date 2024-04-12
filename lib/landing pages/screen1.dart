@@ -35,7 +35,7 @@ class _LandingPageState extends State<LandingPage> {
         alignment: Alignment.center,
         decoration: const BoxDecoration(
             image: DecorationImage(
-          image: AssetImage('assets/bg image.jpeg'),
+          image: AssetImage('assets/background.jpeg'),
           fit: BoxFit.fill,
         )),
         child: Column(
@@ -56,7 +56,7 @@ class _LandingPageState extends State<LandingPage> {
                 ),
               ],
             ),
-            SizedBox(height: 90,),
+            const SizedBox(height: 90,),
             const Text(
               'Select User Type',
               style: TextStyle(

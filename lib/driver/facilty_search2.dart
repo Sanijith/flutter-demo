@@ -67,8 +67,6 @@ class FacilitySearch2 extends StatefulWidget {
 
 class _FacilitySearch2State extends State<FacilitySearch2> {
   void handleSearch(String text) {
-    // Implement your logic to search facilities based on the entered text
-    print('Searching for facilities: $text');
   }
 
   @override

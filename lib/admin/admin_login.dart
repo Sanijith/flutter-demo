@@ -15,7 +15,7 @@ class _AdminLoginState extends State<AdminLogin> {
       body: Container(
         decoration: const BoxDecoration(
             image: DecorationImage(
-              image: AssetImage('assets/bg image.jpeg'),
+              image: AssetImage('assets/background.jpeg'),
               fit: BoxFit.fill,
             )
         ),
