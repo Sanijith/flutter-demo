@@ -1,6 +1,6 @@
 import 'package:fleetride/trip_community/trip_comm_home.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class FacilityDetail extends StatefulWidget {
   const FacilityDetail({super.key});
@@ -35,15 +35,16 @@ class _FacilityDetailState extends State<FacilityDetail> {
           child: ListView.separated(
               itemBuilder: (context, index) {
                 return Card(
+                  color: Colors.red.shade50,
                   child: ListTile(
                     title: Text('Facility $index'),
-                    subtitle: const Column(
+                    subtitle:  Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(' Location:'),
-                        SizedBox(width: 30),
+                        SizedBox(width: MediaQuery.of(context).size.width*.030),
                         Text('Reg Fee:'),
-                        SizedBox(width: 30),
+                        SizedBox(width: MediaQuery.of(context).size.width*.030),
                         Text('Phone Number:')
                       ],
                     ),
@@ -66,78 +67,126 @@ class _FacilityDetailState extends State<FacilityDetail> {
         ));
   }
 }
-class EditFacilityPage extends StatelessWidget {
+class EditFacilityPage extends StatefulWidget {
   const EditFacilityPage({super.key});
 
+  @override
+  State<EditFacilityPage> createState() => _EditFacilityPageState();
+}
+
+class _EditFacilityPageState extends State<EditFacilityPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Edit Facility'),
       ),
-      body:
-      Container(
-        padding: EdgeInsets.symmetric(horizontal: 50),
-        child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+      body: SingleChildScrollView(
+        child: Container(
+          padding: EdgeInsets.all(40),
+          child: Column(
             children: [
-              TextFormField(
-                decoration: const InputDecoration(
-                  filled: true,
-                  fillColor: Colors.white,
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(30.0)),
-                  ),
-                  icon: Icon(Icons.person),
-                  labelText: "Facility Name",
+              Container(
+                height: 50,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(40),
+                    color: Colors.lightBlueAccent.shade200
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      "Add Facility",
+                      style: GoogleFonts.ubuntu(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ],
                 ),
               ),
-              SizedBox(height: 30),
-              TextFormField(
-                decoration: const InputDecoration(
-                  filled: true,
-                  fillColor: Colors.white,
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(30.0)),
+              SizedBox(height: 30,),
+              Padding(
+                padding: const EdgeInsets.all(10),
+                child:
+                TextFormField(
+                  decoration: const InputDecoration(
+                    filled: true,
+                    fillColor: Colors.white,
+                    border: OutlineInputBorder(
+                      borderRadius:BorderRadius.all(Radius.circular(30)),
+                    ),
+                    labelText: "Facility Name",
                   ),
-                  icon: Icon(Icons.location_on_outlined),
-                  labelText: "Location",
                 ),
               ),
-              const SizedBox(height: 30),
-              TextFormField(
-                decoration: const InputDecoration(
-                  filled: true,
-                  fillColor: Colors.white,
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(30.0)),
+              Padding(
+                padding: const EdgeInsets.all(10),
+                child: TextFormField(
+                  decoration: const InputDecoration(
+                    filled: true,
+                    fillColor: Colors.white,
+                    border: OutlineInputBorder(
+                      borderRadius:BorderRadius.all(Radius.circular(30)),
+                    ),
+                    labelText: "Location",
                   ),
-                  icon: Icon(Icons.currency_rupee),
-                  labelText: "Register Fee",
                 ),
               ),
-              const SizedBox(height: 30),
-              TextFormField(
-                decoration: const InputDecoration(
-                  filled: true,
-                  fillColor: Colors.white,
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(30.0)),
+              Padding(
+                padding: const EdgeInsets.all(10),
+                child: TextFormField(
+                  decoration: const InputDecoration(
+                    filled: true,
+                    fillColor: Colors.white,
+                    border: OutlineInputBorder(
+                      borderRadius:BorderRadius.all(Radius.circular(30)),
+                    ),
+                    labelText: "Fees",
                   ),
-                  icon: Icon(Icons.phone),
-                  labelText: "Phone Number",
                 ),
               ),
-              SizedBox(height: 30),
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                child:  Text('SAVE'),
+              Padding(
+                padding: const EdgeInsets.all(10),
+                child: TextFormField(
+                  decoration: const InputDecoration(
+                    filled: true,
+                    fillColor: Colors.white,
+                    border: OutlineInputBorder(
+                      borderRadius:BorderRadius.all(Radius.circular(30)),
+                    ),
+                    labelText: "Phone Number",
+                  ),
+                ),
               ),
-            ]
+              SizedBox(height: MediaQuery.of(context).size.height*.030),
+
+              InkWell(
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.only(bottom: 10),
+                    child: Container(
+                        height: 53,
+                        width: 150,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: Colors.green
+                        ),
+                        child: Center(
+                          child: Text('Save',
+                              style: GoogleFonts.ubuntu(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white)),
+                        )),
+                  )),
+            ],
+          ),
         ),
       ),
     );
   }
 }
+

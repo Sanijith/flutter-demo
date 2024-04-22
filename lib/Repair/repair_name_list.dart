@@ -1,5 +1,7 @@
 import 'package:fleetride/Repair/repair_home.dart';
+import 'package:fleetride/week.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class RepairNames extends StatefulWidget {
   const RepairNames({super.key});
@@ -34,13 +36,14 @@ class _RepairNamesState extends State<RepairNames> {
         child: ListView.separated(
             itemBuilder: (context, index) {
               return Card(
+                color: Colors.red.shade50,
                 child: ListTile(
                   title: Text('Repair Name $index'),
-                  subtitle: const Column(
+                  subtitle:  Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text('Schedule:'),
-                      SizedBox(width: 30),
+                      SizedBox(width: MediaQuery.of(context).size.width*.030),
                       Text('Phone Number:'),
                     ],
                   ),
@@ -66,64 +69,113 @@ class _RepairNamesState extends State<RepairNames> {
   }
 }
 
-class EditRepairPage extends StatelessWidget {
+class EditRepairPage extends StatefulWidget {
   const EditRepairPage({super.key});
 
+  @override
+  State<EditRepairPage> createState() => _EditRepairPageState();
+}
+
+class _EditRepairPageState extends State<EditRepairPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Edit Repair'),
       ),
-      body:
-      Container(
-        padding: const EdgeInsets.symmetric(horizontal: 50),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+      body: SingleChildScrollView(
+        child: Container(
+          padding: EdgeInsets.all(40),
+          child: Column(
             children: [
-              TextFormField(
-                decoration: const InputDecoration(
-                  filled: true,
-                  fillColor: Colors.white,
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(30.0)),
-                  ),
-                  icon: Icon(Icons.person),
-                  labelText: "Repair Name",
+              Container(
+                height: 50,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(40),
+                    color: Colors.lightBlueAccent.shade200
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      "Add Repair",
+                      style: GoogleFonts.ubuntu(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ],
                 ),
               ),
-              const SizedBox(height: 30),
-              TextFormField(
-                decoration: const InputDecoration(
-                  filled: true,
-                  fillColor: Colors.white,
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(30.0)),
+              SizedBox(height: 30,),
+              Padding(
+                padding: const EdgeInsets.all(10),
+                child:
+                TextFormField(
+                  decoration: const InputDecoration(
+                    filled: true,
+                    fillColor: Colors.white,
+                    border: OutlineInputBorder(
+                      borderRadius:BorderRadius.all(Radius.circular(30)),
+                    ),
+                    labelText: "Name",
                   ),
-                  icon: Icon(Icons.calendar_month),
-                  labelText: "Schedule",
                 ),
               ),
-              const SizedBox(height: 30),
-              TextFormField(
-                decoration: const InputDecoration(
-                  filled: true,
-                  fillColor: Colors.white,
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(30.0)),
+              Padding(
+                padding: const EdgeInsets.all(10),
+                child: TextFormField(
+                  decoration:  InputDecoration(
+                    filled: true,
+                    fillColor: Colors.white,
+                    border: OutlineInputBorder(
+                      borderRadius:BorderRadius.all(Radius.circular(30)),
+                    ),
+                    labelText: "Schedule",
+                    suffixIcon: IconButton(onPressed: (){
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=>DayPicker()));
+                    }, icon: Icon(Icons.calendar_month_outlined))
                   ),
-                  icon: Icon(Icons.phone),
-                  labelText: "Phone Number",
                 ),
               ),
-              const SizedBox(height: 30),
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                child:  const Text('SAVE'),
+              Padding(
+                padding: const EdgeInsets.all(10),
+                child: TextFormField(
+                  decoration: const InputDecoration(
+                    filled: true,
+                    fillColor: Colors.white,
+                    border: OutlineInputBorder(
+                      borderRadius:BorderRadius.all(Radius.circular(30)),
+                    ),
+                    labelText: "Phone Number",
+                  ),
+                ),
               ),
-            ]
+              SizedBox(height: MediaQuery.of(context).size.height*.030),
+
+              InkWell(
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.only(bottom: 10),
+                    child: Container(
+                        height: 53,
+                        width: 150,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: Colors.green
+                        ),
+                        child: Center(
+                          child: Text('Save',
+                              style: GoogleFonts.ubuntu(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white)),
+                        )),
+                  )),
+            ],
+          ),
         ),
       ),
     );

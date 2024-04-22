@@ -1,9 +1,11 @@
 import 'package:fleetride/Police/police_edit.dart';
-import 'package:fleetride/Police/police_home.dart';
 import 'package:fleetride/Police/police_login.dart';
-import 'package:fleetride/Repair/repair_edit.dart';
+import 'package:fleetride/first.dart';
+import 'package:fleetride/user/edit.dart';
 import 'package:fleetride/user/login.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class PoliceProfile extends StatefulWidget {
   const PoliceProfile({super.key});
@@ -17,84 +19,146 @@ class _PoliceProfileState extends State<PoliceProfile> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('FLEETRIDE'),
-        backgroundColor: Colors.white,
-        actions: [
-          IconButton(onPressed: (){
-            Navigator.push(context, MaterialPageRoute(builder: (context)=>PoliceHome()));
-          }, icon: const Icon(Icons.home)),
-        ],
+        backgroundColor: Colors.lightBlueAccent.shade100,
       ),
-      backgroundColor: Colors.white,
       body: Container(
-          padding: const EdgeInsets.all(50),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Row(
+        padding: EdgeInsets.all(40),
+        child: Column(
+          children: [
+            Container(
+              height: 150,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(40),
+                  color: Colors.lightBlueAccent.shade200
+              ),
+              child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  CircleAvatar(
-                    radius: 50,
-                    backgroundColor: Colors.grey,
-                    child: Icon(
-                      Icons.person,
-                      size: 50,
-                    ),
-                  ),
-                  SizedBox(
-                    width: 20,
-                  ),
-                  Column(
+                  Row(
                     children: [
-                      Text(
-                        'Username',
-                        style: TextStyle(fontSize: 30),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 25),
+                        child: CircleAvatar(
+                          backgroundColor: Colors.red,
+                          radius: 30,
+                          child: Icon(Icons.person,size: 40,),
+                        ),
                       ),
-                      Text('User Id'),
+                      Text(
+                        "UserName",
+                        style: GoogleFonts.ubuntu(
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
                     ],
                   ),
                 ],
               ),
-              const SizedBox(
-                height: 30,
-              ),
-              Container(
-                child: const Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(Icons.mail),
-                    SizedBox(width: 10),
-                    Text('email@gmail.com'),
-                    SizedBox(width: 40),
-                  ],
+            ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(10, 15, 10, 10),
+              child: Card(
+                color: Colors.red.shade50,
+                elevation: 4,
+                child: ListTile(
+                  leading: Icon(Icons.confirmation_number_outlined),
+                  trailing: Text(
+                    "12312213",
+                    style: TextStyle(
+                        fontSize: 15, color: Color.fromRGBO(43, 44, 47, 1)),
+                  ),
                 ),
               ),
-              const SizedBox(height: 30),
-              const Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(Icons.phone),
-                  SizedBox(width: 10),
-                  Text('1234567890'),
-                  SizedBox(width: 40),
-                ],
+            ),
+            Padding(
+              padding: const EdgeInsets.all(10),
+              child: Card(
+                color: Colors.red.shade50,
+                elevation: 4,
+                child: ListTile(
+                  leading: Icon(Icons.email),
+                  trailing: Text(
+                    "example@gmail.com",
+                    style: TextStyle(
+                        fontSize: 15),
+                  ),
+                ),
               ),
-              const SizedBox(height: 30,),
-              ElevatedButton(onPressed: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context)=>const PoliceEdit()));
-              },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.lightGreenAccent,
-                ), child: const Text('Edit'),),
-              const SizedBox(height: 30),
-              TextButton(
-                  onPressed: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context)=>const PoliceLogin()));
-                  },
-                  child: const Text('Logout')),
-            ],
-          )),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(10),
+              child: Card(
+                color: Colors.red.shade50,
+                elevation: 4,
+                child: ListTile(
+                  leading: Icon(Icons.phone),
+                  trailing: Text(
+                    "+91 1234567890",
+                    style: TextStyle(
+                        fontSize: 15, color: Color.fromRGBO(43, 44, 47, 1)),
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 50,
+            ),
+
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                InkWell(
+                    onTap: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => PoliceEdit()));
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.only(bottom: 10),
+                      child: Container(
+                          height: 53,
+                          width: 100,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color: Colors.green
+                          ),
+                          child: Center(
+                            child: Text('Edit',
+                                style: GoogleFonts.ubuntu(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white)),
+                          )),
+                    )),
+                SizedBox(width: 30,),
+                InkWell(
+                    onTap: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => PoliceLogin()));
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.only(bottom: 10),
+                      child: Container(
+                          height: 53,
+                          width: 100,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color: Colors.redAccent
+                          ),
+                          child: Center(
+                            child: Text('Logout',
+                                style: GoogleFonts.ubuntu(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white)),
+                          )),
+                    )),
+              ],
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

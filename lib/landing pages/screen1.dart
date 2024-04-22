@@ -39,7 +39,6 @@ class _LandingPageState extends State<LandingPage> {
           fit: BoxFit.fill,
         )),
         child: Column(
-
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
@@ -56,14 +55,14 @@ class _LandingPageState extends State<LandingPage> {
                 ),
               ],
             ),
-            const SizedBox(height: 90,),
+            SizedBox(height: MediaQuery.of(context).size.height*.090),
             const Text(
               'Select User Type',
               style: TextStyle(
                 fontSize: 35,
               ),
             ),
-            const SizedBox(height: 30),
+            SizedBox(height: MediaQuery.of(context).size.height*.030),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -93,10 +92,7 @@ class _LandingPageState extends State<LandingPage> {
                     ),
                   ),
                 ),
-                const SizedBox(
-                  width: 50,
-                  height: 50,
-                ),
+                SizedBox(height: MediaQuery.of(context).size.height*.050,width: MediaQuery.of(context).size.width*.050,),
                 InkWell(
                   onTap: () {
                     Navigator.push(
@@ -128,7 +124,7 @@ class _LandingPageState extends State<LandingPage> {
                 ),
               ],
             ),
-            const SizedBox(height: 50),
+            SizedBox(height: MediaQuery.of(context).size.height*.050),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -163,10 +159,7 @@ class _LandingPageState extends State<LandingPage> {
                     ),
                   ),
                 ),
-                const SizedBox(
-                  width: 50,
-                  height: 50,
-                ),
+                SizedBox(height: MediaQuery.of(context).size.height*.050,width: MediaQuery.of(context).size.width*.050,),
                 InkWell(
                   onTap: () {
                     Navigator.push(

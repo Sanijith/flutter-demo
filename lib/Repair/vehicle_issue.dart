@@ -29,13 +29,13 @@ class _VehicleIssueState extends State<VehicleIssue> {
               return Card(
                 child: ListTile(
                   title: Text('Vehicle Issue $index'),
-                  subtitle: const Column(
+                  subtitle:  Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text('Vehicle No:'),
-                      SizedBox(width: 30),
+                      SizedBox(width:MediaQuery.of(context).size.width*.030),
                       Text('Driver Name:'),
-                      SizedBox(width: 30),
+                      SizedBox(width: MediaQuery.of(context).size.width*.030),
                       Text('Phone Number'),
                     ],
                   ),

@@ -16,7 +16,7 @@ class _DeliveryManageState extends State<DeliveryManage> {
         backgroundColor: Colors.white,
         title: const Text('FLEETRIDE'),
         actions: [IconButton(onPressed: (){
-          Navigator.push(context, MaterialPageRoute(builder: (context)=>const Adminhome()));
+          Navigator.push(context, MaterialPageRoute(builder: (context)=>const AdminHome()));
         }, icon: const Icon(Icons.home))],
       ),
       backgroundColor: Colors.white,
@@ -25,12 +25,13 @@ class _DeliveryManageState extends State<DeliveryManage> {
         child: ListView.separated(
             itemBuilder: (context, index) {
               return Card(
+                color: Colors.red.shade50,
                 child: ListTile(
                   title: Text('Delivery $index'),
                   trailing: IconButton(onPressed: (){}, icon: const Icon(Icons.delete)),
-                  subtitle: const Column(
+                  subtitle:  Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [Text('Delivery Id:'), SizedBox(width: 30), Text('Weight')],
+                    children: [Text('Delivery Id:'), SizedBox(width: MediaQuery.of(context).size.width*.030), Text('Weight')],
                   ),
                 ),
               );

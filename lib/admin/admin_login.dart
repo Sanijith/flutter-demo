@@ -27,7 +27,7 @@ class _AdminLoginState extends State<AdminLogin> {
               'Login',
               style: TextStyle(fontSize: 30),
             ),
-            const SizedBox(height: 30),
+            SizedBox(height: MediaQuery.of(context).size.height*.030),
             TextFormField(
               decoration: const InputDecoration(
                 filled: true,
@@ -39,7 +39,7 @@ class _AdminLoginState extends State<AdminLogin> {
                 hintText: "Email",
               ),
             ),
-            const SizedBox(height: 30),
+            SizedBox(height: MediaQuery.of(context).size.height*.030),
             TextFormField(
               decoration: const InputDecoration(
                 filled: true,
@@ -51,10 +51,10 @@ class _AdminLoginState extends State<AdminLogin> {
                 hintText: "Password",
               ),
             ),
-            const SizedBox(height: 30),
+            SizedBox(height: MediaQuery.of(context).size.height*.030),
             ElevatedButton(
               onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context)=>const Adminhome()));
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>const AdminHome()));
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.lightGreenAccent,

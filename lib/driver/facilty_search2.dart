@@ -96,15 +96,16 @@ class _FacilitySearch2State extends State<FacilitySearch2> {
         child: ListView.separated(
             itemBuilder: (context, index) {
               return Card(
+                color: Colors.red.shade50,
                 child: ListTile(
                   title: Text('Facility $index'),
-                  subtitle: const Column(
+                  subtitle:  Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(' Location:'),
-                      SizedBox(width: 30),
+                      SizedBox(width: MediaQuery.of(context).size.width*.030),
                       Text('Reg Fee:'),
-                      SizedBox(width: 30),
+                      SizedBox(width: MediaQuery.of(context).size.width*.030),
                       Text('Phone Number:')
                     ],
                   ),

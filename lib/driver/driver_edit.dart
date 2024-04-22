@@ -1,4 +1,9 @@
+import 'package:fleetride/first.dart';
+import 'package:fleetride/user/edit.dart';
+import 'package:fleetride/user/login.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class DriverEdit extends StatefulWidget {
   const DriverEdit({super.key});
@@ -12,58 +17,110 @@ class _DriverEditState extends State<DriverEdit> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('FLEETRIDE'),
-        backgroundColor: Colors.white,
-        actions: [IconButton(onPressed: (){}, icon: const Icon(Icons.home))],
+        backgroundColor: Colors.lightBlueAccent.shade100,
       ),
-      backgroundColor: Colors.white,
-      body: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 40),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Text('Edit Info',style:TextStyle(fontSize: 30)),
-            const SizedBox(height: 30),
-            TextFormField(
-              decoration: const InputDecoration(
-                filled: true,
-                fillColor: Colors.grey,
-                border: OutlineInputBorder(
-                  borderRadius:BorderRadius.all(Radius.circular(30)),
+      body: SingleChildScrollView(
+        child: Container(
+          padding: EdgeInsets.all(40),
+          child: Column(
+            children: [
+              Container(
+                height: 50,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(40),
+                    color: Colors.lightBlueAccent.shade200
                 ),
-                labelText: "UserName",
-              ),
-            ),
-            const SizedBox(height: 30),
-            TextFormField(
-              decoration: const InputDecoration(
-                filled: true,
-                fillColor: Colors.grey,
-                border: OutlineInputBorder(
-                  borderRadius:BorderRadius.all(Radius.circular(30)),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      "Edit Info",
+                      style: GoogleFonts.ubuntu(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ],
                 ),
-                labelText: "Email",
               ),
-            ),
-            const SizedBox(height: 30),
-            TextFormField(
-              decoration: const InputDecoration(
-                filled: true,
-                fillColor: Colors.grey,
-                border: OutlineInputBorder(
-                  borderRadius:BorderRadius.all(Radius.circular(30)),
+              SizedBox(height: 30,),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 25),
+                child: InkWell(
+                  onTap: (){},
+                  child: CircleAvatar(
+                    backgroundColor: Colors.red,
+                    radius: 50,
+                    child: Icon(Icons.person,size: 40,),
+                  ),
                 ),
-                labelText: "Phone Number",
               ),
-            ),
-            const SizedBox(height: 30),
-            ElevatedButton(onPressed: (){
-              Navigator.pop((context));
-            },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.lightGreenAccent,
-              ), child: const Text('Save'),)
-          ],
+              Padding(
+                padding: const EdgeInsets.fromLTRB(10, 15, 10, 10),
+                child: TextFormField(
+                  decoration: const InputDecoration(
+                    filled: true,
+                    fillColor: Colors.white,
+                    border: OutlineInputBorder(
+                      borderRadius:BorderRadius.all(Radius.circular(30)),
+                    ),
+                    labelText: "UserName",
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(10),
+                child:
+                TextFormField(
+                  decoration: const InputDecoration(
+                    filled: true,
+                    fillColor: Colors.white,
+                    border: OutlineInputBorder(
+                      borderRadius:BorderRadius.all(Radius.circular(30)),
+                    ),
+                    labelText: "Email",
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(10),
+                child: TextFormField(
+                  decoration: const InputDecoration(
+                    filled: true,
+                    fillColor: Colors.white,
+                    border: OutlineInputBorder(
+                      borderRadius:BorderRadius.all(Radius.circular(30)),
+                    ),
+                    labelText: "Phone Number",
+                  ),
+                ),
+              ),
+              SizedBox(height: MediaQuery.of(context).size.height*.030),
+
+              InkWell(
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.only(bottom: 10),
+                    child: Container(
+                        height: 53,
+                        width: 100,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: Colors.green
+                        ),
+                        child: Center(
+                          child: Text('Save',
+                              style: GoogleFonts.ubuntu(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white)),
+                        )),
+                  )),
+            ],
+          ),
         ),
       ),
     );

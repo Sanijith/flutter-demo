@@ -1,5 +1,9 @@
-import 'package:fleetride/driver/driver_home.dart';
+import 'package:fleetride/first.dart';
+import 'package:fleetride/user/edit.dart';
+import 'package:fleetride/user/login.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class DriverReport extends StatefulWidget {
   const DriverReport({super.key});
@@ -12,60 +16,97 @@ class _DriverReportState extends State<DriverReport> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('FLEETRIDE'),
-        backgroundColor: Colors.white,
-        actions: [IconButton(onPressed: (){
-          Navigator.push(context, MaterialPageRoute(builder: (context)=>DriverHome()));
-        }, icon: Icon(Icons.home))],
-      ),
-      backgroundColor: Colors.white,
-      body: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 50),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            TextFormField(
-              decoration: InputDecoration(
-                filled: true,
-                fillColor: Colors.white,
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(30),
+      appBar: AppBar(),
+      body: SingleChildScrollView(
+        child: Container(
+          padding: EdgeInsets.all(40),
+          child: Column(
+            children: [
+              Container(
+                height: 50,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(40),
+                    color: Colors.lightBlueAccent.shade200),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      "Trip Request",
+                      style: GoogleFonts.ubuntu(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ],
                 ),
-                labelText: "Driver Name",
               ),
-            ),
-            const SizedBox(height: 30,),
-            TextFormField(
-              decoration: InputDecoration(
-                filled: true,
-                fillColor: Colors.white,
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(30),
+              SizedBox(
+                height: 30,
+              ),
+              Padding(
+                padding: const EdgeInsets.all(10),
+                child: TextFormField(
+                  decoration: const InputDecoration(
+                    filled: true,
+                    fillColor: Colors.white,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(30)),
+                    ),
+                    labelText: "Driver Name",
+                  ),
                 ),
-                labelText: "Vehicle No",
               ),
-            ),
-            const SizedBox(height: 30,),
-            TextFormField(
-              decoration: InputDecoration(
-                filled: true,
-                fillColor: Colors.white,
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(30),
+              Padding(
+                padding: const EdgeInsets.all(10),
+                child: TextFormField(
+                  decoration: const InputDecoration(
+                    filled: true,
+                    fillColor: Colors.white,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(30)),
+                    ),
+                    labelText: "Vehicle Number",
+                  ),
                 ),
-                labelText: "Vehicle Issue",
               ),
-            ),
-            const SizedBox(height: 30,),
-            ElevatedButton(onPressed: (){},
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.lightGreenAccent,
-              ), child: const Text('Report'),),
-          ],
+              Padding(
+                padding: const EdgeInsets.all(10),
+                child: TextFormField(
+                  maxLines: 4,
+                  decoration: const InputDecoration(
+                    filled: true,
+                    fillColor: Colors.white,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(30)),
+                    ),
+                    labelText: "Vehicle Issue",
+                  ),
+                ),
+              ),
+              SizedBox(height: MediaQuery.of(context).size.height * .030),
+              InkWell(
+                  onTap: () {},
+                  child: Padding(
+                    padding: const EdgeInsets.only(bottom: 10),
+                    child: Container(
+                        height: 53,
+                        width: 150,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: Colors.green),
+                        child: Center(
+                          child: Text('Report',
+                              style: GoogleFonts.ubuntu(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white)),
+                        )),
+                  )),
+            ],
+          ),
         ),
       ),
     );
   }
 }
-

@@ -1,6 +1,10 @@
-import 'package:fleetride/driver/driver_home.dart';
+import 'package:fleetride/first.dart';
 import 'package:fleetride/user/driver_list.dart';
+import 'package:fleetride/user/edit.dart';
+import 'package:fleetride/user/login.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class DeliveryRequest extends StatefulWidget {
   const DeliveryRequest({super.key});
@@ -14,76 +18,98 @@ class _DeliveryRequestState extends State<DeliveryRequest> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
-        title: const Text('FLEETRIDE'),
-        actions: [
-          IconButton(
-              onPressed: () {
-                Navigator.push((context),
-                    MaterialPageRoute(builder: (context) => DriverHome()));
-              },
-              icon: const Icon(Icons.home)),
-        ],
       ),
-      backgroundColor: Colors.white,
-      body: Container(
-        padding: const EdgeInsets.all(50),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Text(
-              'Delivery Request',
-              style: TextStyle(
-                fontSize: 35,
-              ),
-            ),
-            const SizedBox(height: 30),
-            TextFormField(
-              decoration: const InputDecoration(
-                filled: true,
-                fillColor: Colors.white,
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(30.0)),
+      body: SingleChildScrollView(
+        child: Container(
+          padding: EdgeInsets.all(40),
+          child: Column(
+            children: [
+              Container(
+                height: 50,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(40),
+                    color: Colors.lightBlueAccent.shade200
                 ),
-                labelText: "From",
-              ),
-            ),
-            const SizedBox(height: 30),
-            TextFormField(
-              decoration: const InputDecoration(
-                filled: true,
-                fillColor: Colors.white,
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(30.0)),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      "Delivery Request",
+                      style: GoogleFonts.ubuntu(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ],
                 ),
-                labelText: "To",
               ),
-            ),
-            const SizedBox(height: 30),
-            TextFormField(
-              decoration: const InputDecoration(
-                filled: true,
-                fillColor: Colors.white,
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(30.0)),
+              SizedBox(height: 30,),
+              Padding(
+                padding: const EdgeInsets.all(10),
+                child:
+                TextFormField(
+                  decoration: const InputDecoration(
+                    filled: true,
+                    fillColor: Colors.white,
+                    border: OutlineInputBorder(
+                      borderRadius:BorderRadius.all(Radius.circular(30)),
+                    ),
+                    labelText: "From",
+                  ),
                 ),
-                labelText: 'Weight',
               ),
-            ),
-            SizedBox(
-              height: 30,
-            ),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => const Drivers()));
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.lightGreenAccent,
+              Padding(
+                padding: const EdgeInsets.all(10),
+                child: TextFormField(
+                  decoration: const InputDecoration(
+                    filled: true,
+                    fillColor: Colors.white,
+                    border: OutlineInputBorder(
+                      borderRadius:BorderRadius.all(Radius.circular(30)),
+                    ),
+                    labelText: "To",
+                  ),
+                ),
               ),
-              child: const Text('Search Drivers'),
-            ),
-          ],
+              Padding(
+                padding: const EdgeInsets.all(10),
+                child: TextFormField(
+                  decoration: const InputDecoration(
+                    filled: true,
+                    fillColor: Colors.white,
+                    border: OutlineInputBorder(
+                      borderRadius:BorderRadius.all(Radius.circular(30)),
+                    ),
+                    labelText: "Weight",
+                  ),
+                ),
+              ),
+              SizedBox(height: MediaQuery.of(context).size.height*.030),
+
+              InkWell(
+                  onTap: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>Drivers()));
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.only(bottom: 10),
+                    child: Container(
+                        height: 53,
+                        width: 150,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: Colors.green
+                        ),
+                        child: Center(
+                          child: Text('Search Drivers',
+                              style: GoogleFonts.ubuntu(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white)),
+                        )),
+                  )),
+            ],
+          ),
         ),
       ),
     );

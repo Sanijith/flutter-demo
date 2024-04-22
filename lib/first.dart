@@ -27,9 +27,9 @@ class _FirstPageState extends State<FirstPage> {
           children: [
             CircleAvatar(
               radius: 50,
-              backgroundImage: AssetImage('assets/logonew.jpg'),
+              backgroundImage: AssetImage('assets/lloggo.jpg'),
               ),
-             SizedBox(height: 40,),
+             SizedBox(height: MediaQuery.of(context).size.height*.001),
              Center(
               child: Text(
                 'FLEETRIDE',

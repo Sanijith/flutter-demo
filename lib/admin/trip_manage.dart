@@ -16,7 +16,7 @@ class _TripManageState extends State<TripManage> {
         backgroundColor: Colors.white,
         title: const Text('FLEETRIDE'),
         actions: [IconButton(onPressed: (){
-          Navigator.push(context, MaterialPageRoute(builder: (context)=>const Adminhome()));
+          Navigator.push(context, MaterialPageRoute(builder: (context)=>const AdminHome()));
         }, icon:const Icon(Icons.home))],
       ),
       backgroundColor: Colors.white,
@@ -25,6 +25,7 @@ class _TripManageState extends State<TripManage> {
         child: ListView.separated(
             itemBuilder: (context, index) {
               return Card(
+                color: Colors.red.shade50,
                 child: ListTile(
                   title: Text('Trip $index'),
                   trailing: IconButton(onPressed: (){}, icon:const Icon(Icons.delete)),

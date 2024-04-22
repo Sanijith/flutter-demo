@@ -38,13 +38,11 @@ class _DeliveryDecisionState extends State<DeliveryDecision> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         const Text('User Name:'),
-                        const SizedBox(
-                          height: 30,
-                        ),
+                        SizedBox(height: MediaQuery.of(context).size.height*.030),
                         const Text('Weight:'),
-                        const SizedBox(height: 30),
+                        SizedBox(height: MediaQuery.of(context).size.height*.030),
                         const Text('To:'),
-                        const SizedBox(height: 30),
+                        SizedBox(height: MediaQuery.of(context).size.height*.030),
                         Row(
                           children: [
                             ElevatedButton(
@@ -54,7 +52,7 @@ class _DeliveryDecisionState extends State<DeliveryDecision> {
                                 backgroundColor: Colors.lightGreenAccent,
                               ),
                             ),
-                            const SizedBox(width: 30),
+                            SizedBox(width: MediaQuery.of(context).size.width*.030),
                             ElevatedButton(
                               onPressed: () {},
                               child: const Text('Reject'),

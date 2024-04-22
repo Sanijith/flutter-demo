@@ -16,7 +16,7 @@ class _UserManageState extends State<UserManage> {
         backgroundColor: Colors.white,
         title: const Text('FLEETRIDE'),
         actions: [IconButton(onPressed: (){
-          Navigator.push(context, MaterialPageRoute(builder: (context)=>const Adminhome()));
+          Navigator.push(context, MaterialPageRoute(builder: (context)=>const AdminHome()));
         }, icon: const Icon(Icons.home))],
       ),
       backgroundColor: Colors.white,
@@ -25,12 +25,13 @@ class _UserManageState extends State<UserManage> {
         child: ListView.separated(
             itemBuilder: (context, index) {
               return Card(
+                color: Colors.red.shade50,
                 child: ListTile(
                     title: Text('User $index'),
                   trailing: IconButton(onPressed: (){}, icon: const Icon(Icons.delete)),
-                    subtitle: const Column(
+                    subtitle:  Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [Text('User Id:'), SizedBox(width: 30), Text('Phone Number:')],
+                      children: [Text('User Id:'), SizedBox(width: MediaQuery.of(context).size.width*.030), Text('Phone Number:')],
                     ),
                    ),
               );

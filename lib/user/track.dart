@@ -1,5 +1,10 @@
-import 'package:fleetride/user/user_home.dart';
+
+import 'package:fleetride/first.dart';
+import 'package:fleetride/user/edit.dart';
+import 'package:fleetride/user/login.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class Track extends StatefulWidget {
   const Track({super.key});
@@ -13,89 +18,129 @@ class _TrackState extends State<Track> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('FLEETRIDE'),
-        actions: [IconButton(onPressed: () {
-          Navigator.push((context), MaterialPageRoute(builder: (context)=>const Userhome()));
-        }, icon: const Icon(Icons.home))],
+        backgroundColor: Colors.lightBlueAccent.shade100,
       ),
-      body: Container(
-        alignment: Alignment.center,
-        padding: const EdgeInsets.all(50),
+      body: SingleChildScrollView(
         child: Container(
-          padding: const EdgeInsets.all(20),
-          width: 600,
-          height: 600,
-          color: Colors.white,
-          child: const Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.center,
+          padding: EdgeInsets.all(40),
+          child: Column(
             children: [
-              Center(
-                child: Text(
-                  'Track Ride',
-                  style: TextStyle(fontSize: 30),
+              Container(
+                height: 50,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(40),
+                    color: Colors.lightBlueAccent.shade200
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Row(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 25),
+                          child:
+                          Text(
+                            "Track ",
+                            style: GoogleFonts.ubuntu(
+                              fontSize: 24,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                            ),
+                          ),
+                        )],
+                    ),
+                  ],
                 ),
               ),
-              SizedBox(height: 30),
-              Text(
-                'Track Id',
-                style: TextStyle(fontSize: 16),
-                textAlign: TextAlign.left,
-              ),
-              SizedBox(height: 30),
-              Row(
-                children: [
-                  Icon(Icons.person),
-                  Text(
-                    'Driver Name',
-                    style: TextStyle(fontSize: 16),
-                    textAlign: TextAlign.left,
+              Padding(
+                padding: const EdgeInsets.fromLTRB(10, 15, 10, 10),
+                child: Card(
+                  color: Colors.red.shade50,
+                  elevation: 4,
+                  child: ListTile(
+                    leading: Icon(Icons.confirmation_number_outlined),
+                    trailing: Text(
+                      "12312213",
+                      style: TextStyle(
+                          fontSize: 15, color: Color.fromRGBO(43, 44, 47, 1)),
+                    ),
                   ),
-                ],
+                ),
               ),
-              SizedBox(height: 30),
-              Row(
-                children: [
-                  Icon(Icons.phone  ),
-                  Text(
-                    'Phone Number',
-                    style: TextStyle(fontSize: 16),
-                    textAlign: TextAlign.left,
+              Padding(
+                padding: const EdgeInsets.all(10),
+                child: Card(
+                  color: Colors.red.shade50,
+                  elevation: 4,
+                  child: ListTile(
+                    leading: Icon(Icons.person),
+                    trailing: Text(
+                      "Driver Name",
+                      style: TextStyle(
+                          fontSize: 15),
+                    ),
                   ),
-                ],
+                ),
               ),
-              SizedBox(height:30),
-              Row(
-                children: [
-                  Icon(Icons.start_outlined),
-                  Text(
-                    'From',
-                    style: TextStyle(fontSize: 16),
-                    textAlign: TextAlign.left,
+              Padding(
+                padding: const EdgeInsets.all(10),
+                child: Card(
+                  color: Colors.red.shade50,
+                  elevation: 4,
+                  child: ListTile(
+                    leading: Icon(Icons.phone),
+                    trailing: Text(
+                      "+91 1234567890",
+                      style: TextStyle(
+                          fontSize: 15, color: Color.fromRGBO(43, 44, 47, 1)),
+                    ),
                   ),
-                ],
+                ),
               ),
-              SizedBox(height: 30),
-              Row(
-                children: [
-                  Icon(Icons.location_pin),
-                  Text(
-                    'To',
-                    style: TextStyle(fontSize: 16),
-                    textAlign: TextAlign.left,
+              Padding(
+                padding: const EdgeInsets.all(10),
+                child: Card(
+                  color: Colors.red.shade50,
+                  elevation: 4,
+                  child: ListTile(
+                    leading: Icon(Icons.start),
+                    trailing: Text(
+                      "From",
+                      style: TextStyle(
+                          fontSize: 15, color: Color.fromRGBO(43, 44, 47, 1)),
+                    ),
                   ),
-                ],
+                ),
               ),
-              SizedBox(height: 30),
-              Row(
-                children: [
-                  Icon(Icons.location_on_outlined),
-                  Text(
-                    'Current Location',
-                    style: TextStyle(fontSize: 16),
-                    textAlign: TextAlign.left,
+              Padding(
+                padding: const EdgeInsets.all(10),
+                child: Card(
+                  color: Colors.red.shade50,
+                  elevation: 4,
+                  child: ListTile(
+                    leading: Icon(Icons.location_on_outlined),
+                    trailing: Text(
+                      "To",
+                      style: TextStyle(
+                          fontSize: 15, color: Color.fromRGBO(43, 44, 47, 1)),
+                    ),
                   ),
-                ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(10),
+                child: Card(
+                  color: Colors.red.shade50,
+                  elevation: 4,
+                  child: ListTile(
+                    leading: Icon(Icons.my_location),
+                    trailing: Text(
+                      "Current Location",
+                      style: TextStyle(
+                          fontSize: 15, color: Color.fromRGBO(43, 44, 47, 1)),
+                    ),
+                  ),
+                ),
               ),
             ],
           ),

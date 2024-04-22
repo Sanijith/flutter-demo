@@ -16,7 +16,7 @@ class _ContactManageState extends State<ContactManage> {
         backgroundColor: Colors.white,
         title: const Text('FLEETRIDE'),
         actions: [IconButton(onPressed: (){
-          Navigator.push(context, MaterialPageRoute(builder: (context)=>const Adminhome()));
+          Navigator.push(context, MaterialPageRoute(builder: (context)=>const AdminHome()));
         }, icon: const Icon(Icons.home))],
       ),
       backgroundColor: Colors.white,
@@ -25,12 +25,13 @@ class _ContactManageState extends State<ContactManage> {
         child: ListView.separated(
             itemBuilder: (context, index) {
               return Card(
+                color: Colors.red.shade100,
                 child: ListTile(
                   title: Text('Contact $index'),
                   trailing: IconButton(onPressed: (){}, icon: const Icon(Icons.delete)),
-                  subtitle: const Column(
+                  subtitle:  Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [SizedBox(width: 30), Text('Phone Number:')],
+                    children: [SizedBox(width: MediaQuery.of(context).size.width*.030), Text('Phone Number:')],
                   ),
                 ),
               );

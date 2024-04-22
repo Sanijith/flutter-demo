@@ -67,8 +67,7 @@ class FacilitySearch1 extends StatefulWidget {
 
 class _FacilitySearch1State extends State<FacilitySearch1> {
   void handleSearch(String text) {
-    // Implement your logic to search facilities based on the entered text
-    print('Searching for facilities: $text');
+       print('Searching for facilities: $text');
   }
 
   @override
@@ -98,6 +97,7 @@ class _FacilitySearch1State extends State<FacilitySearch1> {
         child: ListView.separated(
             itemBuilder: (context, index) {
               return Card(
+                color: Colors.red.shade50,
                 child: ListTile(
                   title: Text('Facility $index'),
                   subtitle: const Column(

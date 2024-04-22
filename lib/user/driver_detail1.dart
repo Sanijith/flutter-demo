@@ -34,17 +34,11 @@ class _DriverDetail1State extends State<DriverDetail1> {
                 children: [
                   const Text('Driver',style: TextStyle(fontSize: 30),),
                   const Text('Trip Id'),
-                  const SizedBox(
-                    height: 30,
-                  ),
+                  SizedBox(height: MediaQuery.of(context).size.height*.030),
                   const Text('From'),
-                  const SizedBox(
-                    height: 30,
-                  ),
+                  SizedBox(height: MediaQuery.of(context).size.height*.030),
                   const Text('To'),
-                  const SizedBox(
-                    height: 30,
-                  ),
+                  SizedBox(height: MediaQuery.of(context).size.height*.030),
                   ElevatedButton(onPressed: () {}, child: const Text('Trip Request')),
                 ],
               ),

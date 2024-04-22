@@ -28,7 +28,7 @@ class _RegisterState extends State<Register> {
                 'Register',
                 style: TextStyle(fontSize: 30),
               ),
-              const SizedBox(height: 30),
+              SizedBox(height: MediaQuery.of(context).size.height*.030),
               TextFormField(
                 decoration: const InputDecoration(
                   filled: true,
@@ -39,7 +39,7 @@ class _RegisterState extends State<Register> {
                   hintText: "Username",
                 ),
               ),
-              const SizedBox(height: 30),
+              SizedBox(height: MediaQuery.of(context).size.height*.030),
               TextFormField(
                 decoration: InputDecoration(
                   filled: true,
@@ -51,7 +51,7 @@ class _RegisterState extends State<Register> {
                   hintText: "Password",
                 ),
               ),
-              const SizedBox(height: 30),
+              SizedBox(height: MediaQuery.of(context).size.height*.030),
               TextFormField(
                 decoration: InputDecoration(
                   filled: true,
@@ -63,7 +63,7 @@ class _RegisterState extends State<Register> {
                   hintText: "Email",
                 ),
               ),
-              const SizedBox(height: 30),
+              SizedBox(height: MediaQuery.of(context).size.height*.030),
               TextFormField(
                 decoration: InputDecoration(
                   filled: true,
@@ -75,7 +75,7 @@ class _RegisterState extends State<Register> {
                   hintText: "Phone Number",
                 ),
               ),
-              const SizedBox(height: 30),
+              SizedBox(height: MediaQuery.of(context).size.height*.030),
               ElevatedButton(
                 onPressed: () {
                   Navigator.push(context, MaterialPageRoute(builder: (context)=> const Userhome()));

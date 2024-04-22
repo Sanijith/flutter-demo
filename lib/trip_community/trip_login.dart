@@ -29,7 +29,7 @@ class _TripLoginState extends State<TripLogin> {
               'Login',
               style: TextStyle(fontSize: 30),
             ),
-            const SizedBox(height: 30),
+            SizedBox(height: MediaQuery.of(context).size.height*.030),
             TextFormField(
               decoration: const InputDecoration(
                 filled: true,
@@ -41,7 +41,7 @@ class _TripLoginState extends State<TripLogin> {
                 hintText: "Email",
               ),
             ),
-            const SizedBox(height: 30),
+            SizedBox(height: MediaQuery.of(context).size.height*.030),
             TextFormField(
               decoration: const InputDecoration(
                 filled: true,
@@ -53,7 +53,7 @@ class _TripLoginState extends State<TripLogin> {
                 hintText: "Password",
               ),
             ),
-            const SizedBox(height: 30),
+            SizedBox(height: MediaQuery.of(context).size.height*.030),
             ElevatedButton(
               onPressed: () {
                 Navigator.push(context, MaterialPageRoute(builder: (context)=>const TripHomeScreen()));

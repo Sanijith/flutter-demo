@@ -1,4 +1,8 @@
+import 'package:fleetride/first.dart';
+import 'package:fleetride/user/edit.dart';
+import 'package:fleetride/user/login.dart';
 import 'package:fleetride/user/track.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -14,40 +18,69 @@ class _TrackRideState extends State<TrackRide> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('FLEETRIDE'),
-        actions: [IconButton(onPressed: () {}, icon: const Icon(Icons.home))],
       ),
-      body: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 50,vertical: 50),
+      body: SingleChildScrollView(
         child: Container(
-          padding: const EdgeInsets.all(50),
-          color: Colors.white,
+          padding: EdgeInsets.all(40),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-               Text('Track Ride',style: GoogleFonts.itim(
-                 fontSize:20,
-               )),
-              const SizedBox(height: 30),
-              TextFormField(
-                decoration: const InputDecoration(
+              Container(
+                height: 50,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(40),
+                    color: Colors.lightBlueAccent.shade200
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      "Track Id",
+                      style: GoogleFonts.ubuntu(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(height: 30,),
+              Padding(
+                padding: const EdgeInsets.all(10),
+                child:
+                TextFormField(
+                  decoration: const InputDecoration(
                     filled: true,
                     fillColor: Colors.white,
                     border: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(30)),
+                      borderRadius:BorderRadius.all(Radius.circular(30)),
                     ),
-                    labelText: "Track Id"),
-              ),
-              const SizedBox(height: 30),
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.push((context),MaterialPageRoute(builder: (context)=>const Track()));
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.lightGreenAccent,
+                    labelText: "Id",
+                  ),
                 ),
-                child: const Text('Track Ride'),
               ),
+              SizedBox(height: MediaQuery.of(context).size.height*.030),
+              InkWell(
+                  onTap: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>Track()));
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.only(bottom: 10),
+                    child: Container(
+                        height: 53,
+                        width: 150,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: Colors.green
+                        ),
+                        child: Center(
+                          child: Text('Track',
+                              style: GoogleFonts.ubuntu(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white)),
+                        )),
+                  )),
             ],
           ),
         ),

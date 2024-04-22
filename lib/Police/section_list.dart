@@ -34,13 +34,15 @@ class _SectionListState extends State<SectionList> {
         child: ListView.separated(
             itemBuilder: (context, index) {
               return Card(
+                color: Colors.red.shade50,
                 child: ListTile(
                   title: Text('Section $index'),
                   subtitle:   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      SizedBox(width: 30),
-                      Text('Fine',),
+                      Text('Topic:'),
+                      SizedBox(width: MediaQuery.of(context).size.height*.030),
+                      Text('Fine:',),
                       Text('Details:',style: TextStyle(decoration: TextDecoration.underline),)
                     ],
                   ),
@@ -65,68 +67,112 @@ class _SectionListState extends State<SectionList> {
     );
   }
 }
-class EditSectionPage extends StatelessWidget {
+class EditSectionPage extends StatefulWidget {
   const EditSectionPage({super.key});
 
+  @override
+  State<EditSectionPage> createState() => _EditSectionPageState();
+}
+
+class _EditSectionPageState extends State<EditSectionPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Edit Sections'),
       ),
-      body:
-      Container(
-        padding: EdgeInsets.symmetric(horizontal: 50),
-        child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+      body: SingleChildScrollView(
+        child: Container(
+          padding: EdgeInsets.all(40),
+          child: Column(
             children: [
-              TextFormField(
-                decoration: const InputDecoration(
-                  filled: true,
-                  fillColor: Colors.white,
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(30.0)),
-                  ),
-                  icon: Icon(Icons.fact_check_outlined),
-                  labelText: "Topic",
+              Container(
+                height: 50,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(40),
+                    color: Colors.lightBlueAccent.shade200
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      "Add Section",
+                      style: GoogleFonts.ubuntu(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ],
                 ),
               ),
-              const SizedBox(height: 30),
-              TextFormField(
-                decoration: const InputDecoration(
-                  filled: true,
-                  fillColor: Colors.white,
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(30.0)),
+              SizedBox(height: 30,),
+              Padding(
+                padding: const EdgeInsets.all(10),
+                child:
+                TextFormField(
+                  decoration: const InputDecoration(
+                    filled: true,
+                    fillColor: Colors.white,
+                    border: OutlineInputBorder(
+                      borderRadius:BorderRadius.all(Radius.circular(30)),
+                    ),
+                    labelText: "Topic",
                   ),
-                  icon: Icon(Icons.currency_rupee),
-                  labelText: "Fine",
                 ),
               ),
-              const SizedBox(height: 30),
-              TextFormField(
-                decoration: const InputDecoration(
-                  filled: true,
-                  fillColor: Colors.white,
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(30.0)),
+              Padding(
+                padding: const EdgeInsets.all(10),
+                child: TextFormField(
+                  decoration: const InputDecoration(
+                    filled: true,
+                    fillColor: Colors.white,
+                    border: OutlineInputBorder(
+                      borderRadius:BorderRadius.all(Radius.circular(30)),
+                    ),
+                    labelText: "Fine",
                   ),
-                  icon: Icon(Icons.list_outlined),
-                  labelText: "Details",
                 ),
               ),
-              SizedBox(height: 30),
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                child:  Text('SAVE'),
+              Padding(
+                padding: const EdgeInsets.all(10),
+                child: TextFormField(
+                  decoration: const InputDecoration(
+                    filled: true,
+                    fillColor: Colors.white,
+                    border: OutlineInputBorder(
+                      borderRadius:BorderRadius.all(Radius.circular(30)),
+                    ),
+                    labelText: "Details",suffixStyle: TextStyle(fontStyle: FontStyle.italic)
+                  ),
+                ),
               ),
-            ]
+              SizedBox(height: MediaQuery.of(context).size.height*.030),
+
+              InkWell(
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.only(bottom: 10),
+                    child: Container(
+                        height: 53,
+                        width: 150,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: Colors.green
+                        ),
+                        child: Center(
+                          child: Text('Save',
+                              style: GoogleFonts.ubuntu(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white)),
+                        )),
+                  )),
+            ],
+          ),
         ),
       ),
     );
   }
 }
-
-

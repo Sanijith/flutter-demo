@@ -28,7 +28,7 @@ class _DriverLoginState extends State<DriverLogin> {
               'Login',
               style: TextStyle(fontSize: 30),
             ),
-            const SizedBox(height: 30),
+            SizedBox(height: MediaQuery.of(context).size.height*.030),
             TextFormField(
               decoration: const InputDecoration(
                 filled: true,
@@ -40,7 +40,7 @@ class _DriverLoginState extends State<DriverLogin> {
                 hintText: "Email",
               ),
             ),
-            const SizedBox(height: 30),
+            SizedBox(height: MediaQuery.of(context).size.height*.030),
             TextFormField(
               decoration: const InputDecoration(
                 filled: true,
@@ -52,7 +52,7 @@ class _DriverLoginState extends State<DriverLogin> {
                 hintText: "Password",
               ),
             ),
-            const SizedBox(height: 30),
+            SizedBox(height: MediaQuery.of(context).size.height*.030),
             ElevatedButton(
               onPressed: () {
                 Navigator.push(context, MaterialPageRoute(builder: (context)=>const DriverHome()));

@@ -16,7 +16,7 @@ class _DriverManageState extends State<DriverManage> {
         backgroundColor: Colors.white,
         title: const Text('FLEETRIDE'),
         actions: [IconButton(onPressed: (){
-          Navigator.push(context, MaterialPageRoute(builder: (context)=>const Adminhome()));
+          Navigator.push(context, MaterialPageRoute(builder: (context)=>const AdminHome()));
         }, icon: const Icon(Icons.home))],
       ),
       backgroundColor: Colors.white,
@@ -25,14 +25,15 @@ class _DriverManageState extends State<DriverManage> {
         child: ListView.separated(
             itemBuilder: (context, index) {
               return Card(
+                color: Colors.red.shade50,
                 child: ListTile(
                   title: Text('Driver $index'),
                   trailing: IconButton(onPressed: (){}, icon: const Icon(Icons.delete)),
-                  subtitle: const Column(
+                  subtitle:  Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text('Driver Id:'),
-                      SizedBox(width: 30),
+                      SizedBox(width: MediaQuery.of(context).size.width*.030),
                       Text('Phone Number:')
                     ],
                   ),
