@@ -53,11 +53,17 @@ class _ContactDetailState extends State<ContactDetail> {
             itemCount: _itemCount),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: (){
+        onPressed: ()async{
           Navigator.push(context, MaterialPageRoute(builder: (context)=>EditContactPage()));
-          setState(() {
-            _itemCount++; // Increase item count on FAB press
-          });
+          final result = await Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => EditContactPage()),
+          );
+          if (result != null && result is int) {
+            setState(() {
+              _itemCount = result; // Update _itemCount with the result
+            });
+          }
         },
         tooltip:'Add',
         child: const Icon(Icons.add),

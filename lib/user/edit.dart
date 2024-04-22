@@ -6,7 +6,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 
 class Edit extends StatefulWidget {
-
   const Edit({super.key});
 
   @override
@@ -26,6 +25,7 @@ class _EditState extends State<Edit> {
       });
     }
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,8 +41,7 @@ class _EditState extends State<Edit> {
                 height: 50,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(40),
-                    color: Colors.lightBlueAccent.shade200
-                ),
+                    color: Colors.lightBlueAccent.shade200),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -57,21 +56,22 @@ class _EditState extends State<Edit> {
                   ],
                 ),
               ),
-              SizedBox(height: 30,),
+              SizedBox(
+                height: 30,
+              ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 25),
                 child: InkWell(
-                  onTap: _pickImage,
-                  child: _imageFile != null
-                      ? CircleAvatar(
-                    radius: 50,
-                    backgroundImage: FileImage(_imageFile!),
-                  )
-                      : CircleAvatar(
-                    radius: 50,
-                    child: Icon(Icons.image),
-                  )
-                ),
+                    onTap: _pickImage,
+                    child: _imageFile != null
+                        ? CircleAvatar(
+                            radius: 50,
+                            backgroundImage: FileImage(_imageFile!),
+                          )
+                        : CircleAvatar(
+                            radius: 50,
+                            child: Icon(Icons.image),
+                          )),
               ),
               Padding(
                 padding: const EdgeInsets.fromLTRB(10, 15, 10, 10),
@@ -80,7 +80,7 @@ class _EditState extends State<Edit> {
                     filled: true,
                     fillColor: Colors.white,
                     border: OutlineInputBorder(
-                      borderRadius:BorderRadius.all(Radius.circular(30)),
+                      borderRadius: BorderRadius.all(Radius.circular(30)),
                     ),
                     labelText: "UserName",
                   ),
@@ -88,13 +88,12 @@ class _EditState extends State<Edit> {
               ),
               Padding(
                 padding: const EdgeInsets.all(10),
-                child:
-                TextFormField(
+                child: TextFormField(
                   decoration: const InputDecoration(
                     filled: true,
                     fillColor: Colors.white,
                     border: OutlineInputBorder(
-                      borderRadius:BorderRadius.all(Radius.circular(30)),
+                      borderRadius: BorderRadius.all(Radius.circular(30)),
                     ),
                     labelText: "Email",
                   ),
@@ -107,14 +106,13 @@ class _EditState extends State<Edit> {
                     filled: true,
                     fillColor: Colors.white,
                     border: OutlineInputBorder(
-                      borderRadius:BorderRadius.all(Radius.circular(30)),
+                      borderRadius: BorderRadius.all(Radius.circular(30)),
                     ),
                     labelText: "Phone Number",
                   ),
                 ),
               ),
-              SizedBox(height: MediaQuery.of(context).size.height*.030),
-
+              SizedBox(height: MediaQuery.of(context).size.height * .030),
               InkWell(
                   onTap: () {
                     Navigator.pop(context);
@@ -126,8 +124,7 @@ class _EditState extends State<Edit> {
                         width: 100,
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
-                            color: Colors.green
-                        ),
+                            color: Colors.green),
                         child: Center(
                           child: Text('Save',
                               style: GoogleFonts.ubuntu(

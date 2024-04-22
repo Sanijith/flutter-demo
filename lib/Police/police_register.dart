@@ -1,6 +1,8 @@
-import 'package:fleetride/Police/police_home.dart';
 import 'package:fleetride/Police/police_login.dart';
+import 'package:fleetride/user/login.dart';
+import 'package:fleetride/user/user_home.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class PoliceRegister extends StatefulWidget {
   const PoliceRegister({super.key});
@@ -14,7 +16,8 @@ class _PoliceRegisterState extends State<PoliceRegister> {
   Widget build(BuildContext context) {
     return Scaffold(
       body:  Container(
-        decoration: BoxDecoration(
+        height: double.infinity,
+        decoration: const BoxDecoration(
             image: DecorationImage(
                 image: AssetImage('assets/background.jpeg'),
                 fit: BoxFit.fill
@@ -26,9 +29,9 @@ class _PoliceRegisterState extends State<PoliceRegister> {
           children: [
             const Text(
               'Register',
-              style: TextStyle(fontSize: 30),
+              style: TextStyle(fontSize: 30,fontWeight: FontWeight.bold),
             ),
-            SizedBox(height: MediaQuery.of(context).size.height*.030),
+            SizedBox(height: 20),
             TextFormField(
               decoration: const InputDecoration(
                 filled: true,
@@ -39,7 +42,7 @@ class _PoliceRegisterState extends State<PoliceRegister> {
                 hintText: "Username",
               ),
             ),
-            SizedBox(height: MediaQuery.of(context).size.height*.030),
+            SizedBox(height: 20),
             TextFormField(
               decoration: InputDecoration(
                 filled: true,
@@ -51,7 +54,7 @@ class _PoliceRegisterState extends State<PoliceRegister> {
                 hintText: "Password",
               ),
             ),
-            SizedBox(height: MediaQuery.of(context).size.height*.030),
+            SizedBox(height: 20),
             TextFormField(
               decoration: InputDecoration(
                 filled: true,
@@ -63,7 +66,7 @@ class _PoliceRegisterState extends State<PoliceRegister> {
                 hintText: "Email",
               ),
             ),
-            SizedBox(height: MediaQuery.of(context).size.height*.030),
+            SizedBox(height: 20),
             TextFormField(
               decoration: InputDecoration(
                 filled: true,
@@ -75,16 +78,27 @@ class _PoliceRegisterState extends State<PoliceRegister> {
                 hintText: "Phone Number",
               ),
             ),
-            SizedBox(height: MediaQuery.of(context).size.height*.030),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context)=> const PoliceHome()));
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.lightGreenAccent,
-              ),
-              child: const Text('Register'),
-            ),
+            SizedBox(height: 20),
+            InkWell(
+                onTap: () {
+                  Navigator.pop(context);
+                },
+                child: Padding(
+                  padding: const EdgeInsets.only(bottom: 10),
+                  child: Container(
+                      height: 53,
+                      width: 100,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: Colors.green),
+                      child: Center(
+                        child: Text('Register',
+                            style: GoogleFonts.ubuntu(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white)),
+                      )),
+                )),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [

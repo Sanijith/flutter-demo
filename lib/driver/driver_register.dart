@@ -1,6 +1,7 @@
 import 'package:fleetride/driver/driver_home.dart';
 import 'package:fleetride/driver/driver_login.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class DriverRegister extends StatefulWidget {
   const DriverRegister({super.key});
@@ -26,7 +27,7 @@ class _DriverRegisterState extends State<DriverRegister> {
             children: [
               const Text(
                 'Register',
-                style: TextStyle(fontSize: 30),
+                style: TextStyle(fontSize: 30,fontWeight: FontWeight.bold),
               ),
               SizedBox(height: MediaQuery.of(context).size.height*.030),
               TextFormField(
@@ -39,7 +40,7 @@ class _DriverRegisterState extends State<DriverRegister> {
                   hintText: "Username",
                 ),
               ),
-              SizedBox(height: MediaQuery.of(context).size.height*.030),
+              SizedBox(height: 30),
               TextFormField(
                 decoration: InputDecoration(
                   filled: true,
@@ -51,7 +52,7 @@ class _DriverRegisterState extends State<DriverRegister> {
                   hintText: "Password",
                 ),
               ),
-              SizedBox(height: MediaQuery.of(context).size.height*.030),
+              SizedBox(height: 30),
               TextFormField(
                 decoration: InputDecoration(
                   filled: true,
@@ -63,7 +64,7 @@ class _DriverRegisterState extends State<DriverRegister> {
                   hintText: "Email",
                 ),
               ),
-              SizedBox(height: MediaQuery.of(context).size.height*.030),
+              SizedBox(height: 30),
               TextFormField(
                 decoration: InputDecoration(
                   filled: true,
@@ -75,7 +76,7 @@ class _DriverRegisterState extends State<DriverRegister> {
                   hintText: "Phone Number",
                 ),
               ),
-              SizedBox(height: MediaQuery.of(context).size.height*.030),
+              SizedBox(height: 30),
               TextFormField(
                 decoration: InputDecoration(
                   filled: true,
@@ -87,16 +88,27 @@ class _DriverRegisterState extends State<DriverRegister> {
                   hintText: "License Number",
                 ),
               ),
-              SizedBox(height: MediaQuery.of(context).size.height*.030),
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=>const DriverHome()));
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.lightGreenAccent,
-                ),
-                child: const Text('Register'),
-              ),
+              SizedBox(height: 30),
+              InkWell(
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.only(bottom: 10),
+                    child: Container(
+                        height: 53,
+                        width: 100,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: Colors.green),
+                        child: Center(
+                          child: Text('Register',
+                              style: GoogleFonts.ubuntu(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white)),
+                        )),
+                  )),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [

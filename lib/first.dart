@@ -29,7 +29,7 @@ class _FirstPageState extends State<FirstPage> {
               radius: 50,
               backgroundImage: AssetImage('assets/lloggo.jpg'),
               ),
-             SizedBox(height: MediaQuery.of(context).size.height*.001),
+             SizedBox(height: 10),
              Center(
               child: Text(
                 'FLEETRIDE',

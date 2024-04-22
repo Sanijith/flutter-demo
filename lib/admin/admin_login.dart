@@ -1,5 +1,6 @@
 import 'package:fleetride/admin/admin_home.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class AdminLogin extends StatefulWidget {
   const AdminLogin({super.key});
@@ -25,9 +26,9 @@ class _AdminLoginState extends State<AdminLogin> {
           children: [
             const Text(
               'Login',
-              style: TextStyle(fontSize: 30),
+              style: TextStyle(fontSize: 30,fontWeight: FontWeight.bold),
             ),
-            SizedBox(height: MediaQuery.of(context).size.height*.030),
+            SizedBox(height: 30),
             TextFormField(
               decoration: const InputDecoration(
                 filled: true,
@@ -39,7 +40,7 @@ class _AdminLoginState extends State<AdminLogin> {
                 hintText: "Email",
               ),
             ),
-            SizedBox(height: MediaQuery.of(context).size.height*.030),
+            SizedBox(height: 30),
             TextFormField(
               decoration: const InputDecoration(
                 filled: true,
@@ -51,16 +52,27 @@ class _AdminLoginState extends State<AdminLogin> {
                 hintText: "Password",
               ),
             ),
-            SizedBox(height: MediaQuery.of(context).size.height*.030),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context)=>const AdminHome()));
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.lightGreenAccent,
-              ),
-              child: const Text('LOGIN'),
-            ),
+            SizedBox(height: 30),
+            InkWell(
+                onTap: () {
+                  Navigator.pop(context);
+                },
+                child: Padding(
+                  padding: const EdgeInsets.only(bottom: 10),
+                  child: Container(
+                      height: 53,
+                      width: 100,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: Colors.green),
+                      child: Center(
+                        child: Text('Login',
+                            style: GoogleFonts.ubuntu(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white)),
+                      )),
+                )),
           ],
         ),
       ),

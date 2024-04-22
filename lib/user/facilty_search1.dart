@@ -31,7 +31,7 @@ class _IconButtonTextFieldState extends State<IconButtonTextField> {
   Widget build(BuildContext context) {
     return AnimatedContainer(
       duration: Duration(milliseconds: 200),
-      width: _showTextField ? 200.0 : 40.0,
+      width: _showTextField ? 200.0 : 50.0,
       child: Row(
         children: [
           IconButton(
@@ -67,7 +67,7 @@ class FacilitySearch1 extends StatefulWidget {
 
 class _FacilitySearch1State extends State<FacilitySearch1> {
   void handleSearch(String text) {
-       print('Searching for facilities: $text');
+    print('Searching for facilities: $text');
   }
 
   @override

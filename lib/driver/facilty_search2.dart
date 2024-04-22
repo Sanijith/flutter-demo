@@ -31,7 +31,7 @@ class _IconButtonTextFieldState extends State<IconButtonTextField> {
   Widget build(BuildContext context) {
     return AnimatedContainer(
       duration: Duration(milliseconds: 200),
-      width: _showTextField ? 200.0 : 40.0,
+      width: _showTextField ? 200.0 : 50.0,
       child: Row(
         children: [
           IconButton(
@@ -67,6 +67,7 @@ class FacilitySearch2 extends StatefulWidget {
 
 class _FacilitySearch2State extends State<FacilitySearch2> {
   void handleSearch(String text) {
+    print('Searching for facilities: $text');
   }
 
   @override
@@ -99,13 +100,13 @@ class _FacilitySearch2State extends State<FacilitySearch2> {
                 color: Colors.red.shade50,
                 child: ListTile(
                   title: Text('Facility $index'),
-                  subtitle:  Column(
+                  subtitle: const Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(' Location:'),
-                      SizedBox(width: MediaQuery.of(context).size.width*.030),
+                      SizedBox(width: 30),
                       Text('Reg Fee:'),
-                      SizedBox(width: MediaQuery.of(context).size.width*.030),
+                      SizedBox(width: 30),
                       Text('Phone Number:')
                     ],
                   ),
