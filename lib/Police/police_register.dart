@@ -1,3 +1,4 @@
+import 'package:fleetride/Police/police_home.dart';
 import 'package:fleetride/Police/police_login.dart';
 import 'package:fleetride/user/login.dart';
 import 'package:fleetride/user/user_home.dart';
@@ -81,7 +82,7 @@ class _PoliceRegisterState extends State<PoliceRegister> {
             SizedBox(height: 20),
             InkWell(
                 onTap: () {
-                  Navigator.pop(context);
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>PoliceHome()));
                 },
                 child: Padding(
                   padding: const EdgeInsets.only(bottom: 10),

@@ -57,7 +57,7 @@ class _RepairLoginState extends State<RepairLogin> {
             SizedBox(height: 30),
             InkWell(
                 onTap: () {
-                  Navigator.pop(context);
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>RepairHome()));
                 },
                 child: Padding(
                   padding: const EdgeInsets.only(bottom: 10),

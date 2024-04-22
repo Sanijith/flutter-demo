@@ -91,7 +91,7 @@ class _DriverRegisterState extends State<DriverRegister> {
               SizedBox(height: 30),
               InkWell(
                   onTap: () {
-                    Navigator.pop(context);
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>DriverHome()));
                   },
                   child: Padding(
                     padding: const EdgeInsets.only(bottom: 10),

@@ -57,7 +57,7 @@ class _LoginState extends State<Login> {
             SizedBox(height: 30),
             InkWell(
                 onTap: () {
-                  Navigator.pop(context);
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>Userhome()));
                 },
                 child: Padding(
                   padding: const EdgeInsets.only(bottom: 10),

@@ -1,3 +1,4 @@
+import 'package:fleetride/trip_community/trip_comm_home.dart';
 import 'package:fleetride/trip_community/trip_login.dart';
 import 'package:fleetride/user/login.dart';
 import 'package:fleetride/user/user_home.dart';
@@ -81,7 +82,7 @@ class _TripRegisterState extends State<TripRegister> {
             SizedBox(height: 20),
             InkWell(
                 onTap: () {
-                  Navigator.pop(context);
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>TripHomeScreen()));
                 },
                 child: Padding(
                   padding: const EdgeInsets.only(bottom: 10),

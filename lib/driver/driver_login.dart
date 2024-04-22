@@ -1,3 +1,4 @@
+import 'package:fleetride/driver/driver_home.dart';
 import 'package:fleetride/driver/driver_register.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -55,7 +56,7 @@ class _DriverLoginState extends State<DriverLogin> {
             SizedBox(height: 30),
             InkWell(
                 onTap: () {
-                  Navigator.pop(context);
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>DriverHome()));
                 },
                 child: Padding(
                   padding: const EdgeInsets.only(bottom: 10),

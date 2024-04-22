@@ -1,3 +1,4 @@
+import 'package:fleetride/Repair/repair_home.dart';
 import 'package:fleetride/Repair/repair_login.dart';
 import 'package:fleetride/user/login.dart';
 import 'package:fleetride/user/user_home.dart';
@@ -81,7 +82,7 @@ class _RepairRegisterState extends State<RepairRegister> {
             SizedBox(height: 20),
             InkWell(
                 onTap: () {
-                  Navigator.pop(context);
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>RepairHome()));
                 },
                 child: Padding(
                   padding: const EdgeInsets.only(bottom: 10),

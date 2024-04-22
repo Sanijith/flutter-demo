@@ -80,7 +80,7 @@ class _RegisterState extends State<Register> {
               SizedBox(height: 20),
               InkWell(
                   onTap: () {
-                    Navigator.pop(context);
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>Userhome()));
                   },
                   child: Padding(
                     padding: const EdgeInsets.only(bottom: 10),
