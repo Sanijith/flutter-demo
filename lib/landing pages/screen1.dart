@@ -28,7 +28,7 @@ class _LandingPageState extends State<LandingPage> {
                         builder: (context) => const AdminLogin()));
               },
               child: const Text('Admin',style: TextStyle(
-                fontSize: 15,fontWeight: FontWeight.bold,fontStyle: FontStyle.italic
+                fontSize: 15,fontWeight: FontWeight.bold,fontStyle: FontStyle.italic,
               ),))
         ],
       ),

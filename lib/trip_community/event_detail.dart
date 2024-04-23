@@ -37,6 +37,9 @@ class _EventDetailState extends State<EventDetail> {
                 color: Colors.red.shade50,
                 child: ListTile(
                   title: Text('Event $index'),
+                  trailing: IconButton(onPressed: (){
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>EditEventPage()));
+                  }, icon: Icon(Icons.edit)),
                   subtitle:  Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [

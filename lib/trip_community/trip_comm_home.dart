@@ -1,5 +1,6 @@
 import 'package:fleetride/trip_community/event_detail.dart';
 import 'package:fleetride/trip_community/facility_detail.dart';
+import 'package:fleetride/trip_community/facility_profile.dart';
 import 'package:fleetride/user/delivery_request.dart';
 import 'package:fleetride/user/facilty_search1.dart';
 import 'package:fleetride/user/help_line.dart';
@@ -27,7 +28,7 @@ class _TripHomeScreenState extends State<TripHomeScreen> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const Profile()),
+                MaterialPageRoute(builder: (context) => const FacilityProfile()),
               );
             },
             icon: const Icon(Icons.person),

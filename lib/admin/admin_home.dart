@@ -28,17 +28,6 @@ class _AdminHomeState extends State<AdminHome> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('FleetRide'),
-        actions: [
-          IconButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const Profile()),
-              );
-            },
-            icon: const Icon(Icons.person),
-          ),
-        ],
         backgroundColor: Colors.white,
       ),
       body: Container(

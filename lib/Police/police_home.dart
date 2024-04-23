@@ -1,4 +1,5 @@
 import 'package:fleetride/Police/contact_list.dart';
+import 'package:fleetride/Police/police_profile.dart';
 import 'package:fleetride/Police/section_list.dart';
 import 'package:fleetride/user/delivery_request.dart';
 import 'package:fleetride/user/facilty_search1.dart';
@@ -27,7 +28,7 @@ class _PoliceHomeState extends State<PoliceHome> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const Profile()),
+                MaterialPageRoute(builder: (context) => const PoliceProfile()),
               );
             },
             icon: const Icon(Icons.person),

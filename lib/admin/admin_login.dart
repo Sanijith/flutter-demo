@@ -55,7 +55,7 @@ class _AdminLoginState extends State<AdminLogin> {
             SizedBox(height: 30),
             InkWell(
                 onTap: () {
-                  Navigator.pop(context);
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>AdminHome()));
                 },
                 child: Padding(
                   padding: const EdgeInsets.only(bottom: 10),

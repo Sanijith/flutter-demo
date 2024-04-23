@@ -38,6 +38,9 @@ class _FacilityDetailState extends State<FacilityDetail> {
                   color: Colors.red.shade50,
                   child: ListTile(
                     title: Text('Facility $index'),
+                    trailing: IconButton(onPressed: (){
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=>EditFacilityPage()));
+                    }, icon: Icon(Icons.edit)),
                     subtitle:  Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -78,8 +81,6 @@ class _EditFacilityPageState extends State<EditFacilityPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-      ),
       body: SingleChildScrollView(
         child: Container(
           padding: EdgeInsets.all(40),
