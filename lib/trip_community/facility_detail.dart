@@ -38,16 +38,34 @@ class _FacilityDetailState extends State<FacilityDetail> {
                   color: Colors.red.shade50,
                   child: ListTile(
                     title: Text('Facility $index'),
-                    trailing: IconButton(onPressed: (){
-                      Navigator.push(context, MaterialPageRoute(builder: (context)=>EditFacilityPage()));
-                    }, icon: Icon(Icons.edit)),
-                    subtitle:  Column(
+                    trailing: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        IconButton(
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          EditFacilityPage()));
+                            },
+                            icon: Icon(Icons.edit)),
+                        IconButton(
+                            onPressed: () {
+                              setState(() {
+                                _itemcount--;
+                              });
+                            },
+                            icon: Icon(Icons.delete))
+                      ],
+                    ),
+                    subtitle: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(' Location:'),
-                        SizedBox(width: MediaQuery.of(context).size.width*.030),
+                        SizedBox(width: 30),
                         Text('Reg Fee:'),
-                        SizedBox(width: MediaQuery.of(context).size.width*.030),
+                        SizedBox(width: 30),
                         Text('Phone Number:')
                       ],
                     ),
@@ -61,7 +79,8 @@ class _FacilityDetailState extends State<FacilityDetail> {
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context)=>EditFacilityPage()));
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => EditFacilityPage()));
             setState(() {
               _itemcount++;
             });
@@ -70,6 +89,7 @@ class _FacilityDetailState extends State<FacilityDetail> {
         ));
   }
 }
+
 class EditFacilityPage extends StatefulWidget {
   const EditFacilityPage({super.key});
 
@@ -90,8 +110,7 @@ class _EditFacilityPageState extends State<EditFacilityPage> {
                 height: 50,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(40),
-                    color: Colors.lightBlueAccent.shade200
-                ),
+                    color: Colors.lightBlueAccent.shade200),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -106,16 +125,17 @@ class _EditFacilityPageState extends State<EditFacilityPage> {
                   ],
                 ),
               ),
-              SizedBox(height: 30,),
+              SizedBox(
+                height: 30,
+              ),
               Padding(
                 padding: const EdgeInsets.all(10),
-                child:
-                TextFormField(
+                child: TextFormField(
                   decoration: const InputDecoration(
                     filled: true,
                     fillColor: Colors.white,
                     border: OutlineInputBorder(
-                      borderRadius:BorderRadius.all(Radius.circular(30)),
+                      borderRadius: BorderRadius.all(Radius.circular(30)),
                     ),
                     labelText: "Facility Name",
                   ),
@@ -128,7 +148,7 @@ class _EditFacilityPageState extends State<EditFacilityPage> {
                     filled: true,
                     fillColor: Colors.white,
                     border: OutlineInputBorder(
-                      borderRadius:BorderRadius.all(Radius.circular(30)),
+                      borderRadius: BorderRadius.all(Radius.circular(30)),
                     ),
                     labelText: "Location",
                   ),
@@ -141,7 +161,7 @@ class _EditFacilityPageState extends State<EditFacilityPage> {
                     filled: true,
                     fillColor: Colors.white,
                     border: OutlineInputBorder(
-                      borderRadius:BorderRadius.all(Radius.circular(30)),
+                      borderRadius: BorderRadius.all(Radius.circular(30)),
                     ),
                     labelText: "Fees",
                   ),
@@ -154,14 +174,13 @@ class _EditFacilityPageState extends State<EditFacilityPage> {
                     filled: true,
                     fillColor: Colors.white,
                     border: OutlineInputBorder(
-                      borderRadius:BorderRadius.all(Radius.circular(30)),
+                      borderRadius: BorderRadius.all(Radius.circular(30)),
                     ),
                     labelText: "Phone Number",
                   ),
                 ),
               ),
-              SizedBox(height: MediaQuery.of(context).size.height*.030),
-
+              SizedBox(height: 30),
               InkWell(
                   onTap: () {
                     Navigator.pop(context);
@@ -173,8 +192,7 @@ class _EditFacilityPageState extends State<EditFacilityPage> {
                         width: 150,
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
-                            color: Colors.green
-                        ),
+                            color: Colors.green),
                         child: Center(
                           child: Text('Save',
                               style: GoogleFonts.ubuntu(
@@ -190,4 +208,3 @@ class _EditFacilityPageState extends State<EditFacilityPage> {
     );
   }
 }
-

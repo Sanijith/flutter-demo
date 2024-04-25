@@ -8,7 +8,7 @@ class DayPicker extends StatefulWidget {
 
 class _DayPickerState extends State<DayPicker> {
   final List<bool> _isSelected =
-      List.generate(7, (_) => false); // Initially all unchecked
+      List.generate(6, (_) => false); // Initially all unchecked
 
   @override
   Widget build(BuildContext context) {
@@ -29,8 +29,8 @@ class _DayPickerState extends State<DayPicker> {
                     child: CheckboxListTile(
                       title: Text(days[i]), // Label for each day
                       value: _isSelected[i],
-                      onChanged: (val) => setState(
-                          () => _isSelected[i] = val!), // Update state on change
+                      onChanged: (val) => setState(() =>
+                          _isSelected[i] = val!), // Update state on change
                     ),
                   ),
                 SizedBox(height: 40),
@@ -45,8 +45,7 @@ class _DayPickerState extends State<DayPicker> {
                           width: 150,
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10),
-                              color: Colors.green
-                          ),
+                              color: Colors.green),
                           child: Center(
                             child: Text('Save',
                                 style: GoogleFonts.ubuntu(
@@ -65,11 +64,10 @@ class _DayPickerState extends State<DayPicker> {
 }
 
 final List<String> days = [
-  'Monday',
-  'Tuesday',
-  'Wednesday',
-  'Thursday',
-  'Friday',
-  'Saturday',
-  'Sunday'
+  'MON',
+  'TUE',
+  'WED',
+  'THU',
+  'FRI',
+  'SAT',
 ];

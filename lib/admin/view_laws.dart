@@ -15,9 +15,14 @@ class _ViewLawState extends State<ViewLaw> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         title: const Text('FLEETRIDE'),
-        actions: [IconButton(onPressed: (){
-          Navigator.push(context, MaterialPageRoute(builder: (context)=>const AdminHome()));
-        }, icon: const Icon(Icons.home))],
+        actions: [
+          IconButton(
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => const AdminHome()));
+              },
+              icon: const Icon(Icons.home))
+        ],
       ),
       backgroundColor: Colors.white,
       body: Container(
@@ -28,11 +33,11 @@ class _ViewLawState extends State<ViewLaw> {
                 color: Colors.red.shade50,
                 child: ListTile(
                   title: Text('Section $index'),
-                  subtitle:  Column(
+                  subtitle: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(' Topic :'),
-                      SizedBox(width: MediaQuery.of(context).size.width*.030),
+                      SizedBox(width: 30),
                       Text('Fine'),
                     ],
                   ),

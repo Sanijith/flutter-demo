@@ -6,13 +6,7 @@ import 'package:fleetride/admin/facility_manage.dart';
 import 'package:fleetride/admin/trip_manage.dart';
 import 'package:fleetride/admin/user_manage.dart';
 import 'package:fleetride/admin/view_laws.dart';
-import 'package:fleetride/user/delivery_request.dart';
-import 'package:fleetride/user/facilty_search1.dart';
-import 'package:fleetride/user/help_line.dart';
-import 'package:fleetride/user/profile.dart';
-import 'package:fleetride/user/track_ride.dart';
-import 'package:fleetride/user/trip_request.dart';
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
 
 class AdminHome extends StatefulWidget {
@@ -88,7 +82,8 @@ class _AdminHomeState extends State<AdminHome> {
                       child: Icon(Icons.manage_accounts_outlined, size: 40),
                     ),
                     const SizedBox(height: 10),
-                    Text('Driver Manage', style: TextStyle(color: Colors.white)),
+                    Text('Driver Manage',
+                        style: TextStyle(color: Colors.white)),
                   ],
                 ),
               ),
@@ -122,7 +117,8 @@ class _AdminHomeState extends State<AdminHome> {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const DeliveryManage()),
+                  MaterialPageRoute(
+                      builder: (context) => const DeliveryManage()),
                 );
               },
               child: Container(
@@ -138,7 +134,8 @@ class _AdminHomeState extends State<AdminHome> {
                       child: Icon(Icons.manage_accounts_outlined, size: 40),
                     ),
                     const SizedBox(height: 10),
-                    Text('Delivery Manage', style: TextStyle(color: Colors.white)),
+                    Text('Delivery Manage',
+                        style: TextStyle(color: Colors.white)),
                   ],
                 ),
               ),
@@ -147,7 +144,8 @@ class _AdminHomeState extends State<AdminHome> {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const ContactManage()),
+                  MaterialPageRoute(
+                      builder: (context) => const ContactManage()),
                 );
               },
               child: Container(
@@ -163,7 +161,8 @@ class _AdminHomeState extends State<AdminHome> {
                       child: Icon(Icons.manage_accounts_outlined, size: 40),
                     ),
                     const SizedBox(height: 10),
-                    Text('Contact Manage', style: TextStyle(color: Colors.white)),
+                    Text('Contact Manage',
+                        style: TextStyle(color: Colors.white)),
                   ],
                 ),
               ),
@@ -197,7 +196,8 @@ class _AdminHomeState extends State<AdminHome> {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const FacilityManage()),
+                  MaterialPageRoute(
+                      builder: (context) => const FacilityManage()),
                 );
               },
               child: Container(
@@ -213,7 +213,8 @@ class _AdminHomeState extends State<AdminHome> {
                       child: Icon(Icons.manage_accounts_outlined, size: 40),
                     ),
                     const SizedBox(height: 10),
-                    Text('Facility Manage', style: TextStyle(color: Colors.white)),
+                    Text('Facility Manage',
+                        style: TextStyle(color: Colors.white)),
                   ],
                 ),
               ),

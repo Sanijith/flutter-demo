@@ -11,6 +11,7 @@ class SectionList extends StatefulWidget {
 
 class _SectionListState extends State<SectionList> {
   int _itemCount = 0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,13 +38,18 @@ class _SectionListState extends State<SectionList> {
                 color: Colors.red.shade50,
                 child: ListTile(
                   title: Text('Section $index'),
-                  subtitle:   Column(
+                  subtitle: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text('Topic:'),
-                      SizedBox(width: MediaQuery.of(context).size.height*.030),
-                      Text('Fine:',),
-                      Text('Details:',style: TextStyle(decoration: TextDecoration.underline),)
+                      SizedBox(width: 30),
+                      Text(
+                        'Fine:',
+                      ),
+                      Text(
+                        'Details:',
+                        style: TextStyle(decoration: TextDecoration.underline),
+                      )
                     ],
                   ),
                 ),
@@ -55,8 +61,9 @@ class _SectionListState extends State<SectionList> {
             itemCount: _itemCount),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: (){
-          Navigator.push(context, MaterialPageRoute(builder: (context)=>EditSectionPage()));
+        onPressed: () {
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => EditSectionPage()));
           setState(() {
             _itemCount++; // Increase item count on FAB press
           });
@@ -67,6 +74,7 @@ class _SectionListState extends State<SectionList> {
     );
   }
 }
+
 class EditSectionPage extends StatefulWidget {
   const EditSectionPage({super.key});
 
@@ -78,8 +86,7 @@ class _EditSectionPageState extends State<EditSectionPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-      ),
+      appBar: AppBar(),
       body: SingleChildScrollView(
         child: Container(
           padding: EdgeInsets.all(40),
@@ -89,8 +96,7 @@ class _EditSectionPageState extends State<EditSectionPage> {
                 height: 50,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(40),
-                    color: Colors.lightBlueAccent.shade200
-                ),
+                    color: Colors.lightBlueAccent.shade200),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -105,16 +111,17 @@ class _EditSectionPageState extends State<EditSectionPage> {
                   ],
                 ),
               ),
-              SizedBox(height: 30,),
+              SizedBox(
+                height: 30,
+              ),
               Padding(
                 padding: const EdgeInsets.all(10),
-                child:
-                TextFormField(
+                child: TextFormField(
                   decoration: const InputDecoration(
                     filled: true,
                     fillColor: Colors.white,
                     border: OutlineInputBorder(
-                      borderRadius:BorderRadius.all(Radius.circular(30)),
+                      borderRadius: BorderRadius.all(Radius.circular(30)),
                     ),
                     labelText: "Topic",
                   ),
@@ -127,7 +134,7 @@ class _EditSectionPageState extends State<EditSectionPage> {
                     filled: true,
                     fillColor: Colors.white,
                     border: OutlineInputBorder(
-                      borderRadius:BorderRadius.all(Radius.circular(30)),
+                      borderRadius: BorderRadius.all(Radius.circular(30)),
                     ),
                     labelText: "Fine",
                   ),
@@ -137,17 +144,16 @@ class _EditSectionPageState extends State<EditSectionPage> {
                 padding: const EdgeInsets.all(10),
                 child: TextFormField(
                   decoration: const InputDecoration(
-                    filled: true,
-                    fillColor: Colors.white,
-                    border: OutlineInputBorder(
-                      borderRadius:BorderRadius.all(Radius.circular(30)),
-                    ),
-                    labelText: "Details",suffixStyle: TextStyle(fontStyle: FontStyle.italic)
-                  ),
+                      filled: true,
+                      fillColor: Colors.white,
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(30)),
+                      ),
+                      labelText: "Details",
+                      suffixStyle: TextStyle(fontStyle: FontStyle.italic)),
                 ),
               ),
-              SizedBox(height: MediaQuery.of(context).size.height*.030),
-
+              SizedBox(height: 30),
               InkWell(
                   onTap: () {
                     Navigator.pop(context);
@@ -159,8 +165,7 @@ class _EditSectionPageState extends State<EditSectionPage> {
                         width: 150,
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
-                            color: Colors.green
-                        ),
+                            color: Colors.green),
                         child: Center(
                           child: Text('Save',
                               style: GoogleFonts.ubuntu(

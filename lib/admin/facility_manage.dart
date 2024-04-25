@@ -39,9 +39,9 @@ class _FacilityManageState extends State<FacilityManage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text('Location:'),
-                      SizedBox(width: MediaQuery.of(context).size.width * .030),
+                      SizedBox(width: 30),
                       Text('Fee:'),
-                      SizedBox(width: MediaQuery.of(context).size.width * .030),
+                      SizedBox(width: 30),
                       Text('Phone Number:')
                     ],
                   ),

@@ -16,21 +16,18 @@ class _TripRegisterState extends State<TripRegister> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body:  Container(
+      body: Container(
         height: double.infinity,
         decoration: const BoxDecoration(
             image: DecorationImage(
-                image: AssetImage('assets/background.jpeg'),
-                fit: BoxFit.fill
-            )
-        ),
+                image: AssetImage('assets/background.jpeg'), fit: BoxFit.fill)),
         padding: const EdgeInsets.all(50),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Text(
               'Register',
-              style: TextStyle(fontSize: 30,fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
             ),
             SizedBox(height: 20),
             TextFormField(
@@ -82,7 +79,10 @@ class _TripRegisterState extends State<TripRegister> {
             SizedBox(height: 20),
             InkWell(
                 onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=>TripHomeScreen()));
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => TripHomeScreen()));
                 },
                 child: Padding(
                   padding: const EdgeInsets.only(bottom: 10),
@@ -106,7 +106,10 @@ class _TripRegisterState extends State<TripRegister> {
                 const Text('Already have an account?'),
                 TextButton(
                     onPressed: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => const TripLogin()));
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const TripLogin()));
                     },
                     child: const Text('Login')),
               ],

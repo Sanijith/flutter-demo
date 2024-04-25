@@ -1,4 +1,3 @@
-
 import 'package:fleetride/first.dart';
 import 'package:fleetride/user/edit.dart';
 import 'package:fleetride/user/login.dart';
@@ -29,25 +28,20 @@ class _TrackState extends State<Track> {
                 height: 50,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(40),
-                    color: Colors.lightBlueAccent.shade200
-                ),
+                    color: Colors.lightBlueAccent.shade200),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Row(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 25),
-                          child:
-                          Text(
-                            "Track ",
-                            style: GoogleFonts.ubuntu(
-                              fontSize: 24,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
-                            ),
-                          ),
-                        )],
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 50),
+                      child: Text(
+                        "Track ",
+                        style: GoogleFonts.ubuntu(
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
                     ),
                   ],
                 ),
@@ -76,8 +70,7 @@ class _TrackState extends State<Track> {
                     leading: Icon(Icons.person),
                     trailing: Text(
                       "Driver Name",
-                      style: TextStyle(
-                          fontSize: 15),
+                      style: TextStyle(fontSize: 15),
                     ),
                   ),
                 ),

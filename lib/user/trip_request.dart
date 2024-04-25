@@ -17,8 +17,7 @@ class _TripRequestState extends State<TripRequest> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-      ),
+      appBar: AppBar(),
       body: SingleChildScrollView(
         child: Container(
           padding: EdgeInsets.all(40),
@@ -28,8 +27,7 @@ class _TripRequestState extends State<TripRequest> {
                 height: 50,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(40),
-                    color: Colors.lightBlueAccent.shade200
-                ),
+                    color: Colors.lightBlueAccent.shade200),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -44,16 +42,17 @@ class _TripRequestState extends State<TripRequest> {
                   ],
                 ),
               ),
-              SizedBox(height: 30,),
+              SizedBox(
+                height: 30,
+              ),
               Padding(
                 padding: const EdgeInsets.all(10),
-                child:
-                TextFormField(
+                child: TextFormField(
                   decoration: const InputDecoration(
                     filled: true,
                     fillColor: Colors.white,
                     border: OutlineInputBorder(
-                      borderRadius:BorderRadius.all(Radius.circular(30)),
+                      borderRadius: BorderRadius.all(Radius.circular(30)),
                     ),
                     labelText: "From",
                   ),
@@ -66,17 +65,17 @@ class _TripRequestState extends State<TripRequest> {
                     filled: true,
                     fillColor: Colors.white,
                     border: OutlineInputBorder(
-                      borderRadius:BorderRadius.all(Radius.circular(30)),
+                      borderRadius: BorderRadius.all(Radius.circular(30)),
                     ),
                     labelText: "To",
                   ),
                 ),
               ),
-              SizedBox(height: MediaQuery.of(context).size.height*.030),
-
+              SizedBox(height: 30),
               InkWell(
                   onTap: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context)=>Drivers()));
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => Drivers()));
                   },
                   child: Padding(
                     padding: const EdgeInsets.only(bottom: 10),
@@ -85,8 +84,7 @@ class _TripRequestState extends State<TripRequest> {
                         width: 150,
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
-                            color: Colors.green
-                        ),
+                            color: Colors.green),
                         child: Center(
                           child: Text('Search Drivers',
                               style: GoogleFonts.ubuntu(

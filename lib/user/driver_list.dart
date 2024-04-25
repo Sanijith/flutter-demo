@@ -35,14 +35,18 @@ class _DriversState extends State<Drivers> {
                     title: Text('Driver $index'),
                     subtitle: const Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [Text('From:'), SizedBox(width: 30), Text('To:')],
+                      children: [
+                        Text('From:'),
+                        SizedBox(width: 30),
+                        Text('To:')
+                      ],
                     ),
                     trailing: ElevatedButton(
                       onPressed: () {},
                       child: const Text('Send Request'),
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.lightGreenAccent,
-                        ),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.lightGreenAccent,
+                      ),
                     )),
               );
             },

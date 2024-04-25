@@ -17,19 +17,18 @@ class _DriverLoginState extends State<DriverLogin> {
       body: Container(
         decoration: const BoxDecoration(
             image: DecorationImage(
-              image: AssetImage('assets/background.jpeg'),
-              fit: BoxFit.fill,
-            )
-        ),
+          image: AssetImage('assets/background.jpeg'),
+          fit: BoxFit.fill,
+        )),
         padding: const EdgeInsets.all(50),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Text(
               'Login',
-              style: TextStyle(fontSize: 30,fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
             ),
-            SizedBox(height:30),
+            SizedBox(height: 30),
             TextFormField(
               decoration: const InputDecoration(
                 filled: true,
@@ -56,7 +55,8 @@ class _DriverLoginState extends State<DriverLogin> {
             SizedBox(height: 30),
             InkWell(
                 onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=>DriverHome()));
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => DriverHome()));
                 },
                 child: Padding(
                   padding: const EdgeInsets.only(bottom: 10),
@@ -80,7 +80,10 @@ class _DriverLoginState extends State<DriverLogin> {
                 const Text('Dont have an account?'),
                 TextButton(
                     onPressed: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => const DriverRegister()));
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const DriverRegister()));
                     },
                     child: const Text('SignUp')),
               ],

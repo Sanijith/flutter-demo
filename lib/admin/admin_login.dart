@@ -16,17 +16,16 @@ class _AdminLoginState extends State<AdminLogin> {
       body: Container(
         decoration: const BoxDecoration(
             image: DecorationImage(
-              image: AssetImage('assets/background.jpeg'),
-              fit: BoxFit.fill,
-            )
-        ),
+          image: AssetImage('assets/background.jpeg'),
+          fit: BoxFit.fill,
+        )),
         padding: const EdgeInsets.all(50),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Text(
               'Login',
-              style: TextStyle(fontSize: 30,fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
             ),
             SizedBox(height: 30),
             TextFormField(
@@ -55,7 +54,8 @@ class _AdminLoginState extends State<AdminLogin> {
             SizedBox(height: 30),
             InkWell(
                 onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=>AdminHome()));
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => AdminHome()));
                 },
                 child: Padding(
                   padding: const EdgeInsets.only(bottom: 10),

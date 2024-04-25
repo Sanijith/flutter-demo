@@ -17,21 +17,6 @@ class _LandingPageState extends State<LandingPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        actions: [
-          TextButton(
-              onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const AdminLogin()));
-              },
-              child: const Text('Admin',style: TextStyle(
-                fontSize: 15,fontWeight: FontWeight.bold,fontStyle: FontStyle.italic,
-              ),))
-        ],
-      ),
       body: Container(
         // padding: const EdgeInsets.all(50),
         alignment: Alignment.center,
@@ -42,6 +27,35 @@ class _LandingPageState extends State<LandingPage> {
         )),
         child: Column(
           children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                PopupMenuButton(
+                  itemBuilder: (BuildContext context) =>
+                      <PopupMenuEntry<String>>[
+                    PopupMenuItem<String>(
+                      value: 'Option 1',
+                      child: TextButton(
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const AdminLogin()));
+                          },
+                          child: const Text(
+                            'Admin',
+                            style: TextStyle(
+                              fontSize: 15,
+                              fontWeight: FontWeight.bold,
+                              fontStyle: FontStyle.italic,
+                            ),
+                          )),
+                    ),
+                  ],
+                ),
+              ],
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
@@ -61,7 +75,7 @@ class _LandingPageState extends State<LandingPage> {
                 ),
               ],
             ),
-            SizedBox(height: MediaQuery.of(context).size.height * .120),
+            SizedBox(height: 120),
             const Text(
               'Select User Type',
               style: TextStyle(
@@ -69,14 +83,16 @@ class _LandingPageState extends State<LandingPage> {
                   fontWeight: FontWeight.bold,
                   color: Colors.brown),
             ),
-            SizedBox(height: MediaQuery.of(context).size.height * .030),
+            SizedBox(height: 30),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 InkWell(
                   onTap: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => const Login()));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const Login()));
                   },
                   child: Container(
                     decoration: const BoxDecoration(
@@ -102,8 +118,8 @@ class _LandingPageState extends State<LandingPage> {
                   ),
                 ),
                 SizedBox(
-                  height: MediaQuery.of(context).size.height * .050,
-                  width: MediaQuery.of(context).size.width * .050,
+                  height: 50,
+                  width: 50,
                 ),
                 InkWell(
                   onTap: () {
@@ -138,7 +154,7 @@ class _LandingPageState extends State<LandingPage> {
                 ),
               ],
             ),
-            SizedBox(height: MediaQuery.of(context).size.height * .050),
+            SizedBox(height: 50),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -174,8 +190,8 @@ class _LandingPageState extends State<LandingPage> {
                   ),
                 ),
                 SizedBox(
-                  height: MediaQuery.of(context).size.height * .050,
-                  width: MediaQuery.of(context).size.width * .050,
+                  height: 50,
+                  width: 50,
                 ),
                 InkWell(
                   onTap: () {

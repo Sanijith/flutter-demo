@@ -1,4 +1,5 @@
 import 'package:fleetride/first.dart';
+import 'package:fleetride/trip_community/trip_change_password.dart';
 import 'package:fleetride/trip_community/trip_edit.dart';
 import 'package:fleetride/trip_community/trip_login.dart';
 import 'package:fleetride/user/edit.dart';
@@ -29,8 +30,7 @@ class _FacilityProfileState extends State<FacilityProfile> {
               height: 150,
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(40),
-                  color: Colors.lightBlueAccent.shade200
-              ),
+                  color: Colors.lightBlueAccent.shade200),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -41,7 +41,10 @@ class _FacilityProfileState extends State<FacilityProfile> {
                         child: CircleAvatar(
                           backgroundColor: Colors.red,
                           radius: 30,
-                          child: Icon(Icons.person,size: 40,),
+                          child: Icon(
+                            Icons.person,
+                            size: 40,
+                          ),
                         ),
                       ),
                       Text(
@@ -81,8 +84,7 @@ class _FacilityProfileState extends State<FacilityProfile> {
                   leading: Icon(Icons.email),
                   trailing: Text(
                     "example@gmail.com",
-                    style: TextStyle(
-                        fontSize: 15),
+                    style: TextStyle(fontSize: 15),
                   ),
                 ),
               ),
@@ -105,14 +107,36 @@ class _FacilityProfileState extends State<FacilityProfile> {
             SizedBox(
               height: 50,
             ),
-
+            InkWell(
+                onTap: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => TripChangePassword()));
+                },
+                child: Padding(
+                  padding: const EdgeInsets.only(bottom: 10),
+                  child: Container(
+                      height: 53,
+                      width: 200,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: Colors.grey),
+                      child: Center(
+                        child: Text('Change Password',
+                            style: GoogleFonts.ubuntu(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white)),
+                      )),
+                )),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 InkWell(
                     onTap: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => FacilityEdit()));
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => FacilityEdit()));
                     },
                     child: Padding(
                       padding: const EdgeInsets.only(bottom: 10),
@@ -121,8 +145,7 @@ class _FacilityProfileState extends State<FacilityProfile> {
                           width: 100,
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10),
-                              color: Colors.green
-                          ),
+                              color: Colors.green),
                           child: Center(
                             child: Text('Edit',
                                 style: GoogleFonts.ubuntu(
@@ -131,7 +154,9 @@ class _FacilityProfileState extends State<FacilityProfile> {
                                     color: Colors.white)),
                           )),
                     )),
-                SizedBox(width: 30,),
+                SizedBox(
+                  width: 30,
+                ),
                 InkWell(
                     onTap: () {
                       Navigator.push(context,
@@ -144,8 +169,7 @@ class _FacilityProfileState extends State<FacilityProfile> {
                           width: 100,
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10),
-                              color: Colors.redAccent
-                          ),
+                              color: Colors.redAccent),
                           child: Center(
                             child: Text('Logout',
                                 style: GoogleFonts.ubuntu(

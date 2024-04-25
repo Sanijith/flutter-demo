@@ -39,11 +39,36 @@ class _RepairNamesState extends State<RepairNames> {
                 color: Colors.red.shade50,
                 child: ListTile(
                   title: Text('Repair Name $index'),
-                  subtitle:  Column(
+                  trailing: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      IconButton(
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => EditRepairPage()));
+                          },
+                          icon: Icon(Icons.edit)),
+                      IconButton(
+                          onPressed: () {
+                            setState(() {
+                              _itemcount--;
+                            });
+                          },
+                          icon: Icon(Icons.delete))
+                    ],
+                  ),
+                  subtitle: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      SizedBox(
+                        height: 10,
+                      ),
                       Text('Schedule:'),
-                      SizedBox(width: MediaQuery.of(context).size.width*.030),
+                      SizedBox(
+                        height: 10,
+                      ),
                       Text('Phone Number:'),
                     ],
                   ),
@@ -57,7 +82,8 @@ class _RepairNamesState extends State<RepairNames> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.push(context, MaterialPageRoute(builder: (context)=>const EditRepairPage()));
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => const EditRepairPage()));
           setState(() {
             _itemcount++;
           });
@@ -80,8 +106,7 @@ class _EditRepairPageState extends State<EditRepairPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-      ),
+      appBar: AppBar(),
       body: SingleChildScrollView(
         child: Container(
           padding: EdgeInsets.all(40),
@@ -91,8 +116,7 @@ class _EditRepairPageState extends State<EditRepairPage> {
                 height: 50,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(40),
-                    color: Colors.lightBlueAccent.shade200
-                ),
+                    color: Colors.lightBlueAccent.shade200),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -107,16 +131,17 @@ class _EditRepairPageState extends State<EditRepairPage> {
                   ],
                 ),
               ),
-              SizedBox(height: 30,),
+              SizedBox(
+                height: 30,
+              ),
               Padding(
                 padding: const EdgeInsets.all(10),
-                child:
-                TextFormField(
+                child: TextFormField(
                   decoration: const InputDecoration(
                     filled: true,
                     fillColor: Colors.white,
                     border: OutlineInputBorder(
-                      borderRadius:BorderRadius.all(Radius.circular(30)),
+                      borderRadius: BorderRadius.all(Radius.circular(30)),
                     ),
                     labelText: "Name",
                   ),
@@ -125,17 +150,21 @@ class _EditRepairPageState extends State<EditRepairPage> {
               Padding(
                 padding: const EdgeInsets.all(10),
                 child: TextFormField(
-                  decoration:  InputDecoration(
-                    filled: true,
-                    fillColor: Colors.white,
-                    border: OutlineInputBorder(
-                      borderRadius:BorderRadius.all(Radius.circular(30)),
-                    ),
-                    labelText: "Schedule",
-                    suffixIcon: IconButton(onPressed: (){
-                      Navigator.push(context, MaterialPageRoute(builder: (context)=>DayPicker()));
-                    }, icon: Icon(Icons.calendar_month_outlined))
-                  ),
+                  decoration: InputDecoration(
+                      filled: true,
+                      fillColor: Colors.white,
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(30)),
+                      ),
+                      labelText: "Schedule",
+                      suffixIcon: IconButton(
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => DayPicker()));
+                          },
+                          icon: Icon(Icons.calendar_month_outlined))),
                 ),
               ),
               Padding(
@@ -145,14 +174,13 @@ class _EditRepairPageState extends State<EditRepairPage> {
                     filled: true,
                     fillColor: Colors.white,
                     border: OutlineInputBorder(
-                      borderRadius:BorderRadius.all(Radius.circular(30)),
+                      borderRadius: BorderRadius.all(Radius.circular(30)),
                     ),
                     labelText: "Phone Number",
                   ),
                 ),
               ),
-              SizedBox(height: MediaQuery.of(context).size.height*.030),
-
+              SizedBox(height: 30),
               InkWell(
                   onTap: () {
                     Navigator.pop(context);
@@ -164,8 +192,7 @@ class _EditRepairPageState extends State<EditRepairPage> {
                         width: 150,
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
-                            color: Colors.green
-                        ),
+                            color: Colors.green),
                         child: Center(
                           child: Text('Save',
                               style: GoogleFonts.ubuntu(

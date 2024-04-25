@@ -33,38 +33,41 @@ class _DeliveryDecisionState extends State<DeliveryDecision> {
             itemBuilder: (context, index) {
               return Card(
                 child: ListTile(
-                    title: Text('Delivery Request $index',style: const TextStyle(fontSize: 20),),
-                    subtitle: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Text('User Name:'),
-                        SizedBox(height: MediaQuery.of(context).size.height*.030),
-                        const Text('Weight:'),
-                        SizedBox(height: MediaQuery.of(context).size.height*.030),
-                        const Text('To:'),
-                        SizedBox(height: MediaQuery.of(context).size.height*.030),
-                        Row(
-                          children: [
-                            ElevatedButton(
-                              onPressed: () {},
-                                child: const Text('Accept'),
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.lightGreenAccent,
-                              ),
+                  title: Text(
+                    'Delivery Request $index',
+                    style: const TextStyle(fontSize: 20),
+                  ),
+                  subtitle: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text('User Name:'),
+                      SizedBox(height: 30),
+                      const Text('Weight:'),
+                      SizedBox(height: 30),
+                      const Text('To:'),
+                      SizedBox(height: 30),
+                      Row(
+                        children: [
+                          ElevatedButton(
+                            onPressed: () {},
+                            child: const Text('Accept'),
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.lightGreenAccent,
                             ),
-                            SizedBox(width: MediaQuery.of(context).size.width*.030),
-                            ElevatedButton(
-                              onPressed: () {},
-                              child: const Text('Reject'),
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.red,
-                              ),
+                          ),
+                          SizedBox(width: 30),
+                          ElevatedButton(
+                            onPressed: () {},
+                            child: const Text('Reject'),
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.red,
                             ),
-                          ],
-                        )
-                      ],
-                    ),
-                    ),
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
+                ),
               );
             },
             separatorBuilder: (context, index) {

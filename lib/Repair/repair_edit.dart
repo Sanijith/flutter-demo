@@ -1,9 +1,9 @@
-import 'package:fleetride/first.dart';
-import 'package:fleetride/user/edit.dart';
-import 'package:fleetride/user/login.dart';
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:image_picker/image_picker.dart';
 
 class RepairEdit extends StatefulWidget {
   const RepairEdit({super.key});
@@ -13,6 +13,19 @@ class RepairEdit extends StatefulWidget {
 }
 
 class _RepairEditState extends State<RepairEdit> {
+  File? _imageFile;
+
+  Future<void> _pickImage() async {
+    final picker = ImagePicker();
+    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+
+    if (pickedFile != null) {
+      setState(() {
+        _imageFile = File(pickedFile.path);
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,8 +41,7 @@ class _RepairEditState extends State<RepairEdit> {
                 height: 50,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(40),
-                    color: Colors.lightBlueAccent.shade200
-                ),
+                    color: Colors.lightBlueAccent.shade200),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -44,17 +56,22 @@ class _RepairEditState extends State<RepairEdit> {
                   ],
                 ),
               ),
-              SizedBox(height: 30,),
+              SizedBox(
+                height: 30,
+              ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 25),
                 child: InkWell(
-                  onTap: (){},
-                  child: CircleAvatar(
-                    backgroundColor: Colors.red,
-                    radius: 50,
-                    child: Icon(Icons.person,size: 40,),
-                  ),
-                ),
+                    onTap: _pickImage,
+                    child: _imageFile != null
+                        ? CircleAvatar(
+                            radius: 50,
+                            backgroundImage: FileImage(_imageFile!),
+                          )
+                        : CircleAvatar(
+                            radius: 50,
+                            child: Icon(Icons.image),
+                          )),
               ),
               Padding(
                 padding: const EdgeInsets.fromLTRB(10, 15, 10, 10),
@@ -63,7 +80,7 @@ class _RepairEditState extends State<RepairEdit> {
                     filled: true,
                     fillColor: Colors.white,
                     border: OutlineInputBorder(
-                      borderRadius:BorderRadius.all(Radius.circular(30)),
+                      borderRadius: BorderRadius.all(Radius.circular(30)),
                     ),
                     labelText: "UserName",
                   ),
@@ -71,13 +88,12 @@ class _RepairEditState extends State<RepairEdit> {
               ),
               Padding(
                 padding: const EdgeInsets.all(10),
-                child:
-                TextFormField(
+                child: TextFormField(
                   decoration: const InputDecoration(
                     filled: true,
                     fillColor: Colors.white,
                     border: OutlineInputBorder(
-                      borderRadius:BorderRadius.all(Radius.circular(30)),
+                      borderRadius: BorderRadius.all(Radius.circular(30)),
                     ),
                     labelText: "Email",
                   ),
@@ -90,14 +106,13 @@ class _RepairEditState extends State<RepairEdit> {
                     filled: true,
                     fillColor: Colors.white,
                     border: OutlineInputBorder(
-                      borderRadius:BorderRadius.all(Radius.circular(30)),
+                      borderRadius: BorderRadius.all(Radius.circular(30)),
                     ),
                     labelText: "Phone Number",
                   ),
                 ),
               ),
-              SizedBox(height: MediaQuery.of(context).size.height*.030),
-
+              SizedBox(height: 30),
               InkWell(
                   onTap: () {
                     Navigator.pop(context);
@@ -109,8 +124,7 @@ class _RepairEditState extends State<RepairEdit> {
                         width: 100,
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
-                            color: Colors.green
-                        ),
+                            color: Colors.green),
                         child: Center(
                           child: Text('Save',
                               style: GoogleFonts.ubuntu(

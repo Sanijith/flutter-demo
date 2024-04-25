@@ -55,7 +55,8 @@ class _PoliceLoginState extends State<PoliceLogin> {
             SizedBox(height: 30),
             InkWell(
                 onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=>PoliceHome()));
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => PoliceHome()));
                 },
                 child: Padding(
                   padding: const EdgeInsets.only(bottom: 10),

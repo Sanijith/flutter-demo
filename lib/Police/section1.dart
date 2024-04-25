@@ -15,9 +15,14 @@ class _Section1State extends State<Section1> {
       appBar: AppBar(
         title: const Text('FLEETRIDE'),
         actions: [
-          IconButton(onPressed: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context)=>const PoliceHome()));
-          }, icon: const Icon(Icons.home))
+          IconButton(
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const PoliceHome()));
+              },
+              icon: const Icon(Icons.home))
         ],
         backgroundColor: Colors.white,
       ),
@@ -32,7 +37,10 @@ class _Section1State extends State<Section1> {
               color: Colors.grey,
               child: Column(
                 children: [
-                  const Text('Section',style: TextStyle(fontSize: 30),),
+                  const Text(
+                    'Section',
+                    style: TextStyle(fontSize: 30),
+                  ),
                   const Text('Topic'),
                   const SizedBox(
                     height: 30,

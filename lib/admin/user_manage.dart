@@ -15,9 +15,14 @@ class _UserManageState extends State<UserManage> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         title: const Text('FLEETRIDE'),
-        actions: [IconButton(onPressed: (){
-          Navigator.push(context, MaterialPageRoute(builder: (context)=>const AdminHome()));
-        }, icon: const Icon(Icons.home))],
+        actions: [
+          IconButton(
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => const AdminHome()));
+              },
+              icon: const Icon(Icons.home))
+        ],
       ),
       backgroundColor: Colors.white,
       body: Container(
@@ -27,13 +32,18 @@ class _UserManageState extends State<UserManage> {
               return Card(
                 color: Colors.red.shade50,
                 child: ListTile(
-                    title: Text('User $index'),
-                  trailing: IconButton(onPressed: (){}, icon: const Icon(Icons.delete)),
-                    subtitle:  Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [Text('User Id:'), SizedBox(width: MediaQuery.of(context).size.width*.030), Text('Phone Number:')],
-                    ),
-                   ),
+                  title: Text('User $index'),
+                  trailing: IconButton(
+                      onPressed: () {}, icon: const Icon(Icons.delete)),
+                  subtitle: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('User Id:'),
+                      SizedBox(width: 30),
+                      Text('Phone Number:')
+                    ],
+                  ),
+                ),
               );
             },
             separatorBuilder: (context, index) {

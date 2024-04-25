@@ -1,4 +1,3 @@
-
 import 'package:fleetride/trip_community/trip_comm_home.dart';
 import 'package:fleetride/trip_community/trip_register.dart';
 import 'package:flutter/material.dart';
@@ -17,18 +16,17 @@ class _TripLoginState extends State<TripLogin> {
     return Scaffold(
       body: Container(
         decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage('assets/background.jpeg'),
-            fit: BoxFit.fill,
-          )
-        ),
+            image: DecorationImage(
+          image: AssetImage('assets/background.jpeg'),
+          fit: BoxFit.fill,
+        )),
         padding: const EdgeInsets.all(50),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Text(
               'Login',
-              style: TextStyle(fontSize: 30,fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
             ),
             SizedBox(height: 30),
             TextFormField(
@@ -57,7 +55,10 @@ class _TripLoginState extends State<TripLogin> {
             SizedBox(height: 30),
             InkWell(
                 onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=>TripHomeScreen()));
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => TripHomeScreen()));
                 },
                 child: Padding(
                   padding: const EdgeInsets.only(bottom: 10),
@@ -81,7 +82,10 @@ class _TripLoginState extends State<TripLogin> {
                 const Text('Dont have an accout?'),
                 TextButton(
                     onPressed: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => const TripRegister()));
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const TripRegister()));
                     },
                     child: const Text('SignUp')),
               ],

@@ -1,4 +1,5 @@
 import 'package:fleetride/user/delivery_request.dart';
+import 'package:fleetride/user/event_search1.dart';
 import 'package:fleetride/user/facilty_search1.dart';
 import 'package:fleetride/user/help_line.dart';
 import 'package:fleetride/user/profile.dart';
@@ -100,7 +101,8 @@ class _UserhomeState extends State<Userhome> {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const DeliveryRequest()),
+                  MaterialPageRoute(
+                      builder: (context) => const DeliveryRequest()),
                 );
               },
               child: Container(
@@ -116,7 +118,8 @@ class _UserhomeState extends State<Userhome> {
                       child: Icon(Icons.delivery_dining_outlined, size: 40),
                     ),
                     const SizedBox(height: 10),
-                    Text('Delivery Request', style: TextStyle(color: Colors.white)),
+                    Text('Delivery Request',
+                        style: TextStyle(color: Colors.white)),
                   ],
                 ),
               ),
@@ -125,7 +128,8 @@ class _UserhomeState extends State<Userhome> {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const FacilitySearch1()),
+                  MaterialPageRoute(
+                      builder: (context) => const FacilitySearch1()),
                 );
               },
               child: Container(
@@ -141,7 +145,33 @@ class _UserhomeState extends State<Userhome> {
                       child: Icon(Icons.search, size: 40),
                     ),
                     const SizedBox(height: 10),
-                    Text('Facility Search', style: TextStyle(color: Colors.white)),
+                    Text('Facility Search',
+                        style: TextStyle(color: Colors.white)),
+                  ],
+                ),
+              ),
+            ),
+            GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const EventSearch1()),
+                );
+              },
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.blueGrey,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    CircleAvatar(
+                      radius: 30,
+                      child: Icon(Icons.search, size: 40),
+                    ),
+                    const SizedBox(height: 10),
+                    Text('Event Search', style: TextStyle(color: Colors.white)),
                   ],
                 ),
               ),

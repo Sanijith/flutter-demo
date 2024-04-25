@@ -28,7 +28,8 @@ class _TripHomeScreenState extends State<TripHomeScreen> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const FacilityProfile()),
+                MaterialPageRoute(
+                    builder: (context) => const FacilityProfile()),
               );
             },
             icon: const Icon(Icons.person),
@@ -53,11 +54,12 @@ class _TripHomeScreenState extends State<TripHomeScreen> {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const FacilityDetail()),
+                  MaterialPageRoute(
+                      builder: (context) => const FacilityDetail()),
                 );
               },
               child: Card(
-                  color: Colors.red,
+                color: Colors.red,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [

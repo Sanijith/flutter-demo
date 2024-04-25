@@ -15,9 +15,14 @@ class _ContactManageState extends State<ContactManage> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         title: const Text('FLEETRIDE'),
-        actions: [IconButton(onPressed: (){
-          Navigator.push(context, MaterialPageRoute(builder: (context)=>const AdminHome()));
-        }, icon: const Icon(Icons.home))],
+        actions: [
+          IconButton(
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => const AdminHome()));
+              },
+              icon: const Icon(Icons.home))
+        ],
       ),
       backgroundColor: Colors.white,
       body: Container(
@@ -28,10 +33,11 @@ class _ContactManageState extends State<ContactManage> {
                 color: Colors.red.shade100,
                 child: ListTile(
                   title: Text('Contact $index'),
-                  trailing: IconButton(onPressed: (){}, icon: const Icon(Icons.delete)),
-                  subtitle:  Column(
+                  trailing: IconButton(
+                      onPressed: () {}, icon: const Icon(Icons.delete)),
+                  subtitle: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [SizedBox(width: MediaQuery.of(context).size.width*.030), Text('Phone Number:')],
+                    children: [SizedBox(width: 30), Text('Phone Number:')],
                   ),
                 ),
               );

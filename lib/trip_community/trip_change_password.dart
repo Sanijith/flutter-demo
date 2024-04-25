@@ -5,14 +5,14 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 
-class DriverEdit extends StatefulWidget {
-  const DriverEdit({super.key});
+class TripChangePassword extends StatefulWidget {
+  const TripChangePassword({super.key});
 
   @override
-  State<DriverEdit> createState() => _DriverEditState();
+  State<TripChangePassword> createState() => _TripChangePasswordState();
 }
 
-class _DriverEditState extends State<DriverEdit> {
+class _TripChangePasswordState extends State<TripChangePassword> {
   File? _imageFile;
 
   Future<void> _pickImage() async {
@@ -46,7 +46,7 @@ class _DriverEditState extends State<DriverEdit> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      "Edit Info",
+                      "Change Password",
                       style: GoogleFonts.ubuntu(
                         fontSize: 24,
                         fontWeight: FontWeight.bold,
@@ -60,20 +60,6 @@ class _DriverEditState extends State<DriverEdit> {
                 height: 30,
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 25),
-                child: InkWell(
-                    onTap: _pickImage,
-                    child: _imageFile != null
-                        ? CircleAvatar(
-                            radius: 50,
-                            backgroundImage: FileImage(_imageFile!),
-                          )
-                        : CircleAvatar(
-                            radius: 50,
-                            child: Icon(Icons.image),
-                          )),
-              ),
-              Padding(
                 padding: const EdgeInsets.fromLTRB(10, 15, 10, 10),
                 child: TextFormField(
                   decoration: const InputDecoration(
@@ -82,7 +68,7 @@ class _DriverEditState extends State<DriverEdit> {
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(30)),
                     ),
-                    labelText: "UserName",
+                    labelText: "Current Password",
                   ),
                 ),
               ),
@@ -95,7 +81,7 @@ class _DriverEditState extends State<DriverEdit> {
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(30)),
                     ),
-                    labelText: "Email",
+                    labelText: "New Password",
                   ),
                 ),
               ),
@@ -108,7 +94,7 @@ class _DriverEditState extends State<DriverEdit> {
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(30)),
                     ),
-                    labelText: "Phone Number",
+                    labelText: "Confirm Password",
                   ),
                 ),
               ),

@@ -43,7 +43,7 @@ class _IconButtonTextFieldState extends State<IconButtonTextField> {
               child: TextFormField(
                 controller: _textController,
                 decoration: InputDecoration(
-                  hintText: 'Search Facilities...',
+                  hintText: 'Search Event...',
                 ),
                 onFieldSubmitted: (text) {
                   widget.onSubmit(text);
@@ -58,16 +58,16 @@ class _IconButtonTextFieldState extends State<IconButtonTextField> {
   }
 }
 
-class FacilitySearch1 extends StatefulWidget {
-  const FacilitySearch1({super.key});
+class EventSearch2 extends StatefulWidget {
+  const EventSearch2({super.key});
 
   @override
-  State<FacilitySearch1> createState() => _FacilitySearch1State();
+  State<EventSearch2> createState() => _EventSearch2State();
 }
 
-class _FacilitySearch1State extends State<FacilitySearch1> {
+class _EventSearch2State extends State<EventSearch2> {
   void handleSearch(String text) {
-    print('Searching for facilities: $text');
+    print('Searching for Events: $text');
   }
 
   @override
@@ -99,13 +99,13 @@ class _FacilitySearch1State extends State<FacilitySearch1> {
               return Card(
                 color: Colors.red.shade50,
                 child: ListTile(
-                  title: Text('Facility $index'),
+                  title: Text('Event $index'),
                   subtitle: const Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(' Location:'),
                       SizedBox(width: 30),
-                      Text('Reg Fee:'),
+                      Text('Time:'),
                       SizedBox(width: 30),
                       Text('Phone Number:')
                     ],

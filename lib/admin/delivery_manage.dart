@@ -15,9 +15,14 @@ class _DeliveryManageState extends State<DeliveryManage> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         title: const Text('FLEETRIDE'),
-        actions: [IconButton(onPressed: (){
-          Navigator.push(context, MaterialPageRoute(builder: (context)=>const AdminHome()));
-        }, icon: const Icon(Icons.home))],
+        actions: [
+          IconButton(
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => const AdminHome()));
+              },
+              icon: const Icon(Icons.home))
+        ],
       ),
       backgroundColor: Colors.white,
       body: Container(
@@ -28,10 +33,15 @@ class _DeliveryManageState extends State<DeliveryManage> {
                 color: Colors.red.shade50,
                 child: ListTile(
                   title: Text('Delivery $index'),
-                  trailing: IconButton(onPressed: (){}, icon: const Icon(Icons.delete)),
-                  subtitle:  Column(
+                  trailing: IconButton(
+                      onPressed: () {}, icon: const Icon(Icons.delete)),
+                  subtitle: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [Text('Delivery Id:'), SizedBox(width: MediaQuery.of(context).size.width*.030), Text('Weight')],
+                    children: [
+                      Text('Delivery Id:'),
+                      SizedBox(width: 30),
+                      Text('Weight')
+                    ],
                   ),
                 ),
               );

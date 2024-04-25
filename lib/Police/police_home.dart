@@ -78,7 +78,8 @@ class _PoliceHomeState extends State<PoliceHome> {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const ContactDetail()),
+                  MaterialPageRoute(
+                      builder: (context) => const ContactDetail()),
                 );
               },
               child: Container(

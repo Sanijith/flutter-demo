@@ -16,9 +16,14 @@ class _VehicleIssueState extends State<VehicleIssue> {
         backgroundColor: Colors.white,
         title: const Text('FLEETRIDE'),
         actions: [
-          IconButton(onPressed: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context)=>const RepairHome()));
-          }, icon: const Icon(Icons.home)),
+          IconButton(
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const RepairHome()));
+              },
+              icon: const Icon(Icons.home)),
         ],
       ),
       backgroundColor: Colors.white,
@@ -27,15 +32,16 @@ class _VehicleIssueState extends State<VehicleIssue> {
         child: ListView.separated(
             itemBuilder: (context, index) {
               return Card(
+                color: Colors.red.shade50,
                 child: ListTile(
                   title: Text('Vehicle Issue $index'),
-                  subtitle:  Column(
+                  subtitle: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text('Vehicle No:'),
-                      SizedBox(width:MediaQuery.of(context).size.width*.030),
+                      SizedBox(width: 30),
                       Text('Driver Name:'),
-                      SizedBox(width: MediaQuery.of(context).size.width*.030),
+                      SizedBox(width: 30),
                       Text('Phone Number'),
                     ],
                   ),

@@ -84,7 +84,7 @@ class _DriverReportState extends State<DriverReport> {
                   ),
                 ),
               ),
-              SizedBox(height: MediaQuery.of(context).size.height * .030),
+              SizedBox(height: 30),
               InkWell(
                   onTap: () {},
                   child: Padding(

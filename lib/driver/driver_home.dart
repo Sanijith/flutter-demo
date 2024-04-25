@@ -1,5 +1,6 @@
 import 'package:fleetride/driver/delivery_decision.dart';
 import 'package:fleetride/driver/driver_report.dart';
+import 'package:fleetride/driver/event_search2.dart';
 import 'package:fleetride/driver/facilty_search2.dart';
 import 'package:fleetride/driver/trip_create.dart';
 import 'package:fleetride/driver/trip_request_decision.dart';
@@ -72,7 +73,8 @@ class _DriverHomeState extends State<DriverHome> {
                       child: Icon(CupertinoIcons.car_detailed, size: 40),
                     ),
                     const SizedBox(height: 10),
-                    Text('Set/Create Trip', style: TextStyle(color: Colors.white)),
+                    Text('Set/Create Trip',
+                        style: TextStyle(color: Colors.white)),
                   ],
                 ),
               ),
@@ -81,7 +83,8 @@ class _DriverHomeState extends State<DriverHome> {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const UserTripRequest()),
+                  MaterialPageRoute(
+                      builder: (context) => const UserTripRequest()),
                 );
               },
               child: Container(
@@ -106,7 +109,8 @@ class _DriverHomeState extends State<DriverHome> {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const DeliveryDecision()),
+                  MaterialPageRoute(
+                      builder: (context) => const DeliveryDecision()),
                 );
               },
               child: Container(
@@ -122,7 +126,8 @@ class _DriverHomeState extends State<DriverHome> {
                       child: Icon(Icons.delivery_dining_outlined, size: 40),
                     ),
                     const SizedBox(height: 10),
-                    Text('Delivery Request', style: TextStyle(color: Colors.white)),
+                    Text('Delivery Request',
+                        style: TextStyle(color: Colors.white)),
                   ],
                 ),
               ),
@@ -131,7 +136,8 @@ class _DriverHomeState extends State<DriverHome> {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const FacilitySearch2()),
+                  MaterialPageRoute(
+                      builder: (context) => const FacilitySearch2()),
                 );
               },
               child: Container(
@@ -147,7 +153,33 @@ class _DriverHomeState extends State<DriverHome> {
                       child: Icon(Icons.search, size: 40),
                     ),
                     const SizedBox(height: 10),
-                    Text('Facility Search', style: TextStyle(color: Colors.white)),
+                    Text('Facility Search',
+                        style: TextStyle(color: Colors.white)),
+                  ],
+                ),
+              ),
+            ),
+            GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const EventSearch2()),
+                );
+              },
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.blueGrey,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    CircleAvatar(
+                      radius: 30,
+                      child: Icon(Icons.search, size: 40),
+                    ),
+                    const SizedBox(height: 10),
+                    Text(' Search Events', style: TextStyle(color: Colors.white)),
                   ],
                 ),
               ),
@@ -208,4 +240,3 @@ class _DriverHomeState extends State<DriverHome> {
     );
   }
 }
-

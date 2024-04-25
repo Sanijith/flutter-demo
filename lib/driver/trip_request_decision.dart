@@ -38,9 +38,9 @@ class _UserTripRequestState extends State<UserTripRequest> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text('User Name:'),
-                      SizedBox(height: MediaQuery.of(context).size.height*.030),
+                      SizedBox(height: 30),
                       Text('Phone Number'),
-                      SizedBox(height: MediaQuery.of(context).size.height*.030),
+                      SizedBox(height: 30),
                       Row(
                         children: [
                           ElevatedButton(
@@ -50,7 +50,7 @@ class _UserTripRequestState extends State<UserTripRequest> {
                               backgroundColor: Colors.lightGreenAccent,
                             ),
                           ),
-                          SizedBox(width: MediaQuery.of(context).size.width*.030),
+                          SizedBox(width: 30),
                           ElevatedButton(
                             onPressed: () {},
                             child: const Text('Reject'),

@@ -14,33 +14,39 @@ class _HelpLineState extends State<HelpLine> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('FLEETRIDE'),
-        actions: [IconButton(onPressed: (){
-          Navigator.push(context, MaterialPageRoute(builder: (context)=>Userhome()));
-        }, icon: const Icon(Icons.home))],
+        actions: [
+          IconButton(
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => Userhome()));
+              },
+              icon: const Icon(Icons.home))
+        ],
       ),
       body: Container(
         padding: const EdgeInsets.symmetric(horizontal: 40),
-          child: ListView.separated(itemBuilder: (context, index) {
-            return Card(
-              color: Colors.white,
-              child: ListTile(
-                title: Text('Contact $index'),
-                trailing: IconButton(onPressed: (){}, icon:Icon(Icons.phone)),
-              
-                subtitle: const Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text('Phone Number:'),
-                  ],
+        child: ListView.separated(
+            itemBuilder: (context, index) {
+              return Card(
+                color: Colors.red.shade50,
+                child: ListTile(
+                  title: Text('Contact $index'),
+                  trailing:
+                      IconButton(onPressed: () {}, icon: Icon(Icons.phone)),
+                  subtitle: const Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('Phone Number:'),
+                    ],
+                  ),
                 ),
-              ),
-            );
-          },
-              separatorBuilder: (context, index){
-                return const Divider();
-              },
-              itemCount: 5),
-        ),
-      );
+              );
+            },
+            separatorBuilder: (context, index) {
+              return const Divider();
+            },
+            itemCount: 5),
+      ),
+    );
   }
 }

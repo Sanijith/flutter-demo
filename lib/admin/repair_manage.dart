@@ -15,9 +15,14 @@ class _RepairManageState extends State<RepairManage> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         title: const Text('FLEETRIDE'),
-        actions: [IconButton(onPressed: (){
-          Navigator.push(context, MaterialPageRoute(builder: (context)=>const AdminHome()));
-        }, icon: const Icon(Icons.home))],
+        actions: [
+          IconButton(
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => const AdminHome()));
+              },
+              icon: const Icon(Icons.home))
+        ],
       ),
       backgroundColor: Colors.white,
       body: Container(
@@ -28,12 +33,13 @@ class _RepairManageState extends State<RepairManage> {
                 color: Colors.red.shade50,
                 child: ListTile(
                   title: Text('Repair Name $index'),
-                  trailing: IconButton(onPressed: (){}, icon: const Icon(Icons.delete)),
-                  subtitle:  Column(
+                  trailing: IconButton(
+                      onPressed: () {}, icon: const Icon(Icons.delete)),
+                  subtitle: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text('Repair Id:'),
-                      SizedBox(width: MediaQuery.of(context).size.width*.030),
+                      SizedBox(width: 30),
                       Text('Phone Number:')
                     ],
                   ),

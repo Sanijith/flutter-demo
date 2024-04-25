@@ -11,6 +11,7 @@ class ContactDetail extends StatefulWidget {
 
 class _ContactDetailState extends State<ContactDetail> {
   int _itemCount = 0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,12 +38,9 @@ class _ContactDetailState extends State<ContactDetail> {
                 color: Colors.red.shade50,
                 child: ListTile(
                   title: Text('Contact $index'),
-                  subtitle:  Column(
+                  subtitle: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(width: MediaQuery.of(context).size.width*.030),
-                      Text('Phone Number:')
-                    ],
+                    children: [SizedBox(width: 30), Text('Phone Number:')],
                   ),
                 ),
               );
@@ -53,24 +51,20 @@ class _ContactDetailState extends State<ContactDetail> {
             itemCount: _itemCount),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: ()async{
-          Navigator.push(context, MaterialPageRoute(builder: (context)=>EditContactPage()));
-          final result = await Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => EditContactPage()),
-          );
-          if (result != null && result is int) {
-            setState(() {
-              _itemCount = result; // Update _itemCount with the result
-            });
-          }
+        onPressed: () async {
+          setState(() {
+            _itemCount++;
+          });
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => EditContactPage()));
         },
-        tooltip:'Add',
+        tooltip: 'Add',
         child: const Icon(Icons.add),
       ),
     );
   }
 }
+
 class EditContactPage extends StatefulWidget {
   const EditContactPage({super.key});
 
@@ -82,8 +76,7 @@ class _EditContactPageState extends State<EditContactPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-      ),
+      appBar: AppBar(),
       body: SingleChildScrollView(
         child: Container(
           padding: EdgeInsets.all(40),
@@ -93,8 +86,7 @@ class _EditContactPageState extends State<EditContactPage> {
                 height: 50,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(40),
-                    color: Colors.lightBlueAccent.shade200
-                ),
+                    color: Colors.lightBlueAccent.shade200),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -109,16 +101,17 @@ class _EditContactPageState extends State<EditContactPage> {
                   ],
                 ),
               ),
-              SizedBox(height: 30,),
+              SizedBox(
+                height: 30,
+              ),
               Padding(
                 padding: const EdgeInsets.all(10),
-                child:
-                TextFormField(
+                child: TextFormField(
                   decoration: const InputDecoration(
                     filled: true,
                     fillColor: Colors.white,
                     border: OutlineInputBorder(
-                      borderRadius:BorderRadius.all(Radius.circular(30)),
+                      borderRadius: BorderRadius.all(Radius.circular(30)),
                     ),
                     labelText: "Contact Name",
                   ),
@@ -131,14 +124,13 @@ class _EditContactPageState extends State<EditContactPage> {
                     filled: true,
                     fillColor: Colors.white,
                     border: OutlineInputBorder(
-                      borderRadius:BorderRadius.all(Radius.circular(30)),
+                      borderRadius: BorderRadius.all(Radius.circular(30)),
                     ),
                     labelText: "Phone Number",
                   ),
                 ),
               ),
-              SizedBox(height: MediaQuery.of(context).size.height*.030),
-
+              SizedBox(height: 30),
               InkWell(
                   onTap: () {
                     Navigator.pop(context);
@@ -150,8 +142,7 @@ class _EditContactPageState extends State<EditContactPage> {
                         width: 150,
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
-                            color: Colors.green
-                        ),
+                            color: Colors.green),
                         child: Center(
                           child: Text('Save',
                               style: GoogleFonts.ubuntu(
@@ -167,4 +158,3 @@ class _EditContactPageState extends State<EditContactPage> {
     );
   }
 }
-

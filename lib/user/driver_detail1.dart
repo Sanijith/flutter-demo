@@ -15,9 +15,12 @@ class _DriverDetail1State extends State<DriverDetail1> {
       appBar: AppBar(
         title: const Text('FLEETRIDE'),
         actions: [
-          IconButton(onPressed: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context)=>const Userhome()));
-          }, icon: const Icon(Icons.home))
+          IconButton(
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => const Userhome()));
+              },
+              icon: const Icon(Icons.home))
         ],
         backgroundColor: Colors.blueAccent,
       ),
@@ -32,14 +35,18 @@ class _DriverDetail1State extends State<DriverDetail1> {
               color: Colors.white,
               child: Column(
                 children: [
-                  const Text('Driver',style: TextStyle(fontSize: 30),),
+                  const Text(
+                    'Driver',
+                    style: TextStyle(fontSize: 30),
+                  ),
                   const Text('Trip Id'),
-                  SizedBox(height: MediaQuery.of(context).size.height*.030),
+                  SizedBox(height: MediaQuery.of(context).size.height * .030),
                   const Text('From'),
-                  SizedBox(height: MediaQuery.of(context).size.height*.030),
+                  SizedBox(height: MediaQuery.of(context).size.height * .030),
                   const Text('To'),
-                  SizedBox(height: MediaQuery.of(context).size.height*.030),
-                  ElevatedButton(onPressed: () {}, child: const Text('Trip Request')),
+                  SizedBox(height: MediaQuery.of(context).size.height * .030),
+                  ElevatedButton(
+                      onPressed: () {}, child: const Text('Trip Request')),
                 ],
               ),
             ),

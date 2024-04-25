@@ -39,9 +39,9 @@ class _EventManageState extends State<EventManage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text('Location:'),
-                      SizedBox(width: MediaQuery.of(context).size.width * .030),
+                      SizedBox(width: 30),
                       Text('Time:'),
-                      SizedBox(width: MediaQuery.of(context).size.width * .030),
+                      SizedBox(width: 30),
                       Text('Phone Number:')
                     ],
                   ),

@@ -1,4 +1,5 @@
 import 'package:fleetride/first.dart';
+import 'package:fleetride/user/change_password.dart';
 import 'package:fleetride/user/edit.dart';
 import 'package:fleetride/user/login.dart';
 import 'package:flutter/cupertino.dart';
@@ -27,8 +28,7 @@ class _ProfileState extends State<Profile> {
               height: 150,
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(40),
-                  color: Colors.lightBlueAccent.shade200
-              ),
+                  color: Colors.lightBlueAccent.shade200),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -39,7 +39,10 @@ class _ProfileState extends State<Profile> {
                         child: CircleAvatar(
                           backgroundColor: Colors.red,
                           radius: 30,
-                          child: Icon(Icons.person,size: 40,),
+                          child: Icon(
+                            Icons.person,
+                            size: 40,
+                          ),
                         ),
                       ),
                       Text(
@@ -79,8 +82,7 @@ class _ProfileState extends State<Profile> {
                   leading: Icon(Icons.email),
                   trailing: Text(
                     "example@gmail.com",
-                    style: TextStyle(
-                        fontSize: 15),
+                    style: TextStyle(fontSize: 15),
                   ),
                 ),
               ),
@@ -103,7 +105,28 @@ class _ProfileState extends State<Profile> {
             SizedBox(
               height: 50,
             ),
-
+            InkWell(
+                onTap: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => ChangePassword()));
+                },
+                child: Padding(
+                  padding: const EdgeInsets.only(bottom: 10),
+                  child: Container(
+                      height: 53,
+                      width: 200,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: Colors.grey),
+                      child: Center(
+                        child: Text('Change Password',
+                            style: GoogleFonts.ubuntu(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white)),
+                      )),
+                )),
+            SizedBox(height: 30,),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -119,8 +142,7 @@ class _ProfileState extends State<Profile> {
                           width: 100,
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10),
-                              color: Colors.green
-                          ),
+                              color: Colors.green),
                           child: Center(
                             child: Text('Edit',
                                 style: GoogleFonts.ubuntu(
@@ -129,7 +151,9 @@ class _ProfileState extends State<Profile> {
                                     color: Colors.white)),
                           )),
                     )),
-                SizedBox(width: 30,),
+                SizedBox(
+                  width: 30,
+                ),
                 InkWell(
                     onTap: () {
                       Navigator.push(context,
@@ -142,8 +166,7 @@ class _ProfileState extends State<Profile> {
                           width: 100,
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10),
-                              color: Colors.redAccent
-                          ),
+                              color: Colors.redAccent),
                           child: Center(
                             child: Text('Logout',
                                 style: GoogleFonts.ubuntu(

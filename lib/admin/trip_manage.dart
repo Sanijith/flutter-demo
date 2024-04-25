@@ -15,9 +15,14 @@ class _TripManageState extends State<TripManage> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         title: const Text('FLEETRIDE'),
-        actions: [IconButton(onPressed: (){
-          Navigator.push(context, MaterialPageRoute(builder: (context)=>const AdminHome()));
-        }, icon:const Icon(Icons.home))],
+        actions: [
+          IconButton(
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => const AdminHome()));
+              },
+              icon: const Icon(Icons.home))
+        ],
       ),
       backgroundColor: Colors.white,
       body: Container(
@@ -28,7 +33,8 @@ class _TripManageState extends State<TripManage> {
                 color: Colors.red.shade50,
                 child: ListTile(
                   title: Text('Trip $index'),
-                  trailing: IconButton(onPressed: (){}, icon:const Icon(Icons.delete)),
+                  trailing: IconButton(
+                      onPressed: () {}, icon: const Icon(Icons.delete)),
                   subtitle: const Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [

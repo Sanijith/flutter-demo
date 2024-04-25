@@ -112,7 +112,7 @@ class _EditState extends State<Edit> {
                   ),
                 ),
               ),
-              SizedBox(height: MediaQuery.of(context).size.height * .030),
+              SizedBox(height: 30),
               InkWell(
                   onTap: () {
                     Navigator.pop(context);
