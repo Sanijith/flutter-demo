@@ -31,7 +31,7 @@ class _DriverReportState extends State<DriverReport> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      "Trip Request",
+                      "Report Issue",
                       style: GoogleFonts.ubuntu(
                         fontSize: 24,
                         fontWeight: FontWeight.bold,

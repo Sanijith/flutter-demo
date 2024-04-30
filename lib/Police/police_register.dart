@@ -35,7 +35,7 @@ class _PoliceRegisterState extends State<PoliceRegister> {
                 filled: true,
                 fillColor: Colors.white,
                 border: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(50))),
+                    borderRadius: BorderRadius.all(Radius.circular(15))),
                 icon: Icon(Icons.person),
                 hintText: "Username",
               ),
@@ -46,7 +46,7 @@ class _PoliceRegisterState extends State<PoliceRegister> {
                 filled: true,
                 fillColor: Colors.white,
                 border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(50),
+                  borderRadius: BorderRadius.circular(15),
                 ),
                 icon: const Icon(Icons.lock),
                 hintText: "Password",
@@ -58,7 +58,7 @@ class _PoliceRegisterState extends State<PoliceRegister> {
                 filled: true,
                 fillColor: Colors.white,
                 border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(50),
+                  borderRadius: BorderRadius.circular(15),
                 ),
                 icon: const Icon(Icons.email),
                 hintText: "Email",
@@ -70,7 +70,7 @@ class _PoliceRegisterState extends State<PoliceRegister> {
                 filled: true,
                 fillColor: Colors.white,
                 border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(50),
+                  borderRadius: BorderRadius.circular(15),
                 ),
                 icon: const Icon(Icons.phone),
                 hintText: "Phone Number",

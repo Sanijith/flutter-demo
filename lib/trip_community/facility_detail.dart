@@ -105,6 +105,7 @@ class _EditFacilityPageState extends State<EditFacilityPage> {
         child: Container(
           padding: EdgeInsets.all(40),
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Container(
                 height: 50,

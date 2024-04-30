@@ -33,7 +33,7 @@ class _AdminLoginState extends State<AdminLogin> {
                 filled: true,
                 fillColor: Colors.white,
                 border: OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(30.0)),
+                  borderRadius: BorderRadius.all(Radius.circular(15.0)),
                 ),
                 icon: Icon(Icons.email_outlined),
                 hintText: "Email",
@@ -45,7 +45,7 @@ class _AdminLoginState extends State<AdminLogin> {
                 filled: true,
                 fillColor: Colors.white,
                 border: OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(30.0)),
+                  borderRadius: BorderRadius.all(Radius.circular(15.0)),
                 ),
                 icon: Icon(Icons.lock),
                 hintText: "Password",

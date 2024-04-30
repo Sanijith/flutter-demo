@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "1047377611042",
+    "firebase_url": "https://fleetride-58204-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "fleetride-58204",
+    "storage_bucket": "fleetride-58204.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1047377611042:android:dee9c600e849c20bb77d7b",
+        "android_client_info": {
+          "package_name": "com.example.fleetride"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAcskvIH4Tq89AACDUk1rcaRtmJ2YxNPHU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

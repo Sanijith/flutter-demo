@@ -34,7 +34,7 @@ class _PoliceLoginState extends State<PoliceLogin> {
                 filled: true,
                 fillColor: Colors.white,
                 border: OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(30.0)),
+                  borderRadius: BorderRadius.all(Radius.circular(15.0)),
                 ),
                 icon: Icon(Icons.email_outlined),
                 hintText: "Email",
@@ -46,7 +46,7 @@ class _PoliceLoginState extends State<PoliceLogin> {
                 filled: true,
                 fillColor: Colors.white,
                 border: OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(30.0)),
+                  borderRadius: BorderRadius.all(Radius.circular(15.0)),
                 ),
                 icon: Icon(Icons.lock),
                 hintText: "Password",
