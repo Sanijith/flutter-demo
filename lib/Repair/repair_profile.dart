@@ -19,9 +19,6 @@ class _RepairProfileState extends State<RepairProfile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.lightBlueAccent.shade100,
-      ),
       body: Container(
         padding: EdgeInsets.all(40),
         child: Column(
@@ -109,8 +106,10 @@ class _RepairProfileState extends State<RepairProfile> {
             ),
             InkWell(
                 onTap: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => RepairChangePassword()));
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => RepairChangePassword()));
                 },
                 child: Padding(
                   padding: const EdgeInsets.only(bottom: 10),

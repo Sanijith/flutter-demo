@@ -1,5 +1,4 @@
 import 'package:fleetride/Repair/repair_home.dart';
-import 'package:fleetride/week.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -151,20 +150,21 @@ class _EditRepairPageState extends State<EditRepairPage> {
                 padding: const EdgeInsets.all(10),
                 child: TextFormField(
                   decoration: InputDecoration(
-                      filled: true,
-                      fillColor: Colors.white,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(30)),
-                      ),
-                      labelText: "Schedule",
-                      suffixIcon: IconButton(
-                          onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => DayPicker()));
-                          },
-                          icon: Icon(Icons.calendar_month_outlined))),
+                    filled: true,
+                    fillColor: Colors.white,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(30)),
+                    ),
+                    labelText: "Location",
+                    // suffixIcon: IconButton(
+                    //     onPressed: () {
+                    //       Navigator.push(
+                    //           context,
+                    //           MaterialPageRoute(
+                    //               builder: (context) => DayPicker()));
+                    //     },
+                    //     icon: Icon(Icons.calendar_month_outlined))),
+                  ),
                 ),
               ),
               Padding(

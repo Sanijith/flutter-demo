@@ -19,9 +19,6 @@ class _PoliceProfileState extends State<PoliceProfile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.lightBlueAccent.shade100,
-      ),
       body: Container(
         padding: EdgeInsets.all(40),
         child: Column(

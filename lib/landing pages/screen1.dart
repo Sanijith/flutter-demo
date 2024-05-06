@@ -56,25 +56,25 @@ class _LandingPageState extends State<LandingPage> {
                 ),
               ],
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Card(
-                  child: TextButton(
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const PoliceLogin()));
-                      },
-                      child: const Text(
-                        'Police',
-                        style: TextStyle(
-                            fontSize: 15, fontWeight: FontWeight.bold),
-                      )),
-                ),
-              ],
-            ),
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.end,
+            //   children: [
+            //     Card(
+            //       child: TextButton(
+            //           onPressed: () {
+            //             Navigator.push(
+            //                 context,
+            //                 MaterialPageRoute(
+            //                     builder: (context) => const PoliceLogin()));
+            //           },
+            //           child: const Text(
+            //             'Police',
+            //             style: TextStyle(
+            //                 fontSize: 15, fontWeight: FontWeight.bold),
+            //           )),
+            //     ),
+            //   ],
+            // ),
             SizedBox(height: 120),
             const Text(
               'Select User Type',

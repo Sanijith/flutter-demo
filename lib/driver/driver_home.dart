@@ -2,6 +2,7 @@ import 'package:fleetride/driver/delivery_decision.dart';
 import 'package:fleetride/driver/driver_report.dart';
 import 'package:fleetride/driver/event_search2.dart';
 import 'package:fleetride/driver/facilty_search2.dart';
+import 'package:fleetride/driver/my_trip.dart';
 import 'package:fleetride/driver/trip_create.dart';
 import 'package:fleetride/driver/trip_request_decision.dart';
 import 'package:fleetride/user/profile.dart';
@@ -74,6 +75,32 @@ class _DriverHomeState extends State<DriverHome> {
                     ),
                     const SizedBox(height: 10),
                     Text('Set/Create Trip',
+                        style: TextStyle(color: Colors.white)),
+                  ],
+                ),
+              ),
+            ),
+            GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const MyTrip()),
+                );
+              },
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Color.fromRGBO(84, 194, 194, 100),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    CircleAvatar(
+                      radius: 30,
+                      child: Icon(CupertinoIcons.car_detailed, size: 40),
+                    ),
+                    const SizedBox(height: 10),
+                    Text('My Trips',
                         style: TextStyle(color: Colors.white)),
                   ],
                 ),
