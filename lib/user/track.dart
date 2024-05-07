@@ -1,6 +1,3 @@
-import 'package:fleetride/first.dart';
-import 'package:fleetride/user/edit.dart';
-import 'package:fleetride/user/login.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';

@@ -70,6 +70,7 @@ class _RegisterState extends State<Register> {
                 ),
                 SizedBox(height: 20),
                 TextFormField(
+                  obscureText: true,
                   controller: password,
                   validator: (value){
                     if(value!.isEmpty){

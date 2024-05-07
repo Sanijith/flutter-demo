@@ -87,6 +87,7 @@ class _RepairLoginState extends State<RepairLogin> {
                 ),
                 SizedBox(height: 30),
                 TextFormField(
+                  obscureText: true,
                   controller: password,
                   validator: (value) {
                     if (value!.isEmpty) {

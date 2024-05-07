@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fleetride/Repair/repair_home.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -32,7 +33,7 @@ class _RepairNamesState extends State<RepairNames> {
       backgroundColor: Colors.white,
       body: Container(
         padding: const EdgeInsets.symmetric(horizontal: 40),
-        child: ListView.separated(
+        child: ListView.builder(
             itemBuilder: (context, index) {
               return Card(
                 color: Colors.red.shade50,
@@ -74,9 +75,9 @@ class _RepairNamesState extends State<RepairNames> {
                 ),
               );
             },
-            separatorBuilder: (context, index) {
-              return const Divider();
-            },
+            // separatorBuilder: (context, index) {
+            //   return const Divider();
+            // },
             itemCount: _itemcount),
       ),
       floatingActionButton: FloatingActionButton(
@@ -102,106 +103,145 @@ class EditRepairPage extends StatefulWidget {
 }
 
 class _EditRepairPageState extends State<EditRepairPage> {
+  final formKey=GlobalKey<FormState>();
+  var name=TextEditingController();
+  var location=TextEditingController();
+  var phone=TextEditingController();
+
+  Future<dynamic>Repair()async{
+    await FirebaseFirestore.instance.collection("RepairList").add({
+      "Repair Name":name.text,
+      "Location":location.text,
+      "Phone Number":phone.text,
+    });
+    print('done');
+    Navigator.pop(context);
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(),
-      body: SingleChildScrollView(
-        child: Container(
-          padding: EdgeInsets.all(40),
-          child: Column(
-            children: [
-              Container(
-                height: 50,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(40),
-                    color: Colors.lightBlueAccent.shade200),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      "Add Repair",
-                      style: GoogleFonts.ubuntu(
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
+    return Form(
+      key: formKey,
+      child: Scaffold(
+        appBar: AppBar(),
+        body: SingleChildScrollView(
+          child: Container(
+            padding: EdgeInsets.all(40),
+            child: Column(
+              children: [
+                Container(
+                  height: 50,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(40),
+                      color: Colors.lightBlueAccent.shade200),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "Add Repair",
+                        style: GoogleFonts.ubuntu(
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(
-                height: 30,
-              ),
-              Padding(
-                padding: const EdgeInsets.all(10),
-                child: TextFormField(
-                  decoration: const InputDecoration(
-                    filled: true,
-                    fillColor: Colors.white,
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(30)),
-                    ),
-                    labelText: "Name",
+                    ],
                   ),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(10),
-                child: TextFormField(
-                  decoration: InputDecoration(
-                    filled: true,
-                    fillColor: Colors.white,
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(30)),
+                SizedBox(
+                  height: 30,
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: TextFormField(
+                    controller: name,
+                    validator: (value){
+                      if(value!.isEmpty){
+                        return "Empty Name!";
+                      }
+                    },
+                    decoration: const InputDecoration(
+                      filled: true,
+                      fillColor: Colors.white,
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(30)),
+                      ),
+                      labelText: "Name",
                     ),
-                    labelText: "Location",
-                    // suffixIcon: IconButton(
-                    //     onPressed: () {
-                    //       Navigator.push(
-                    //           context,
-                    //           MaterialPageRoute(
-                    //               builder: (context) => DayPicker()));
-                    //     },
-                    //     icon: Icon(Icons.calendar_month_outlined))),
                   ),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(10),
-                child: TextFormField(
-                  decoration: const InputDecoration(
-                    filled: true,
-                    fillColor: Colors.white,
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(30)),
+                Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: TextFormField(
+                    controller: location,
+                    validator: (value){
+                      if(value!.isEmpty){
+                        return "Empty Location!";
+                      }
+                    },
+                    decoration: InputDecoration(
+                      filled: true,
+                      fillColor: Colors.white,
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(30)),
+                      ),
+                      labelText: "Location",
+                      // suffixIcon: IconButton(
+                      //     onPressed: () {
+                      //       Navigator.push(
+                      //           context,
+                      //           MaterialPageRoute(
+                      //               builder: (context) => DayPicker()));
+                      //     },
+                      //     icon: Icon(Icons.calendar_month_outlined))),
                     ),
-                    labelText: "Phone Number",
                   ),
                 ),
-              ),
-              SizedBox(height: 30),
-              InkWell(
-                  onTap: () {
-                    Navigator.pop(context);
-                  },
-                  child: Padding(
-                    padding: const EdgeInsets.only(bottom: 10),
-                    child: Container(
-                        height: 53,
-                        width: 150,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            color: Colors.green),
-                        child: Center(
-                          child: Text('Save',
-                              style: GoogleFonts.ubuntu(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white)),
-                        )),
-                  )),
-            ],
+                Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: TextFormField(
+                    controller: phone,
+                    validator: (value){
+                      if(value!.isEmpty){
+                        return "Empty Phone Number!";
+                      }
+                    },
+                    decoration: const InputDecoration(
+                      filled: true,
+                      fillColor: Colors.white,
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(30)),
+                      ),
+                      labelText: "Phone Number",
+                    ),
+                  ),
+                ),
+                SizedBox(height: 30),
+                InkWell(
+                    onTap: () {
+                      if (formKey.currentState!.validate())
+                      {
+                        Repair();
+                      }
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.only(bottom: 10),
+                      child: Container(
+                          height: 53,
+                          width: 150,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color: Colors.green),
+                          child: Center(
+                            child: Text('Save',
+                                style: GoogleFonts.ubuntu(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white)),
+                          )),
+                    )),
+              ],
+            ),
           ),
         ),
       ),

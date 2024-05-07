@@ -74,6 +74,7 @@ class _RepairRegisterState extends State<RepairRegister> {
                 ),
                 SizedBox(height: 20),
                 TextFormField(
+                  obscureText: true,
                   controller: password,
                   validator: (value){
                     if(value!.isEmpty){

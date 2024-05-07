@@ -76,6 +76,7 @@ class _TripRegisterState extends State<TripRegister> {
                 ),
                 SizedBox(height: 20),
                 TextFormField(
+                  obscureText: true,
                   controller: password,
                   validator: (value){
                     if(value!.isEmpty){

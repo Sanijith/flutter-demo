@@ -87,6 +87,7 @@ class _TripLoginState extends State<TripLogin> {
                 ),
                 SizedBox(height: 30),
                 TextFormField(
+                  obscureText: true,
                   controller: password,
                   validator: (value){
                     if(value!.isEmpty){

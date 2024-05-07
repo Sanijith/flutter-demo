@@ -14,6 +14,9 @@ class TripRequest extends StatefulWidget {
 }
 
 class _TripRequestState extends State<TripRequest> {
+  final formKey=GlobalKey<FormState>();
+  var from=TextEditingController();
+  var to=TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,6 +51,7 @@ class _TripRequestState extends State<TripRequest> {
               Padding(
                 padding: const EdgeInsets.all(10),
                 child: TextFormField(
+                  controller: from,
                   decoration: const InputDecoration(
                     filled: true,
                     fillColor: Colors.white,
@@ -61,6 +65,7 @@ class _TripRequestState extends State<TripRequest> {
               Padding(
                 padding: const EdgeInsets.all(10),
                 child: TextFormField(
+                  controller: to,
                   decoration: const InputDecoration(
                     filled: true,
                     fillColor: Colors.white,
