@@ -2,14 +2,14 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fleetride/admin/admin_home.dart';
 import 'package:flutter/material.dart';
 
-class UserManage extends StatefulWidget {
-  const UserManage({super.key});
+class CommunityManage extends StatefulWidget {
+  const CommunityManage({super.key});
 
   @override
-  State<UserManage> createState() => _UserManageState();
+  State<CommunityManage> createState() => _CommunityManageState();
 }
 
-class _UserManageState extends State<UserManage> {
+class _CommunityManageState extends State<CommunityManage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,38 +27,37 @@ class _UserManageState extends State<UserManage> {
       ),
       backgroundColor: Colors.white,
       body: FutureBuilder(
-        future: FirebaseFirestore.instance.collection("UserRegister").get(),
+        future: FirebaseFirestore.instance.collection("CommunityRegister").get(),
         builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
+          if(snapshot.connectionState ==ConnectionState.waiting){
             return Center(child: CircularProgressIndicator());
           }
-          if (snapshot.hasError) {
+          if(snapshot.hasError){
             return Center(
               child: Text("Error:${snapshot.error}"),
             );
           }
-          final user = snapshot.data?.docs ?? [];
+          final community =snapshot.data?.docs ?? [];
           return ListView.builder(
               itemBuilder: (context, index) {
                 return Card(
                   color: Colors.red.shade50,
                   child: ListTile(
-                    title: Text(user[index]["Username"]),
+                    title: Text(community[index]["UserName"]),
                     trailing: IconButton(
                         onPressed: () {
-                         setState(() {
-                           FirebaseFirestore.instance
-                               .collection("UserRegister")
-                               .doc(user[index].id)
-                               .delete();
-                         });
-                        },
-                        icon: const Icon(Icons.delete)),
+                          setState(() {
+                            FirebaseFirestore.instance
+                                .collection("CommunityRegister")
+                                .doc(community[index].id)
+                                .delete();
+                          });
+                        }, icon: const Icon(Icons.delete)),
                     subtitle: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(user[index]["Email"]),
-                        Text(user[index]["Phone Number"])
+                        Text(community[index]["Email"]),
+                        Text(community[index]["Phone Number"])
                       ],
                     ),
                   ),
@@ -67,7 +66,7 @@ class _UserManageState extends State<UserManage> {
               // separatorBuilder: (context, index) {
               //   return const Divider();
               // },
-              itemCount: user.length);
+              itemCount: community.length);
         },
       ),
     );

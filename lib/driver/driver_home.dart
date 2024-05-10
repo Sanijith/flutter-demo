@@ -1,4 +1,5 @@
 import 'package:fleetride/driver/delivery_decision.dart';
+import 'package:fleetride/driver/driver_profile.dart';
 import 'package:fleetride/driver/driver_report.dart';
 import 'package:fleetride/driver/event_search2.dart';
 import 'package:fleetride/driver/facilty_search2.dart';
@@ -33,7 +34,7 @@ class _DriverHomeState extends State<DriverHome> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const Profile()),
+                MaterialPageRoute(builder: (context) => const DriverProfile()),
               );
             },
             icon: const Icon(Icons.person),

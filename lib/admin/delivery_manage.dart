@@ -27,7 +27,7 @@ class _DeliveryManageState extends State<DeliveryManage> {
       backgroundColor: Colors.white,
       body: Container(
         padding: const EdgeInsets.symmetric(horizontal: 40),
-        child: ListView.separated(
+        child: ListView.builder(
             itemBuilder: (context, index) {
               return Card(
                 color: Colors.red.shade50,
@@ -46,9 +46,9 @@ class _DeliveryManageState extends State<DeliveryManage> {
                 ),
               );
             },
-            separatorBuilder: (context, index) {
-              return const Divider();
-            },
+            // separatorBuilder: (context, index) {
+            //   return const Divider();
+            // },
             itemCount: 5),
       ),
     );

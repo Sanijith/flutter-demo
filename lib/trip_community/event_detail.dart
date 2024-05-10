@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fleetride/trip_community/edit_event_detail.dart';
 import 'package:fleetride/trip_community/trip_comm_home.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -80,7 +81,7 @@ class _EventDetailState extends State<EventDetail> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.push(context,
-              MaterialPageRoute(builder: (context) => EditEventPage()));
+              MaterialPageRoute(builder: (context) => AddEventPage()));
           setState(() {
             _itemcount++; // Increase item count on FAB press
           });
@@ -91,14 +92,14 @@ class _EventDetailState extends State<EventDetail> {
   }
 }
 
-class EditEventPage extends StatefulWidget {
-  const EditEventPage({super.key});
+class AddEventPage extends StatefulWidget {
+  const AddEventPage({super.key});
 
   @override
-  State<EditEventPage> createState() => _EditEventPageState();
+  State<AddEventPage> createState() => _AddEventPageState();
 }
 
-class _EditEventPageState extends State<EditEventPage> {
+class _AddEventPageState extends State<AddEventPage> {
   final formKey = GlobalKey<FormState>();
   var eventname = TextEditingController();
   var location = TextEditingController();

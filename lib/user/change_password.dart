@@ -25,17 +25,23 @@ class _ChangePasswordState extends State<ChangePassword> {
       });
     }
   }
+  final formKey=GlobalKey<FormState>();
+  var currentPassword=TextEditingController();
+  var newPassword=TextEditingController();
+  var confirmPassword=TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.lightBlueAccent.shade100,
-      ),
-      body: SingleChildScrollView(
-        child: Container(
+    return Form(
+      key: formKey,
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: Colors.lightBlueAccent.shade100,
+        ),
+        body: Container(
           padding: EdgeInsets.all(40),
-          child: Column(
+          child: ListView(
+            physics: NeverScrollableScrollPhysics(),
             children: [
               Container(
                 height: 50,
@@ -62,6 +68,12 @@ class _ChangePasswordState extends State<ChangePassword> {
               Padding(
                 padding: const EdgeInsets.fromLTRB(10, 15, 10, 10),
                 child: TextFormField(
+                  controller: currentPassword,
+                  validator: (value){
+                    if(value!.isEmpty){
+                      return "Empty Password!";
+                    }
+                  },
                   decoration: const InputDecoration(
                     filled: true,
                     fillColor: Colors.white,
@@ -75,6 +87,12 @@ class _ChangePasswordState extends State<ChangePassword> {
               Padding(
                 padding: const EdgeInsets.all(10),
                 child: TextFormField(
+                  controller: newPassword,
+                  validator: (value){
+                    if(value!.isEmpty){
+                      return "Empty Password!";
+                    }
+                  },
                   decoration: const InputDecoration(
                     filled: true,
                     fillColor: Colors.white,
@@ -88,6 +106,12 @@ class _ChangePasswordState extends State<ChangePassword> {
               Padding(
                 padding: const EdgeInsets.all(10),
                 child: TextFormField(
+                  controller: confirmPassword,
+                  validator: (value){
+                    if(value!.isEmpty){
+                      return "Empty Password!";
+                    }
+                  },
                   decoration: const InputDecoration(
                     filled: true,
                     fillColor: Colors.white,
@@ -101,7 +125,9 @@ class _ChangePasswordState extends State<ChangePassword> {
               SizedBox(height: 30),
               InkWell(
                   onTap: () {
-                    Navigator.pop(context);
+                    if(formKey.currentState!.validate()) {
+                      Navigator.pop(context);
+                    }
                   },
                   child: Padding(
                     padding: const EdgeInsets.only(bottom: 10),

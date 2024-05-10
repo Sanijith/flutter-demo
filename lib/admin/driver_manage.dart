@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fleetride/admin/admin_home.dart';
 import 'package:flutter/material.dart';
 
@@ -25,31 +26,48 @@ class _DriverManageState extends State<DriverManage> {
         ],
       ),
       backgroundColor: Colors.white,
-      body: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 40),
-        child: ListView.separated(
-            itemBuilder: (context, index) {
-              return Card(
-                color: Colors.red.shade50,
-                child: ListTile(
-                  title: Text('Driver $index'),
-                  trailing: IconButton(
-                      onPressed: () {}, icon: const Icon(Icons.delete)),
-                  subtitle: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text('Driver Id:'),
-                      SizedBox(width: 30),
-                      Text('Phone Number:')
-                    ],
+      body: FutureBuilder(
+        future: FirebaseFirestore.instance.collection("DriverRegister").get(),
+        builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+          if(snapshot.connectionState ==ConnectionState.waiting){
+            return Center(child: CircularProgressIndicator());
+          }
+          if(snapshot.hasError){
+            return Center(
+              child: Text("Error:${snapshot.error}"),
+            );
+          }
+          final driver =snapshot.data?.docs ?? [];
+          return ListView.builder(
+              itemBuilder: (context, index) {
+                return Card(
+                  color: Colors.red.shade50,
+                  child: ListTile(
+                    title: Text(driver[index]["UserName"]),
+                    trailing: IconButton(
+                        onPressed: () {
+                          setState(() {
+                            FirebaseFirestore.instance
+                                .collection("DriverRegister")
+                                .doc(driver[index].id)
+                                .delete();
+                          });
+                        }, icon: const Icon(Icons.delete)),
+                    subtitle: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(driver[index]["Email"]),
+                        Text(driver[index]["Phone Number"])
+                      ],
+                    ),
                   ),
-                ),
-              );
-            },
-            separatorBuilder: (context, index) {
-              return const Divider();
-            },
-            itemCount: 10),
+                );
+              },
+              // separatorBuilder: (context, index) {
+              //   return const Divider();
+              // },
+              itemCount: driver.length);
+        },
       ),
     );
   }

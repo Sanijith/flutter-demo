@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fleetride/first.dart';
 import 'package:fleetride/user/driver_list.dart';
 import 'package:fleetride/user/edit.dart';
@@ -5,6 +6,7 @@ import 'package:fleetride/user/login.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class TripRequest extends StatefulWidget {
   const TripRequest({super.key});
@@ -17,6 +19,26 @@ class _TripRequestState extends State<TripRequest> {
   final formKey=GlobalKey<FormState>();
   var from=TextEditingController();
   var to=TextEditingController();
+  var ID;
+  void initState() {
+    super.initState();
+    getData();
+  }
+
+  Future<void> getData() async {
+    SharedPreferences spref = await SharedPreferences.getInstance();
+    setState(() {
+      ID = spref.getString('id');
+    });
+    print('Shared Prefernce data get');
+  }
+  Future<dynamic>tripReq()async{
+    await FirebaseFirestore.instance.collection("TripRequests").add({
+      "User Id":ID,
+      "From":from.text,
+      "To":to.text,
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(

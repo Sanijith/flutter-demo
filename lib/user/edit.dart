@@ -1,9 +1,11 @@
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Edit extends StatefulWidget {
   const Edit({super.key});
@@ -25,12 +27,44 @@ class _EditState extends State<Edit> {
       });
     }
   }
+  var ID;
+
+  void initState() {
+    super.initState();
+    getData();
+  }
+
+  Future<void> getData() async {
+    SharedPreferences spref = await SharedPreferences.getInstance();
+    setState(() {
+      ID = spref.getString('id');
+    });
+    print('Shared Prefernce data get');
+  }
+
+  DocumentSnapshot? User;
+
+  getFirebase() async {
+    User = await FirebaseFirestore.instance
+        .collection("UserRegister")
+        .doc(ID)
+        .get();
+  }
 
   final formKey=GlobalKey<FormState>();
   var name=TextEditingController();
   var email=TextEditingController();
   var phone=TextEditingController();
 
+  Future<dynamic> EditUser() async {
+    await FirebaseFirestore.instance.collection("UserRegister").doc(ID).update({
+      "Username": name.text,
+      "Email": email.text,
+      "Phone Number": phone.text,
+    });
+    print("Edit Successfully");
+    Navigator.pop(context);
+  }
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -40,14 +74,17 @@ class _EditState extends State<Edit> {
           backgroundColor: Colors.lightBlueAccent.shade100,
         ),
         body: SingleChildScrollView(
+          physics: NeverScrollableScrollPhysics(),
           child: Container(
+            height: MediaQuery.of(context).size.height * 1,
             padding: EdgeInsets.all(40),
-            child: Column(
+            child: ListView(
+              physics: NeverScrollableScrollPhysics(),
               children: [
                 Container(
                   height: 50,
                   decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(40),
+                      borderRadius: BorderRadius.circular(15),
                       color: Colors.lightBlueAccent.shade200),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -94,7 +131,7 @@ class _EditState extends State<Edit> {
                       filled: true,
                       fillColor: Colors.white,
                       border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(30)),
+                        borderRadius: BorderRadius.all(Radius.circular(15)),
                       ),
                       labelText: "UserName",
                     ),
@@ -114,7 +151,7 @@ class _EditState extends State<Edit> {
                       filled: true,
                       fillColor: Colors.white,
                       border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(30)),
+                        borderRadius: BorderRadius.all(Radius.circular(15)),
                       ),
                       labelText: "Email",
                     ),
@@ -134,7 +171,7 @@ class _EditState extends State<Edit> {
                       filled: true,
                       fillColor: Colors.white,
                       border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(30)),
+                        borderRadius: BorderRadius.all(Radius.circular(15)),
                       ),
                       labelText: "Phone Number",
                     ),
@@ -144,7 +181,9 @@ class _EditState extends State<Edit> {
                 InkWell(
                     onTap: () {
                       if(formKey.currentState!.validate()) {
-                        Navigator.pop(context);
+                       setState(() {
+                         EditUser();
+                       });
                       }
                     },
                     child: Padding(

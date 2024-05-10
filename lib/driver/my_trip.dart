@@ -25,7 +25,7 @@ class _MyTripState extends State<MyTrip> {
       ),
       body: Container(
         padding: const EdgeInsets.symmetric(horizontal: 40),
-        child: ListView.separated(
+        child: ListView.builder(
             itemBuilder: (context, index) {
               return Card(
                 color: Colors.red.shade50,
@@ -43,9 +43,9 @@ class _MyTripState extends State<MyTrip> {
                 ),
               );
             },
-            separatorBuilder: (context, index) {
-              return const Divider();
-            },
+            // separatorBuilder: (context, index) {
+            //   return const Divider();
+            // },
             itemCount: 5),
       ),
     );

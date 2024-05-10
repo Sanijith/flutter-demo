@@ -27,7 +27,7 @@ class _ContactManageState extends State<ContactManage> {
       backgroundColor: Colors.white,
       body: Container(
         padding: const EdgeInsets.symmetric(horizontal: 40),
-        child: ListView.separated(
+        child: ListView.builder(
             itemBuilder: (context, index) {
               return Card(
                 color: Colors.red.shade100,
@@ -42,9 +42,9 @@ class _ContactManageState extends State<ContactManage> {
                 ),
               );
             },
-            separatorBuilder: (context, index) {
-              return const Divider();
-            },
+            // separatorBuilder: (context, index) {
+            //   return const Divider();
+            // },
             itemCount: 5),
       ),
     );

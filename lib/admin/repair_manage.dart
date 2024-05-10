@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fleetride/admin/admin_home.dart';
 import 'package:flutter/material.dart';
 
@@ -25,31 +26,41 @@ class _RepairManageState extends State<RepairManage> {
         ],
       ),
       backgroundColor: Colors.white,
-      body: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 40),
-        child: ListView.separated(
-            itemBuilder: (context, index) {
-              return Card(
-                color: Colors.red.shade50,
-                child: ListTile(
-                  title: Text('Repair Name $index'),
-                  trailing: IconButton(
-                      onPressed: () {}, icon: const Icon(Icons.delete)),
-                  subtitle: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text('Repair Id:'),
-                      SizedBox(width: 30),
-                      Text('Phone Number:')
-                    ],
+      body: FutureBuilder(
+        future: FirebaseFirestore.instance.collection("RepairList").get(),
+        builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+          if(snapshot.connectionState ==ConnectionState.waiting){
+            return Center(child: CircularProgressIndicator());
+          }
+          if(snapshot.hasError){
+            return Center(
+              child: Text("Error:${snapshot.error}"),
+            );
+          }
+          final repair =snapshot.data?.docs ?? [];
+          return ListView.builder(
+              itemBuilder: (context, index) {
+                return Card(
+                  color: Colors.red.shade50,
+                  child: ListTile(
+                    title: Text(repair[index]["Repair Name"]),
+                    trailing: IconButton(
+                        onPressed: () {}, icon: const Icon(Icons.delete)),
+                    subtitle: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(repair[index]["Location"]),
+                        Text(repair[index]["Phone Number"])
+                      ],
+                    ),
                   ),
-                ),
-              );
-            },
-            separatorBuilder: (context, index) {
-              return const Divider();
-            },
-            itemCount: 5),
+                );
+              },
+              // separatorBuilder: (context, index) {
+              //   return const Divider();
+              // },
+              itemCount: repair.length);
+        },
       ),
     );
   }

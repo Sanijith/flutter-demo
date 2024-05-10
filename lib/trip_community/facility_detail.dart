@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fleetride/trip_community/edit_facility_detail.dart';
 import 'package:fleetride/trip_community/trip_comm_home.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -64,9 +65,7 @@ class _FacilityDetailState extends State<FacilityDetail> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(' Location:'),
-                        SizedBox(width: 30),
                         Text('Reg Fee:'),
-                        SizedBox(width: 30),
                         Text('Phone Number:')
                       ],
                     ),
@@ -81,7 +80,7 @@ class _FacilityDetailState extends State<FacilityDetail> {
         floatingActionButton: FloatingActionButton(
           onPressed: () {
             Navigator.push(context,
-                MaterialPageRoute(builder: (context) => EditFacilityPage()));
+                MaterialPageRoute(builder: (context) => AddFacilityPage()));
             setState(() {
               _itemcount++;
             });
@@ -91,14 +90,14 @@ class _FacilityDetailState extends State<FacilityDetail> {
   }
 }
 
-class EditFacilityPage extends StatefulWidget {
-  const EditFacilityPage({super.key});
+class AddFacilityPage extends StatefulWidget {
+  const AddFacilityPage({super.key});
 
   @override
-  State<EditFacilityPage> createState() => _EditFacilityPageState();
+  State<AddFacilityPage> createState() => _AddFacilityPageState();
 }
 
-class _EditFacilityPageState extends State<EditFacilityPage> {
+class _AddFacilityPageState extends State<AddFacilityPage> {
   final formKey = GlobalKey<FormState>();
   var facilityname = TextEditingController();
   var location = TextEditingController();

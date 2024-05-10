@@ -23,7 +23,7 @@ class _RegisterState extends State<Register> {
       "Username": name.text,
       "Password": password.text,
       "Email": email.text,
-      "Phone Number": phone.text
+      "Phone Number": phone.text,
     });
     print("done");
     Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>Login()));

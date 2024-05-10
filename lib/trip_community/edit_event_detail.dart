@@ -1,45 +1,32 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:fleetride/driver/my_trip.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
-class CreateTrip extends StatefulWidget {
-  const CreateTrip({super.key});
+class EditEventPage extends StatefulWidget {
+  const EditEventPage({super.key});
 
   @override
-  State<CreateTrip> createState() => _CreateTripState();
+  State<EditEventPage> createState() => _EditEventPageState();
 }
 
-class _CreateTripState extends State<CreateTrip> {
+class _EditEventPageState extends State<EditEventPage> {
   final formKey = GlobalKey<FormState>();
-  var from = TextEditingController();
-  var to = TextEditingController();
+  var eventname = TextEditingController();
+  var location = TextEditingController();
+  var phone = TextEditingController();
+  var timeController = TextEditingController();
+  String select = '';
 
-  void initState() {
-    super.initState();
-    getData();
-  }
-
-  var ID;
-
-  Future<void> getData() async {
-    SharedPreferences spref = await SharedPreferences.getInstance();
-    setState(() {
-      ID = spref.getString('id');
-    });
-    print('Shared Preference data get');
-  }
-
-  Future<dynamic> Create() async {
-    await FirebaseFirestore.instance.collection("Create Trips").add({
-      "Driver Id":ID,
-      "From": from.text,
-      "To": to.text,
+  Future<dynamic> Event() async {
+    await FirebaseFirestore.instance.collection("EventDetail").add({
+      "Event Name": eventname.text,
+      "Location": location.text,
+      "Time": timeController.text,
+      "Phone Number": phone.text,
     });
     print('done');
-    Navigator.push(context, MaterialPageRoute(builder: (context) => MyTrip()));
+    Navigator.pop(context);
   }
 
   @override
@@ -51,6 +38,7 @@ class _CreateTripState extends State<CreateTrip> {
           child: Container(
             padding: EdgeInsets.all(40),
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Container(
                   height: 50,
@@ -61,7 +49,7 @@ class _CreateTripState extends State<CreateTrip> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        "Create Trip",
+                        "Add Event ",
                         style: GoogleFonts.ubuntu(
                           fontSize: 24,
                           fontWeight: FontWeight.bold,
@@ -78,10 +66,10 @@ class _CreateTripState extends State<CreateTrip> {
                   padding: const EdgeInsets.all(10),
                   child: TextFormField(
                     keyboardType: TextInputType.text,
-                    controller: from,
+                    controller: eventname,
                     validator: (value) {
                       if (value!.isEmpty) {
-                        return "Empty!";
+                        return "Empty Name!";
                       }
                     },
                     decoration: const InputDecoration(
@@ -90,7 +78,7 @@ class _CreateTripState extends State<CreateTrip> {
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.all(Radius.circular(30)),
                       ),
-                      labelText: "From",
+                      labelText: "Event Name",
                     ),
                   ),
                 ),
@@ -98,10 +86,10 @@ class _CreateTripState extends State<CreateTrip> {
                   padding: const EdgeInsets.all(10),
                   child: TextFormField(
                     keyboardType: TextInputType.text,
-                    controller: to,
+                    controller: location,
                     validator: (value) {
                       if (value!.isEmpty) {
-                        return "Empty!";
+                        return "Empty Location!";
                       }
                     },
                     decoration: const InputDecoration(
@@ -110,7 +98,61 @@ class _CreateTripState extends State<CreateTrip> {
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.all(Radius.circular(30)),
                       ),
-                      labelText: "To",
+                      labelText: "Location",
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: TextFormField(
+                      keyboardType: TextInputType.phone,
+                      controller: timeController,
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return "Empty Time!";
+                        }
+                      },
+                      decoration: InputDecoration(
+                        filled: true,
+                        fillColor: Colors.white,
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(30)),
+                        ),
+                        labelText: "Time",
+                        suffixIcon: TextButton(
+                            onPressed: () async {
+                              TimeOfDay? timepick = await showTimePicker(
+                                context: context,
+                                initialTime: TimeOfDay.now(),
+                                initialEntryMode: TimePickerEntryMode.input,
+                              );
+                              if (timepick != null) {
+                                select = '${timepick.hour}:${timepick.minute}';
+                                timeController.text = select;
+                                print(
+                                    "time selected:${timepick.hour}:${timepick.minute}");
+                              }
+                            },
+                            child: Icon(Icons.schedule)),
+                      )),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: TextFormField(
+                    keyboardType: TextInputType.phone,
+                    controller: phone,
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return "Empty Phone Number!";
+                      }
+                    },
+                    decoration: const InputDecoration(
+                      filled: true,
+                      fillColor: Colors.white,
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(30)),
+                      ),
+                      labelText: "Phone Number",
                     ),
                   ),
                 ),
@@ -118,7 +160,7 @@ class _CreateTripState extends State<CreateTrip> {
                 InkWell(
                     onTap: () {
                       if (formKey.currentState!.validate()) {
-                        Create();
+                        Event();
                       }
                     },
                     child: Padding(
@@ -130,7 +172,7 @@ class _CreateTripState extends State<CreateTrip> {
                               borderRadius: BorderRadius.circular(10),
                               color: Colors.green),
                           child: Center(
-                            child: Text('Create Trip',
+                            child: Text('Save',
                                 style: GoogleFonts.ubuntu(
                                     fontSize: 18,
                                     fontWeight: FontWeight.bold,

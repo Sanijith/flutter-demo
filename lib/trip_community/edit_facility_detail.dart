@@ -1,45 +1,31 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:fleetride/driver/my_trip.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
-class CreateTrip extends StatefulWidget {
-  const CreateTrip({super.key});
+class EditFacilityPage extends StatefulWidget {
+  const EditFacilityPage({super.key});
 
   @override
-  State<CreateTrip> createState() => _CreateTripState();
+  State<EditFacilityPage> createState() => _AddFacilityPageState();
 }
 
-class _CreateTripState extends State<CreateTrip> {
+class _AddFacilityPageState extends State<EditFacilityPage> {
   final formKey = GlobalKey<FormState>();
-  var from = TextEditingController();
-  var to = TextEditingController();
+  var facilityname = TextEditingController();
+  var location = TextEditingController();
+  var fees = TextEditingController();
+  var phone = TextEditingController();
 
-  void initState() {
-    super.initState();
-    getData();
-  }
-
-  var ID;
-
-  Future<void> getData() async {
-    SharedPreferences spref = await SharedPreferences.getInstance();
-    setState(() {
-      ID = spref.getString('id');
-    });
-    print('Shared Preference data get');
-  }
-
-  Future<dynamic> Create() async {
-    await FirebaseFirestore.instance.collection("Create Trips").add({
-      "Driver Id":ID,
-      "From": from.text,
-      "To": to.text,
+  Future<dynamic> Facility() async {
+    await FirebaseFirestore.instance.collection('FacilityDetail').add({
+      "Facility Name": facilityname.text,
+      "Location": location.text,
+      "Fee": fees.text,
+      "Phone Number": phone.text,
     });
     print('done');
-    Navigator.push(context, MaterialPageRoute(builder: (context) => MyTrip()));
+    Navigator.pop(context);
   }
 
   @override
@@ -51,6 +37,7 @@ class _CreateTripState extends State<CreateTrip> {
           child: Container(
             padding: EdgeInsets.all(40),
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Container(
                   height: 50,
@@ -61,7 +48,7 @@ class _CreateTripState extends State<CreateTrip> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        "Create Trip",
+                        "Add Facility",
                         style: GoogleFonts.ubuntu(
                           fontSize: 24,
                           fontWeight: FontWeight.bold,
@@ -78,10 +65,10 @@ class _CreateTripState extends State<CreateTrip> {
                   padding: const EdgeInsets.all(10),
                   child: TextFormField(
                     keyboardType: TextInputType.text,
-                    controller: from,
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return "Empty!";
+                    controller: facilityname,
+                    validator: (value){
+                      if(value!.isEmpty){
+                        return "Empty Name!";
                       }
                     },
                     decoration: const InputDecoration(
@@ -90,7 +77,7 @@ class _CreateTripState extends State<CreateTrip> {
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.all(Radius.circular(30)),
                       ),
-                      labelText: "From",
+                      labelText: "Facility Name",
                     ),
                   ),
                 ),
@@ -98,10 +85,10 @@ class _CreateTripState extends State<CreateTrip> {
                   padding: const EdgeInsets.all(10),
                   child: TextFormField(
                     keyboardType: TextInputType.text,
-                    controller: to,
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return "Empty!";
+                    controller: location,
+                    validator: (value){
+                      if(value!.isEmpty){
+                        return "Empty Location!";
                       }
                     },
                     decoration: const InputDecoration(
@@ -110,15 +97,55 @@ class _CreateTripState extends State<CreateTrip> {
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.all(Radius.circular(30)),
                       ),
-                      labelText: "To",
+                      labelText: "Location",
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: TextFormField(
+                    keyboardType: TextInputType.phone,
+                    controller: fees,
+                    validator: (value){
+                      if(value!.isEmpty){
+                        return "Empty Fees!";
+                      }
+                    },
+                    decoration: const InputDecoration(
+                      filled: true,
+                      fillColor: Colors.white,
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(30)),
+                      ),
+                      labelText: "Fees",
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: TextFormField(
+                    keyboardType: TextInputType.phone,
+                    controller: phone,
+                    validator: (value){
+                      if(value!.isEmpty){
+                        return "Empty Phone Number!";
+                      }
+                    },
+                    decoration: const InputDecoration(
+                      filled: true,
+                      fillColor: Colors.white,
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(30)),
+                      ),
+                      labelText: "Phone Number",
                     ),
                   ),
                 ),
                 SizedBox(height: 30),
                 InkWell(
                     onTap: () {
-                      if (formKey.currentState!.validate()) {
-                        Create();
+                      if(formKey.currentState!.validate()) {
+                        Facility();
                       }
                     },
                     child: Padding(
@@ -130,7 +157,7 @@ class _CreateTripState extends State<CreateTrip> {
                               borderRadius: BorderRadius.circular(10),
                               color: Colors.green),
                           child: Center(
-                            child: Text('Create Trip',
+                            child: Text('Save',
                                 style: GoogleFonts.ubuntu(
                                     fontSize: 18,
                                     fontWeight: FontWeight.bold,

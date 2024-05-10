@@ -1,8 +1,10 @@
+import 'package:fleetride/admin/community_manage.dart';
 import 'package:fleetride/admin/contact_manage.dart';
 import 'package:fleetride/admin/delivery_manage.dart';
 import 'package:fleetride/admin/driver_manage.dart';
 import 'package:fleetride/admin/event_manage.dart';
 import 'package:fleetride/admin/facility_manage.dart';
+import 'package:fleetride/admin/repair_manage.dart';
 import 'package:fleetride/admin/trip_manage.dart';
 import 'package:fleetride/admin/user_manage.dart';
 import 'package:fleetride/admin/view_laws.dart';
@@ -171,12 +173,13 @@ class _AdminHomeState extends State<AdminHome> {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const ViewLaw()),
+                  MaterialPageRoute(
+                      builder: (context) => const CommunityManage()),
                 );
               },
               child: Container(
                 decoration: BoxDecoration(
-                  color: Colors.brown,
+                  color: Colors.lightGreen,
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: Column(
@@ -184,14 +187,42 @@ class _AdminHomeState extends State<AdminHome> {
                   children: [
                     CircleAvatar(
                       radius: 30,
-                      child: Icon(Icons.view_list_outlined, size: 40),
+                      child: Icon(Icons.manage_accounts_outlined, size: 40),
                     ),
                     const SizedBox(height: 10),
-                    Text('View Laws', style: TextStyle(color: Colors.white)),
+                    Center(
+                      child: Text('Community \n Manage',
+                          style: TextStyle(color: Colors.white)),
+                    ),
                   ],
                 ),
               ),
             ),
+            // GestureDetector(
+            //   onTap: () {
+            //     Navigator.push(
+            //       context,
+            //       MaterialPageRoute(builder: (context) => const ViewLaw()),
+            //     );
+            //   },
+            //   child: Container(
+            //     decoration: BoxDecoration(
+            //       color: Colors.brown,
+            //       borderRadius: BorderRadius.circular(10),
+            //     ),
+            //     child: Column(
+            //       mainAxisAlignment: MainAxisAlignment.center,
+            //       children: [
+            //         CircleAvatar(
+            //           radius: 30,
+            //           child: Icon(Icons.view_list_outlined, size: 40),
+            //         ),
+            //         const SizedBox(height: 10),
+            //         Text('View Laws', style: TextStyle(color: Colors.white)),
+            //       ],
+            //     ),
+            //   ),
+            // ),
             GestureDetector(
               onTap: () {
                 Navigator.push(
@@ -215,6 +246,31 @@ class _AdminHomeState extends State<AdminHome> {
                     const SizedBox(height: 10),
                     Text('Facility Manage',
                         style: TextStyle(color: Colors.white)),
+                  ],
+                ),
+              ),
+            ),
+            GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const RepairManage()),
+                );
+              },
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.grey,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    CircleAvatar(
+                      radius: 30,
+                      child: Icon(Icons.manage_accounts_outlined, size: 40),
+                    ),
+                    const SizedBox(height: 10),
+                    Text('Repair Manage', style: TextStyle(color: Colors.white)),
                   ],
                 ),
               ),
