@@ -11,8 +11,9 @@ class TrackRide extends StatefulWidget {
 }
 
 class _TrackRideState extends State<TrackRide> {
-  final formKey=GlobalKey<FormState>();
-  var id=TextEditingController();
+  final formKey = GlobalKey<FormState>();
+  var tripid = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -49,9 +50,9 @@ class _TrackRideState extends State<TrackRide> {
                 Padding(
                   padding: const EdgeInsets.all(10),
                   child: TextFormField(
-                    controller: id,
-                    validator: (value){
-                      if(value!.isEmpty){
+                    controller: tripid,
+                    validator: (value) {
+                      if (value!.isEmpty) {
                         return "Empty Id!";
                       }
                     },
@@ -68,8 +69,10 @@ class _TrackRideState extends State<TrackRide> {
                 SizedBox(height: 30),
                 InkWell(
                     onTap: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => Track()));
+                      if (formKey.currentState!.validate()) {
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) => Track()));
+                      }
                     },
                     child: Padding(
                       padding: const EdgeInsets.only(bottom: 10),

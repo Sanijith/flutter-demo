@@ -2,15 +2,18 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class EditEventPage extends StatefulWidget {
-  const EditEventPage({super.key});
+  const EditEventPage({super.key, required this. id});
+  final id;
 
   @override
   State<EditEventPage> createState() => _EditEventPageState();
 }
 
 class _EditEventPageState extends State<EditEventPage> {
+
   final formKey = GlobalKey<FormState>();
   var eventname = TextEditingController();
   var location = TextEditingController();
@@ -18,14 +21,14 @@ class _EditEventPageState extends State<EditEventPage> {
   var timeController = TextEditingController();
   String select = '';
 
-  Future<dynamic> Event() async {
-    await FirebaseFirestore.instance.collection("EventDetail").add({
+  Future<dynamic> EditEvents() async {
+    await FirebaseFirestore.instance.collection("EventDetail").doc(widget.id).update({
       "Event Name": eventname.text,
       "Location": location.text,
-      "Time": timeController.text,
       "Phone Number": phone.text,
+      "Time":timeController.text,
     });
-    print('done');
+    print("Update Successfully");
     Navigator.pop(context);
   }
 
@@ -34,6 +37,7 @@ class _EditEventPageState extends State<EditEventPage> {
     return Form(
       key: formKey,
       child: Scaffold(
+        appBar: AppBar(),
         body: SingleChildScrollView(
           child: Container(
             padding: EdgeInsets.all(40),
@@ -43,13 +47,13 @@ class _EditEventPageState extends State<EditEventPage> {
                 Container(
                   height: 50,
                   decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(40),
+                      borderRadius: BorderRadius.circular(15),
                       color: Colors.lightBlueAccent.shade200),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        "Add Event ",
+                        "Edit Event ",
                         style: GoogleFonts.ubuntu(
                           fontSize: 24,
                           fontWeight: FontWeight.bold,
@@ -76,7 +80,7 @@ class _EditEventPageState extends State<EditEventPage> {
                       filled: true,
                       fillColor: Colors.white,
                       border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(30)),
+                        borderRadius: BorderRadius.all(Radius.circular(15)),
                       ),
                       labelText: "Event Name",
                     ),
@@ -96,7 +100,7 @@ class _EditEventPageState extends State<EditEventPage> {
                       filled: true,
                       fillColor: Colors.white,
                       border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(30)),
+                        borderRadius: BorderRadius.all(Radius.circular(15)),
                       ),
                       labelText: "Location",
                     ),
@@ -116,7 +120,7 @@ class _EditEventPageState extends State<EditEventPage> {
                         filled: true,
                         fillColor: Colors.white,
                         border: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(30)),
+                          borderRadius: BorderRadius.all(Radius.circular(15)),
                         ),
                         labelText: "Time",
                         suffixIcon: TextButton(
@@ -127,7 +131,7 @@ class _EditEventPageState extends State<EditEventPage> {
                                 initialEntryMode: TimePickerEntryMode.input,
                               );
                               if (timepick != null) {
-                                select = '${timepick.hour}:${timepick.minute}';
+                                select = '${timepick.format(context)}';
                                 timeController.text = select;
                                 print(
                                     "time selected:${timepick.hour}:${timepick.minute}");
@@ -150,7 +154,7 @@ class _EditEventPageState extends State<EditEventPage> {
                       filled: true,
                       fillColor: Colors.white,
                       border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(30)),
+                        borderRadius: BorderRadius.all(Radius.circular(15)),
                       ),
                       labelText: "Phone Number",
                     ),
@@ -160,7 +164,7 @@ class _EditEventPageState extends State<EditEventPage> {
                 InkWell(
                     onTap: () {
                       if (formKey.currentState!.validate()) {
-                        Event();
+                        EditEvents();
                       }
                     },
                     child: Padding(
@@ -172,7 +176,7 @@ class _EditEventPageState extends State<EditEventPage> {
                               borderRadius: BorderRadius.circular(10),
                               color: Colors.green),
                           child: Center(
-                            child: Text('Save',
+                            child: Text('Update',
                                 style: GoogleFonts.ubuntu(
                                     fontSize: 18,
                                     fontWeight: FontWeight.bold,

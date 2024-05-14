@@ -1,32 +1,35 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fleetride/trip_community/event_detail.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class EditFacilityPage extends StatefulWidget {
-  const EditFacilityPage({super.key,this .id});
-  final id;
+class AddEventPage extends StatefulWidget {
+  const AddEventPage({super.key});
 
   @override
-  State<EditFacilityPage> createState() => _EditFacilityPageState();
+  State<AddEventPage> createState() => _AddEventPageState();
 }
 
-class _EditFacilityPageState extends State<EditFacilityPage> {
+class _AddEventPageState extends State<AddEventPage> {
   final formKey = GlobalKey<FormState>();
-  var facilityname = TextEditingController();
+  var eventname = TextEditingController();
   var location = TextEditingController();
-  var fees = TextEditingController();
   var phone = TextEditingController();
+  var timeController = TextEditingController();
+  String select = '';
 
-  Future<dynamic> EditFacility() async {
-    await FirebaseFirestore.instance.collection("FacilityDetail").doc(widget.id).update({
-      "Facility Name": facilityname.text,
+
+  Future<dynamic> Event() async {
+    await FirebaseFirestore.instance.collection("EventDetail").add({
+      "Event Name": eventname.text,
       "Location": location.text,
-      "Fee":fees.text,
+      "Time": timeController.text,
       "Phone Number": phone.text,
     });
-    print("Update Successfully");
-    Navigator.pop(context);
+    print('done');
+    Navigator.push(context, MaterialPageRoute(builder: (context)=>EventDetail()));
+
   }
 
   @override
@@ -50,7 +53,7 @@ class _EditFacilityPageState extends State<EditFacilityPage> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        "Edit Facility",
+                        "Add Event ",
                         style: GoogleFonts.ubuntu(
                           fontSize: 24,
                           fontWeight: FontWeight.bold,
@@ -67,9 +70,9 @@ class _EditFacilityPageState extends State<EditFacilityPage> {
                   padding: const EdgeInsets.all(10),
                   child: TextFormField(
                     keyboardType: TextInputType.text,
-                    controller: facilityname,
-                    validator: (value){
-                      if(value!.isEmpty){
+                    controller: eventname,
+                    validator: (value) {
+                      if (value!.isEmpty) {
                         return "Empty Name!";
                       }
                     },
@@ -79,7 +82,7 @@ class _EditFacilityPageState extends State<EditFacilityPage> {
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.all(Radius.circular(30)),
                       ),
-                      labelText: "Facility Name",
+                      labelText: "Event Name",
                     ),
                   ),
                 ),
@@ -88,8 +91,8 @@ class _EditFacilityPageState extends State<EditFacilityPage> {
                   child: TextFormField(
                     keyboardType: TextInputType.text,
                     controller: location,
-                    validator: (value){
-                      if(value!.isEmpty){
+                    validator: (value) {
+                      if (value!.isEmpty) {
                         return "Empty Location!";
                       }
                     },
@@ -106,30 +109,44 @@ class _EditFacilityPageState extends State<EditFacilityPage> {
                 Padding(
                   padding: const EdgeInsets.all(10),
                   child: TextFormField(
-                    keyboardType: TextInputType.phone,
-                    controller: fees,
-                    validator: (value){
-                      if(value!.isEmpty){
-                        return "Empty Fees!";
-                      }
-                    },
-                    decoration: const InputDecoration(
-                      filled: true,
-                      fillColor: Colors.white,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(30)),
-                      ),
-                      labelText: "Fees",
-                    ),
-                  ),
+                      keyboardType: TextInputType.phone,
+                      controller: timeController,
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return "Empty Time!";
+                        }
+                      },
+                      decoration: InputDecoration(
+                        filled: true,
+                        fillColor: Colors.white,
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(30)),
+                        ),
+                        labelText: "Time",
+                        suffixIcon: TextButton(
+                            onPressed: () async {
+                              TimeOfDay? timepick = await showTimePicker(
+                                context: context,
+                                initialTime: TimeOfDay.now(),
+                                initialEntryMode: TimePickerEntryMode.input,
+                              );
+                              if (timepick != null) {
+                                select = '${timepick.format(context)}';
+                                timeController.text = select;
+                                print(
+                                    "time selected:${timepick.hour}:${timepick.minute}");
+                              }
+                            },
+                            child: Icon(Icons.schedule)),
+                      )),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(10),
                   child: TextFormField(
                     keyboardType: TextInputType.phone,
                     controller: phone,
-                    validator: (value){
-                      if(value!.isEmpty){
+                    validator: (value) {
+                      if (value!.isEmpty) {
                         return "Empty Phone Number!";
                       }
                     },
@@ -146,8 +163,8 @@ class _EditFacilityPageState extends State<EditFacilityPage> {
                 SizedBox(height: 30),
                 InkWell(
                     onTap: () {
-                      if(formKey.currentState!.validate()) {
-                        EditFacility();
+                      if (formKey.currentState!.validate()) {
+                        Event();
                       }
                     },
                     child: Padding(

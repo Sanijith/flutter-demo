@@ -7,7 +7,6 @@ import 'package:fleetride/admin/facility_manage.dart';
 import 'package:fleetride/admin/repair_manage.dart';
 import 'package:fleetride/admin/trip_manage.dart';
 import 'package:fleetride/admin/user_manage.dart';
-import 'package:fleetride/admin/view_laws.dart';
 
 import 'package:flutter/material.dart';
 

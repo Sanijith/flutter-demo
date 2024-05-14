@@ -3,29 +3,28 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class EditFacilityPage extends StatefulWidget {
-  const EditFacilityPage({super.key,this .id});
-  final id;
+class AddFacilityPage extends StatefulWidget {
+  const AddFacilityPage({super.key});
 
   @override
-  State<EditFacilityPage> createState() => _EditFacilityPageState();
+  State<AddFacilityPage> createState() => _AddFacilityPageState();
 }
 
-class _EditFacilityPageState extends State<EditFacilityPage> {
+class _AddFacilityPageState extends State<AddFacilityPage> {
   final formKey = GlobalKey<FormState>();
   var facilityname = TextEditingController();
   var location = TextEditingController();
   var fees = TextEditingController();
   var phone = TextEditingController();
 
-  Future<dynamic> EditFacility() async {
-    await FirebaseFirestore.instance.collection("FacilityDetail").doc(widget.id).update({
+  Future<dynamic> Facility() async {
+    await FirebaseFirestore.instance.collection('FacilityDetail').add({
       "Facility Name": facilityname.text,
       "Location": location.text,
-      "Fee":fees.text,
+      "Fee": fees.text,
       "Phone Number": phone.text,
     });
-    print("Update Successfully");
+    print('done');
     Navigator.pop(context);
   }
 
@@ -34,7 +33,6 @@ class _EditFacilityPageState extends State<EditFacilityPage> {
     return Form(
       key: formKey,
       child: Scaffold(
-        appBar: AppBar(),
         body: SingleChildScrollView(
           child: Container(
             padding: EdgeInsets.all(40),
@@ -50,7 +48,7 @@ class _EditFacilityPageState extends State<EditFacilityPage> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        "Edit Facility",
+                        "Add Facility",
                         style: GoogleFonts.ubuntu(
                           fontSize: 24,
                           fontWeight: FontWeight.bold,
@@ -68,8 +66,8 @@ class _EditFacilityPageState extends State<EditFacilityPage> {
                   child: TextFormField(
                     keyboardType: TextInputType.text,
                     controller: facilityname,
-                    validator: (value){
-                      if(value!.isEmpty){
+                    validator: (value) {
+                      if (value!.isEmpty) {
                         return "Empty Name!";
                       }
                     },
@@ -88,8 +86,8 @@ class _EditFacilityPageState extends State<EditFacilityPage> {
                   child: TextFormField(
                     keyboardType: TextInputType.text,
                     controller: location,
-                    validator: (value){
-                      if(value!.isEmpty){
+                    validator: (value) {
+                      if (value!.isEmpty) {
                         return "Empty Location!";
                       }
                     },
@@ -108,8 +106,8 @@ class _EditFacilityPageState extends State<EditFacilityPage> {
                   child: TextFormField(
                     keyboardType: TextInputType.phone,
                     controller: fees,
-                    validator: (value){
-                      if(value!.isEmpty){
+                    validator: (value) {
+                      if (value!.isEmpty) {
                         return "Empty Fees!";
                       }
                     },
@@ -128,8 +126,8 @@ class _EditFacilityPageState extends State<EditFacilityPage> {
                   child: TextFormField(
                     keyboardType: TextInputType.phone,
                     controller: phone,
-                    validator: (value){
-                      if(value!.isEmpty){
+                    validator: (value) {
+                      if (value!.isEmpty) {
                         return "Empty Phone Number!";
                       }
                     },
@@ -146,8 +144,8 @@ class _EditFacilityPageState extends State<EditFacilityPage> {
                 SizedBox(height: 30),
                 InkWell(
                     onTap: () {
-                      if(formKey.currentState!.validate()) {
-                        EditFacility();
+                      if (formKey.currentState!.validate()) {
+                        Facility();
                       }
                     },
                     child: Padding(

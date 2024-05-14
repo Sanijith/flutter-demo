@@ -25,7 +25,7 @@ class _HelpLineState extends State<HelpLine> {
       ),
       body: Container(
         padding: const EdgeInsets.symmetric(horizontal: 40),
-        child: ListView.separated(
+        child: ListView.builder(
             itemBuilder: (context, index) {
               return Card(
                 color: Colors.red.shade50,
@@ -41,9 +41,6 @@ class _HelpLineState extends State<HelpLine> {
                   ),
                 ),
               );
-            },
-            separatorBuilder: (context, index) {
-              return const Divider();
             },
             itemCount: 5),
       ),

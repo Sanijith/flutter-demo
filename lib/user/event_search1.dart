@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fleetride/driver/driver_home.dart';
 import 'package:flutter/material.dart';
 
@@ -72,52 +73,62 @@ class _EventSearch1State extends State<EventSearch1> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        title: const Text('FLEETRIDE'),
-        actions: [
-          IconButtonTextField(
-            icon: Icons.search,
-            onSubmit: handleSearch,
-          ),
-          IconButton(
-              onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const DriverHome()));
-              },
-              icon: const Icon(Icons.home)),
-        ],
-      ),
-      backgroundColor: Colors.white,
-      body: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 40),
-        child: ListView.separated(
-            itemBuilder: (context, index) {
-              return Card(
-                color: Colors.red.shade50,
-                child: ListTile(
-                  title: Text('Event $index'),
-                  subtitle: const Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(' Location:'),
-                      SizedBox(width: 30),
-                      Text('Time:'),
-                      SizedBox(width: 30),
-                      Text('Phone Number:')
-                    ],
-                  ),
+    return FutureBuilder(
+        future: FirebaseFirestore.instance.collection("EventDetail").get(),
+        builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(child: CircularProgressIndicator());
+          }
+          if (snapshot.hasError) {
+            return Center(
+              child: Text("Error:${snapshot.error}"),
+            );
+          }
+          final event = snapshot.data?.docs ?? [];
+          return Scaffold(
+            appBar: AppBar(
+              backgroundColor: Colors.white,
+              title: const Text('FLEETRIDE'),
+              actions: [
+                IconButtonTextField(
+                  icon: Icons.search,
+                  onSubmit: handleSearch,
                 ),
-              );
-            },
-            separatorBuilder: (context, index) {
-              return const Divider();
-            },
-            itemCount: 5),
-      ),
-    );
+                IconButton(
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const DriverHome()));
+                    },
+                    icon: const Icon(Icons.home)),
+              ],
+            ),
+            backgroundColor: Colors.white,
+            body: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 40),
+              child: ListView.builder(
+                  itemBuilder: (context, index) {
+                    return Card(
+                      color: Colors.red.shade50,
+                      child: ListTile(
+                        title: Text(event[index]["Event Name"]),
+                        subtitle:  Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(event[index]["Location"]),
+                            SizedBox(width: 30),
+                            Text(event[index]["Time"]),
+                            SizedBox(width: 30),
+                            Text(event[index]["Phone Number"])
+                          ],
+                        ),
+                      ),
+                    );
+                  },
+                  itemCount: event.length),
+            ),
+          );
+        });
   }
 }

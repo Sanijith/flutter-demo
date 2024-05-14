@@ -60,7 +60,7 @@ class _TripManageState extends State<TripManage> {
                   // separatorBuilder: (context, index) {
                   //   return const Divider();
                   // },
-                  itemCount: 5);
+                  itemCount: trip.length);
             }));
   }
 }
