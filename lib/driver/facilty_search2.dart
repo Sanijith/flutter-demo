@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fleetride/driver/driver_home.dart';
 import 'package:flutter/material.dart';
 
@@ -72,52 +73,60 @@ class _FacilitySearch2State extends State<FacilitySearch2> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        title: const Text('FLEETRIDE'),
-        actions: [
-          IconButtonTextField(
-            icon: Icons.search,
-            onSubmit: handleSearch,
-          ),
-          IconButton(
-              onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const DriverHome()));
-              },
-              icon: const Icon(Icons.home)),
-        ],
-      ),
-      backgroundColor: Colors.white,
-      body: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 40),
-        child: ListView.separated(
-            itemBuilder: (context, index) {
-              return Card(
-                color: Colors.red.shade50,
-                child: ListTile(
-                  title: Text('Facility $index'),
-                  subtitle: const Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(' Location:'),
-                      SizedBox(width: 30),
-                      Text('Reg Fee:'),
-                      SizedBox(width: 30),
-                      Text('Phone Number:')
-                    ],
-                  ),
+    return FutureBuilder(
+        future: FirebaseFirestore.instance.collection("FacilityDetail").get(),
+        builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(child: CircularProgressIndicator());
+          }
+          if (snapshot.hasError) {
+            return Center(
+              child: Text("Error:${snapshot.error}"),
+            );
+          }
+          final facility = snapshot.data?.docs ?? [];
+          return Scaffold(
+            appBar: AppBar(
+              backgroundColor: Colors.white,
+              title: const Text('FLEETRIDE'),
+              actions: [
+                IconButtonTextField(
+                  icon: Icons.search,
+                  onSubmit: handleSearch,
                 ),
-              );
-            },
-            separatorBuilder: (context, index) {
-              return const Divider();
-            },
-            itemCount: 5),
-      ),
-    );
+                IconButton(
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const DriverHome()));
+                    },
+                    icon: const Icon(Icons.home)),
+              ],
+            ),
+            backgroundColor: Colors.white,
+            body: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 40),
+              child: ListView.builder(
+                  itemBuilder: (context, index) {
+                    return Card(
+                      color: Colors.red.shade50,
+                      child: ListTile(
+                        title: Text(facility[index]["Facility Name"]),
+                        subtitle: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(facility[index]["Location"]),
+                            Text(facility[index]["Fee"]),
+                            Text(facility[index]["Phone Number"]),
+                          ],
+                        ),
+                      ),
+                    );
+                  },
+                  itemCount: facility.length),
+            ),
+          );
+        });
   }
 }

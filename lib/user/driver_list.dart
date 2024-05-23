@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fleetride/user/user_home.dart';
 import 'package:flutter/material.dart';
 
@@ -25,33 +26,61 @@ class _DriversState extends State<Drivers> {
         ],
       ),
       backgroundColor: Colors.white,
-      body: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 40),
-        child: ListView.builder(
-            itemBuilder: (context, index) {
-              return Card(
-                color: Colors.red.shade50,
-                child: ListTile(
-                    title: Text('Driver $index'),
-                    subtitle: const Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text('From:'),
-                        SizedBox(width: 30),
-                        Text('To:')
-                      ],
-                    ),
-                    trailing: ElevatedButton(
-                      onPressed: () {},
-                      child: const Text('Send Request'),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.lightGreenAccent,
-                      ),
-                    )),
+      body: FutureBuilder(
+          future:
+          FirebaseFirestore.instance.collection("Create Trips").get(),
+          builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return Center(child: CircularProgressIndicator());
+            }
+            if (snapshot.hasError) {
+              return Center(
+                child: Text("Error:${snapshot.error}"),
               );
-            },
-            itemCount: 10),
-      ),
+            }
+            final mytrip = snapshot.data?.docs ?? [];
+            return  ListView.builder(
+                itemBuilder: (context, index) {
+                  return Card(
+                    color: Colors.red.shade50,
+                    child: ListTile(
+                        title: Text(mytrip[index]["Driver Name"]),
+                        subtitle:  Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              children: [
+                                Text('From:'),
+                                SizedBox(width: 10,),
+                                Text(mytrip[index]["From"]),
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                Text('To:'),
+                                SizedBox(width: 10,),
+                                Text(mytrip[index]["To"]),
+                              ],
+                            )
+                          ],
+                        ),
+                        trailing: ElevatedButton(
+                          onPressed: () {
+                            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                                content: Text(
+                                  "Request Sent Successfully",
+                                  style: TextStyle(fontSize:15,color: Colors.red),
+                                )));
+                          },
+                          child: const Text('Send Request'),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.lightGreenAccent,
+                          ),
+                        )),
+                  );
+                },
+                itemCount: mytrip.length);
+          }),
     );
   }
 }

@@ -106,19 +106,38 @@ class _FacilitySearch1State extends State<FacilitySearch1> {
             ),
             backgroundColor: Colors.white,
             body: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 40),
+              padding: const EdgeInsets.symmetric(horizontal: 30),
               child: ListView.builder(
                   itemBuilder: (context, index) {
                     return Card(
                       color: Colors.red.shade50,
                       child: ListTile(
                         title: Text(facility[index]["Facility Name"]),
+
                         subtitle: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(facility[index]["Location"]),
-                            Text(facility[index]["Fee"]),
-                            Text(facility[index]["Phone Number"]),
+                            Row(
+                              children: [
+                                Text('Location:'),
+                                SizedBox(width: 10,),
+                                Text(facility[index]["Location"]),
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                Text('Fee:'),
+                                SizedBox(width: 10,),
+                                Text(facility[index]["Fee"]),
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                Text('Phone:'),
+                                SizedBox(width: 10,),
+                                Text(facility[index]["Phone Number"]),
+                              ],
+                            ),
                           ],
                         ),
                       ),

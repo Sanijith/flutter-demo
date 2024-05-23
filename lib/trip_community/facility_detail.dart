@@ -61,7 +61,7 @@ class _FacilityDetailState extends State<FacilityDetail> {
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) =>
-                                              EditFacilityPage()));
+                                              EditFacilityPage(id:facility[index].id)));
                                 },
                                 icon: Icon(Icons.edit)),
                             IconButton(

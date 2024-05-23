@@ -20,6 +20,8 @@ class _TripRequestState extends State<TripRequest> {
   var from=TextEditingController();
   var to=TextEditingController();
   var ID;
+  var name;
+  var phone;
   void initState() {
     super.initState();
     getData();
@@ -29,15 +31,22 @@ class _TripRequestState extends State<TripRequest> {
     SharedPreferences spref = await SharedPreferences.getInstance();
     setState(() {
       ID = spref.getString('id');
+      name=spref.getString('name');
+      phone=spref.getString('phone');
+      
     });
-    print('Shared Prefernce data get');
+    print('Shared Preference data get');
   }
   Future<dynamic>tripReq()async{
     await FirebaseFirestore.instance.collection("TripRequests").add({
       "User Id":ID,
+      "User Name":name,
       "From":from.text,
       "To":to.text,
+      "Phone Number":phone,
     });
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) => Drivers()));
   }
   @override
   Widget build(BuildContext context) {
@@ -76,6 +85,11 @@ class _TripRequestState extends State<TripRequest> {
                   padding: const EdgeInsets.all(10),
                   child: TextFormField(
                     controller: from,
+                    validator: (value){
+                      if(value!.isEmpty){
+                        return "Empty ";
+                      }
+                    },
                     decoration: const InputDecoration(
                       filled: true,
                       fillColor: Colors.white,
@@ -90,6 +104,11 @@ class _TripRequestState extends State<TripRequest> {
                   padding: const EdgeInsets.all(10),
                   child: TextFormField(
                     controller: to,
+                    validator: (value){
+                      if(value!.isEmpty){
+                        return "Empty ";
+                      }
+                    },
                     decoration: const InputDecoration(
                       filled: true,
                       fillColor: Colors.white,
@@ -104,8 +123,7 @@ class _TripRequestState extends State<TripRequest> {
                 InkWell(
                     onTap: () {
                       if(formKey.currentState!.validate()){
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) => Drivers()));
+                        tripReq();
                       }
                     },
                     child: Padding(

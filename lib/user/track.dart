@@ -18,13 +18,13 @@ class _TrackState extends State<Track> {
       ),
       body: SingleChildScrollView(
         child: Container(
-          padding: EdgeInsets.all(40),
+          padding: EdgeInsets.all(30),
           child: Column(
             children: [
               Container(
                 height: 50,
                 decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(40),
+                    borderRadius: BorderRadius.circular(15),
                     color: Colors.lightBlueAccent.shade200),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,

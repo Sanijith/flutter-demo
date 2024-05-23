@@ -106,7 +106,7 @@ class _EventSearch1State extends State<EventSearch1> {
             ),
             backgroundColor: Colors.white,
             body: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 40),
+              padding: const EdgeInsets.symmetric(horizontal: 30),
               child: ListView.builder(
                   itemBuilder: (context, index) {
                     return Card(
@@ -116,11 +116,28 @@ class _EventSearch1State extends State<EventSearch1> {
                         subtitle:  Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(event[index]["Location"]),
-                            SizedBox(width: 30),
-                            Text(event[index]["Time"]),
-                            SizedBox(width: 30),
-                            Text(event[index]["Phone Number"])
+                            Row(
+                              children: [
+                                Text('Location:'),
+                                SizedBox(width: 10,),
+                                Text(event[index]["Location"]),
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                Text('Time:'),
+                                SizedBox(width: 10,),
+                                Text(event[index]["Time"]),
+                              ],
+                            ),
+                            
+                            Row(
+                              children: [
+                                Text('Phone:'),
+                                SizedBox(width: 10,),
+                                Text(event[index]["Phone Number"]),
+                              ],
+                            )
                           ],
                         ),
                       ),

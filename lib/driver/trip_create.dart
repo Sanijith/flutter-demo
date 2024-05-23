@@ -23,11 +23,14 @@ class _CreateTripState extends State<CreateTrip> {
   }
 
   var ID;
+  var name;
 
   Future<void> getData() async {
     SharedPreferences spref = await SharedPreferences.getInstance();
     setState(() {
       ID = spref.getString('id');
+      name=spref.getString('name');
+
     });
     print('Shared Preference data get');
   }
@@ -35,6 +38,7 @@ class _CreateTripState extends State<CreateTrip> {
   Future<dynamic> Create() async {
     await FirebaseFirestore.instance.collection("Create Trips").add({
       "Driver Id":ID,
+      "Driver Name":name,
       "From": from.text,
       "To": to.text,
     });

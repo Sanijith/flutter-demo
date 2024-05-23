@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fleetride/trip_community/event_detail.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -29,7 +30,7 @@ class _EditEventPageState extends State<EditEventPage> {
       "Time":timeController.text,
     });
     print("Update Successfully");
-    Navigator.pop(context);
+    Navigator.push(context, MaterialPageRoute(builder: (context)=>EventDetail()));
   }
 
   @override

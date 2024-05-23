@@ -64,9 +64,6 @@ class _UserManageState extends State<UserManage> {
                   ),
                 );
               },
-              // separatorBuilder: (context, index) {
-              //   return const Divider();
-              // },
               itemCount: user.length);
         },
       ),

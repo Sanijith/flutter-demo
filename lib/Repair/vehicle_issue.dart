@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fleetride/Repair/repair_home.dart';
 import 'package:flutter/material.dart';
 
@@ -27,32 +28,52 @@ class _VehicleIssueState extends State<VehicleIssue> {
         ],
       ),
       backgroundColor: Colors.white,
-      body: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 40),
-        child: ListView.separated(
-            itemBuilder: (context, index) {
-              return Card(
-                color: Colors.red.shade50,
-                child: ListTile(
-                  title: Text('Vehicle Issue $index'),
-                  subtitle: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text('Vehicle No:'),
-                      SizedBox(width: 30),
-                      Text('Driver Name:'),
-                      SizedBox(width: 30),
-                      Text('Phone Number'),
-                    ],
-                  ),
-                ),
+      body: FutureBuilder(
+          future: FirebaseFirestore.instance.collection("DriverRegister").get(),
+          builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return Center(child: CircularProgressIndicator());
+            }
+            if (snapshot.hasError) {
+              return Center(
+                child: Text("Error:${snapshot.error}"),
               );
-            },
-            separatorBuilder: (context, index) {
-              return const Divider();
-            },
-            itemCount: 5),
-      ),
+            }
+            final issue = snapshot.data?.docs ?? [];
+            return ListView.builder(
+                itemBuilder: (context, index) {
+                  return Card(
+                    color: Colors.red.shade50,
+                    child: ListTile(
+                      title: Text('Vehicle Issue $index'),
+                      subtitle: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            children: [
+                              Text("Vehicle No:"),
+                              Text(issue[index]["Vehicle Number"]),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Text("Driver Name:"),
+                              Text(issue[index]["Driver Name"]),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Text("Vehicle Issue"),
+                              Text(issue[index]["Vehicle Issue"]),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
+                },
+                itemCount: issue.length);
+          }),
     );
   }
 }

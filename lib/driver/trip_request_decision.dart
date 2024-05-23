@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fleetride/driver/driver_home.dart';
 import 'package:flutter/material.dart';
 
@@ -27,49 +28,71 @@ class _UserTripRequestState extends State<UserTripRequest> {
         ],
       ),
       backgroundColor: Colors.white,
-      body: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 40),
-        child: ListView.separated(
-            itemBuilder: (context, index) {
-              return Card(
-                child: ListTile(
-                  title: Text('User Request $index'),
-                  subtitle: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text('User Name:'),
-                      SizedBox(height: 30),
-                      Text('Phone Number'),
-                      SizedBox(height: 30),
-                      Row(
+      body: FutureBuilder(
+          future: FirebaseFirestore.instance.collection("TripRequests").get(),
+          builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return Center(child: CircularProgressIndicator());
+            }
+            if (snapshot.hasError) {
+              return Center(
+                child: Text("Error:${snapshot.error}"),
+              );
+            }
+            final trip = snapshot.data?.docs ?? [];
+            return ListView.builder(
+                itemBuilder: (context, index) {
+                  return Card(
+                    child: ListTile(
+                      title: Text('User Request $index'),
+                      subtitle: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          ElevatedButton(
-                            onPressed: () {},
-                            child: const Text('Accept'),
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.lightGreenAccent,
-                            ),
+                          Row(
+                            children: [
+                              Text('User Name:'),
+                              Text(trip[index]["User Name"])
+                            ],
                           ),
-                          SizedBox(width: 30),
-                          ElevatedButton(
-                            onPressed: () {},
-                            child: const Text('Reject'),
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.red,
-                            ),
+                          Row(
+                            children: [
+                              Text('Phone Number:'),
+                              Text(trip[index]["Phone Number"])
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              ElevatedButton(
+                                onPressed: () {},
+                                child: const Text('Accept'),
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.lightGreenAccent,
+                                ),
+                              ),
+                              SizedBox(width: 30),
+                              ElevatedButton(
+                                onPressed: () {
+                                  setState(() {
+                                    FirebaseFirestore.instance
+                                        .collection("TripRequests")
+                                        .doc(trip[index].id)
+                                        .delete();
+                                  });
+                                },
+                                child: const Text('Reject'),
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.red,
+                                ),
+                              ),
+                            ],
                           ),
                         ],
                       ),
-                    ],
-                  ),
-                ),
-              );
-            },
-            separatorBuilder: (context, index) {
-              return const Divider();
-            },
-            itemCount: 10),
-      ),
+                    ),
+                  );
+                },
+                itemCount: trip.length);
+          }),
     );
   }
 }

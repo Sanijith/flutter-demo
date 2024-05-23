@@ -17,19 +17,22 @@ class _DriverLoginState extends State<DriverLogin> {
   var email=TextEditingController();
   var password=TextEditingController();
   String id='';
+  String name='';
   void DRIVERLogin() async {
-    final user = await FirebaseFirestore.instance
+    final driver = await FirebaseFirestore.instance
         .collection('DriverRegister')
         .where('Email', isEqualTo: email.text)
         .where('Password', isEqualTo: password.text)
     // .where('status', isEqualTo: 1)
         .get();
-    if (user.docs.isNotEmpty) {
-      id = user.docs[0].id;
+    if (driver.docs.isNotEmpty) {
+      id = driver.docs[0].id;
+      name=driver.docs[0]["UserName"];
 
 
       SharedPreferences data = await SharedPreferences.getInstance();
       data.setString('id', id);
+      data.setString('name', name);
 
 
       Navigator.push(context, MaterialPageRoute(

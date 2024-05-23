@@ -19,6 +19,8 @@ class _LoginState extends State<Login> {
   var email=TextEditingController();
   var password=TextEditingController();
   String id='';
+  String name='';
+  String phone='';
   void USERLogin() async {
     final user = await FirebaseFirestore.instance
         .collection('UserRegister')
@@ -28,10 +30,14 @@ class _LoginState extends State<Login> {
         .get();
     if (user.docs.isNotEmpty) {
       id = user.docs[0].id;
+      name=user.docs[0]["Username"];
+      phone=user.docs[0]["Phone Number"];
 
 
       SharedPreferences data = await SharedPreferences.getInstance();
       data.setString('id', id);
+      data.setString('name', name);
+      data.setString('phone', phone);
 
 
       Navigator.push(context, MaterialPageRoute(
