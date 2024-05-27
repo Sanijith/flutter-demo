@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fleetride/user/user_home.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Drivers extends StatefulWidget {
   const Drivers({super.key});
@@ -10,6 +11,32 @@ class Drivers extends StatefulWidget {
 }
 
 class _DriversState extends State<Drivers> {
+
+  var ID;
+  var userName;
+  var phoneNumber;
+
+  Future<void> sendRequest(String driverName) async {
+    SharedPreferences spref = await SharedPreferences.getInstance();
+    userName = spref.getString('name');
+    phoneNumber = spref.getString('phone');
+
+    await FirebaseFirestore.instance.collection("Request List").add({
+      "User Name": userName,
+      "Phone Number": phoneNumber,
+      "Driver Name": driverName,
+    });
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text(
+          "Request Sent Successfully",
+          style: TextStyle(fontSize: 15, color: Colors.red),
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -66,6 +93,7 @@ class _DriversState extends State<Drivers> {
                         ),
                         trailing: ElevatedButton(
                           onPressed: () {
+                            sendRequest(mytrip[index]["Driver Name"]);
                             ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                                 content: Text(
                                   "Request Sent Successfully",

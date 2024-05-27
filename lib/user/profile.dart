@@ -59,7 +59,7 @@ class _ProfileState extends State<Profile> {
             child: Column(
               children: [
                 Container(
-                  height: 150,
+                  height: 100,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(40),
                       color: Colors.lightBlueAccent.shade200),

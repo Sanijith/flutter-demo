@@ -14,132 +14,146 @@ class _TrackRideState extends State<TrackRide> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body:DefaultTabController(
-      length: 2, // number of tabs
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text('TabBar Example'),
-          bottom: TabBar(
-            tabs: [
-              Tab(text: 'Trip Requests'),
-              Tab(text: 'Delivery Requests'),
-            ],
+      body: DefaultTabController(
+        length: 2, // number of tabs
+        child: Scaffold(
+          appBar: AppBar(
+            bottom: TabBar(
+              tabs: [
+                Tab(text: 'Trip Requests'),
+                Tab(text: 'Delivery Requests'),
+              ],
+              // Customize the TabBar appearance
+              indicator: BoxDecoration(
+                borderRadius: BorderRadius.circular(10), // Adjust the shape
+                color: Colors.orange, // Change the color
+              ),
+              labelColor: Colors.white, // Change the label color
+            ),
           ),
-        ),
-        body: TabBarView(
-          children: [
-            // Contents of Tab 1
-        Padding(
-        padding: EdgeInsets.all(10),
-        child: ListView.builder(
-            itemBuilder: (context, index) {
-              return Card(
-                color: Colors.red.shade50,
-                child: ListTile(
-                  title: Text("Trip Request $index"),
-                  trailing: ElevatedButton(
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => Track(),
-                            ));
-                      },
-                      child: Text("Track")),
-                  subtitle: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        children: [
-                          Text('Driver Name:'),
-                          SizedBox(
-                            width: 10,
-                          ),
-                          // Text(event[index]["Location"]),
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          Text('From:'),
-                          SizedBox(
-                            width: 10,
-                          ),
-                          // Text(event[index]["Time"]),
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          Text('To:'),
-                          SizedBox(
-                            width: 10,
-                          ),
-                          // Text(event[index]["Phone Number"]),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-              );
-            },
-            itemCount: 5),),
-            // Contents of Tab 2
-        Padding(
-          padding: EdgeInsets.all(10),
-          child: ListView.builder(
-              itemBuilder: (context, index) {
-                return Card(
-                  color: Colors.red.shade50,
-                  child: ListTile(
-                    title: Text("Delivery Request"),
-                    trailing: ElevatedButton(
-                        onPressed: () {
-                          Navigator.push(
+          body: TabBarView(
+            children: [
+              // Contents of Tab 1
+              Padding(
+                padding: EdgeInsets.all(10),
+                child: ListView.builder(
+                  itemBuilder: (context, index) {
+                    return Card(
+                      color: Colors.red.shade50,
+                      child: ListTile(
+                        title: Text("Trip Request $index"),
+                        trailing: ElevatedButton(
+                          onPressed: () {
+                            Navigator.push(
                               context,
                               MaterialPageRoute(
                                 builder: (context) => Track(),
-                              ));
-                        },
-                        child: Text("Track")),
-                    subtitle: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
+                              ),
+                            );
+                          },
+                          child: Text("Track"),
+                        ),
+                        subtitle: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text('From:'),
-                            SizedBox(
-                              width: 10,
+                            Row(
+                              children: [
+                                Text('Driver Name:'),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                // Text(event[index]["Location"]),
+                              ],
                             ),
-                            // Text(event[index]["Location"]),
+                            Row(
+                              children: [
+                                Text('From:'),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                // Text(event[index]["Time"]),
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                Text('To:'),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                // Text(event[index]["Phone Number"]),
+                              ],
+                            ),
                           ],
                         ),
-                        Row(
+                      ),
+                    );
+                  },
+                  itemCount: 5,
+                ),
+              ),
+              // Contents of Tab 2
+              Padding(
+                padding: EdgeInsets.all(10),
+                child: ListView.builder(
+                  itemBuilder: (context, index) {
+                    return Card(
+                      color: Colors.red.shade50,
+                      child: ListTile(
+                        title: Text("Delivery Request"),
+                        trailing: ElevatedButton(
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => Track(),
+                              ),
+                            );
+                          },
+                          child: Text("Track"),
+                        ),
+                        subtitle: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text('To:'),
-                            SizedBox(
-                              width: 10,
+                            Row(
+                              children: [
+                                Text('From:'),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                // Text(event[index]["Location"]),
+                              ],
                             ),
-                            // Text(event[index]["Time"]),
+                            Row(
+                              children: [
+                                Text('To:'),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                // Text(event[index]["Time"]),
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                Text('Weight:'),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                // Text(event[index]["Phone Number"]),
+                              ],
+                            )
                           ],
                         ),
-                        Row(
-                          children: [
-                            Text('Weight:'),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            // Text(event[index]["Phone Number"]),
-                          ],
-                        )
-                      ],
-                    ),
-                  ),
-                );
-              },
-              itemCount: 5)),
-          ],
+                      ),
+                    );
+                  },
+                  itemCount: 5,
+                ),
+              ),
+            ],
+          ),
         ),
       ),
-    ),
     );
   }
 }
+

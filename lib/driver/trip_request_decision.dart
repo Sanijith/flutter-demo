@@ -29,7 +29,7 @@ class _UserTripRequestState extends State<UserTripRequest> {
       ),
       backgroundColor: Colors.white,
       body: FutureBuilder(
-          future: FirebaseFirestore.instance.collection("TripRequests").get(),
+          future: FirebaseFirestore.instance.collection("Request List").get(),
           builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return Center(child: CircularProgressIndicator());
@@ -74,7 +74,7 @@ class _UserTripRequestState extends State<UserTripRequest> {
                                 onPressed: () {
                                   setState(() {
                                     FirebaseFirestore.instance
-                                        .collection("TripRequests")
+                                        .collection("Request List")
                                         .doc(trip[index].id)
                                         .delete();
                                   });
