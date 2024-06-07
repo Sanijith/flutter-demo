@@ -1,11 +1,16 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fleetride/user/change_password.dart';
 import 'package:fleetride/user/edit.dart';
 import 'package:fleetride/user/login.dart';
+import 'package:fleetride/user/user_home.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 
 class Profile extends StatefulWidget {
   const Profile({super.key});
@@ -39,6 +44,98 @@ class _ProfileState extends State<Profile> {
         .get();
   }
 
+  void _showBottomSheet(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      builder: (BuildContext context) {
+        return Container(
+          child: Wrap(
+            children: <Widget>[
+              ListTile(
+                leading: Icon(Icons.photo),
+                title: Text('Choose from Gallery'),
+                onTap: () {
+                  // Add functionality to choose from gallery
+                  _getImage();
+                  Navigator.pop(context);
+                },
+              ),
+              ListTile(
+                leading: Icon(Icons.delete),
+                title: Text('Remove Photo'),
+                onTap: () {
+                  setState(() {
+                    FirebaseFirestore.instance
+                        .collection("UserRegister")
+                        .doc(ID)
+                        .update({
+                    "Path" : "1",
+                    });
+
+                  });
+                  Navigator.pop(context);
+                },
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+  PickedFile? _image;
+  Future<void> _getImage() async {
+    final pickedFile =
+    await ImagePicker().pickImage(source: ImageSource.gallery);
+
+    setState(() {
+      if (pickedFile != null) {
+        _image = PickedFile(pickedFile.path);
+        print("picked image");
+        update();
+      } else {
+        print('No image selected.');
+      }
+    });
+  }
+  Future<void> update() async {
+    try {
+      if (_image != null) {
+        final ref = firebase_storage.FirebaseStorage.instance
+            .ref()
+            .child('user_images')
+            .child(DateTime.now().millisecondsSinceEpoch.toString());
+        await ref.putFile(File(_image!.path));
+
+        final imageURL = await ref.getDownloadURL();
+
+        await FirebaseFirestore.instance
+            .collection('UserRegister')
+            .doc(ID)
+            .update({
+          'Path': imageURL,
+        });
+
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Profile updated successfully'),
+          ),
+        );
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('No image selected'),
+          ),
+        );
+      }
+    } catch (e) {
+      print('Error updating profile: $e');
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Error updating profile'),
+        ),
+      );
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
@@ -52,7 +149,19 @@ class _ProfileState extends State<Profile> {
         }
         return Scaffold(
           appBar: AppBar(
-            backgroundColor: Colors.lightBlueAccent.shade100,
+            title: const Text('FleetRide'),
+            actions: [
+              IconButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const Userhome()),
+                  );
+                },
+                icon: const Icon(Icons.home_outlined),
+              ),
+            ],
+            backgroundColor: Colors.white,
           ),
           body: Container(
             padding: EdgeInsets.all(40),
@@ -61,7 +170,7 @@ class _ProfileState extends State<Profile> {
                 Container(
                   height: 100,
                   decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(40),
+                      borderRadius: BorderRadius.circular(15),
                       color: Colors.lightBlueAccent.shade200),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -70,15 +179,40 @@ class _ProfileState extends State<Profile> {
                         children: [
                           Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 25),
-                            child: CircleAvatar(
-                              backgroundColor: Colors.red,
-                              radius: 30,
-                              child: Icon(
-                                Icons.person,
-                                size: 40,
-                              ),
+                            child: Stack(
+                              children: [
+                                User!["Path"] == "1"
+                                    ? ClipOval(
+                                  child: Image.asset(
+                                    "assets/user.jpg",
+                                    height: 90,
+                                    width: 90,
+                                    fit: BoxFit.fill,
+                                  ),
+                                )
+                                    : ClipOval(
+                                  child: Image.network(
+                                    User!["Path"],
+                                    height: 90,
+                                    width: 90,
+                                    fit: BoxFit.fill,
+                                  ),
+                                ),
+                                Positioned(
+                                  top: 60,
+                                  left: 50,
+                                  bottom: 0,
+                                  right: 0,
+                                  child: IconButton(onPressed: (){
+                                    setState(() {
+                                      _showBottomSheet(context);
+                                    });
+                                  }, icon: Icon(Icons.camera_alt_outlined),color: Colors.black,),
+                                ),
+                              ],
                             ),
                           ),
+
                           Text(
                             User!["Username"],
                             style: GoogleFonts.ubuntu(
@@ -130,7 +264,7 @@ class _ProfileState extends State<Profile> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => ChangePassword()));
+                              builder: (context) => ChangePassword(email: User!["Email"],)));
                     },
                     child: Padding(
                       padding: const EdgeInsets.only(bottom: 10),

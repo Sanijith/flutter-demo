@@ -3,14 +3,14 @@ import 'package:fleetride/admin/admin_home.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class CommunityManage extends StatefulWidget {
-  const CommunityManage({super.key});
+class RepairShopManage extends StatefulWidget {
+  const RepairShopManage({super.key});
 
   @override
-  State<CommunityManage> createState() => _CommunityManageState();
+  State<RepairShopManage> createState() => _RepairShopManageState();
 }
 
-class _CommunityManageState extends State<CommunityManage> {
+class _RepairShopManageState extends State<RepairShopManage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,7 +42,7 @@ class _CommunityManageState extends State<CommunityManage> {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 50),
                     child: Text(
-                      "Trip Community ",
+                      "Repair Shop ",
                       style: GoogleFonts.ubuntu(
                         fontSize: 24,
                         fontWeight: FontWeight.bold,
@@ -59,9 +59,8 @@ class _CommunityManageState extends State<CommunityManage> {
           ),
           Expanded(
             child: FutureBuilder(
-              future: FirebaseFirestore.instance
-                  .collection("CommunityRegister")
-                  .get(),
+              future:
+                  FirebaseFirestore.instance.collection("RepairRegister").get(),
               builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return Center(child: CircularProgressIndicator());
@@ -71,14 +70,14 @@ class _CommunityManageState extends State<CommunityManage> {
                     child: Text("Error:${snapshot.error}"),
                   );
                 }
-                final community = snapshot.data?.docs ?? [];
+                final repair = snapshot.data?.docs ?? [];
                 return ListView.builder(
                     itemBuilder: (context, index) {
                       return Card(
                         color: Colors.red.shade50,
                         child: ListTile(
-                          title: Text(community[index]["UserName"]),
-                          leading: community[index]["Path"] == "1"
+                          title: Text(repair[index]["UserName"]),
+                          leading: repair[index]["Path"] == "1"
                               ? CircleAvatar(
                                   child: ClipOval(
                                     child: Image.asset(
@@ -92,7 +91,7 @@ class _CommunityManageState extends State<CommunityManage> {
                               : CircleAvatar(
                                   child: ClipOval(
                                     child: Image.network(
-                                      community[index]["Path"],
+                                      repair[index]["Path"],
                                       height: 90,
                                       width: 90,
                                       fit: BoxFit.cover,
@@ -103,8 +102,8 @@ class _CommunityManageState extends State<CommunityManage> {
                               onPressed: () {
                                 setState(() {
                                   FirebaseFirestore.instance
-                                      .collection("CommunityRegister")
-                                      .doc(community[index].id)
+                                      .collection("RepairRegister")
+                                      .doc(repair[index].id)
                                       .delete();
                                 });
                               },
@@ -112,8 +111,8 @@ class _CommunityManageState extends State<CommunityManage> {
                           subtitle: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(community[index]["Email"]),
-                              Text(community[index]["Phone Number"])
+                              Text(repair[index]["Email"]),
+                              Text(repair[index]["PhoneNumber"])
                             ],
                           ),
                         ),
@@ -122,7 +121,7 @@ class _CommunityManageState extends State<CommunityManage> {
                     // separatorBuilder: (context, index) {
                     //   return const Divider();
                     // },
-                    itemCount: community.length);
+                    itemCount: repair.length);
               },
             ),
           ),

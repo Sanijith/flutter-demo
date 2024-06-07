@@ -1,4 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fleetride/driver/driver_home.dart';
+import 'package:fleetride/driver/repairs_list.dart';
 import 'package:fleetride/first.dart';
 import 'package:fleetride/user/edit.dart';
 import 'package:fleetride/user/login.dart';
@@ -26,6 +28,7 @@ class _DriverReportState extends State<DriverReport> {
       "Vehicle Issue": vehicleIssue.text,
     });
     print('done');
+    Navigator.push(context, MaterialPageRoute(builder: (context) => RepairNamesList(),));
   }
 
   @override
@@ -33,7 +36,21 @@ class _DriverReportState extends State<DriverReport> {
     return Form(
       key: formKey,
       child: Scaffold(
-        appBar: AppBar(),
+        appBar: AppBar(
+          title: const Text('FleetRide'),
+          actions: [
+            IconButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const DriverHome()),
+                );
+              },
+              icon: const Icon(Icons.home_outlined),
+            ),
+          ],
+          backgroundColor: Colors.white,
+        ),
         body: SingleChildScrollView(
           child: Container(
             padding: EdgeInsets.all(40),

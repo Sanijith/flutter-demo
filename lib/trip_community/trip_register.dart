@@ -26,6 +26,7 @@ class _TripRegisterState extends State<TripRegister> {
       "Password":password.text,
       "Email":email.text,
       "Phone Number":phone.text,
+      "Path":"1",
 
     });
     print('Success');

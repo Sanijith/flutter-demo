@@ -1,32 +1,17 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:fleetride/driver/driver_home.dart';
+import 'package:fleetride/Repair/repair_home.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:url_launcher/url_launcher.dart';
 
-class MyTrip extends StatefulWidget {
-  const MyTrip({super.key});
+class RepairNamesList extends StatefulWidget {
+  const RepairNamesList({super.key});
 
   @override
-  State<MyTrip> createState() => _MyTripState();
+  State<RepairNamesList> createState() => _RepairNamesListState();
 }
 
-class _MyTripState extends State<MyTrip> {
-  var ID;
-
-  void initState() {
-    super.initState();
-    getData();
-  }
-
-  Future<void> getData() async {
-    SharedPreferences spref = await SharedPreferences.getInstance();
-    setState(() {
-      ID = spref.getString('id');
-    });
-    print('Shared Preference data get');
-  }
-
+class _RepairNamesListState extends State<RepairNamesList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,15 +19,18 @@ class _MyTripState extends State<MyTrip> {
         title: const Text('FleetRide'),
         actions: [
           IconButton(
-              onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => DriverHome()));
-              },
-              icon: const Icon(Icons.home_outlined))
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const RepairHome()),
+              );
+            },
+            icon: const Icon(Icons.home_outlined),
+          ),
         ],
+        backgroundColor: Colors.white,
       ),
-      body:
-        Column(
+      body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Center(
@@ -57,7 +45,7 @@ class _MyTripState extends State<MyTrip> {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 50),
                     child: Text(
-                      "My Trips ",
+                      "Repairs ",
                       style: GoogleFonts.ubuntu(
                         fontSize: 24,
                         fontWeight: FontWeight.bold,
@@ -72,10 +60,8 @@ class _MyTripState extends State<MyTrip> {
           SizedBox(height: 20,),
           Expanded(
             child: FutureBuilder(
-                future: FirebaseFirestore.instance
-                    .collection("Create Trips")
-                    .where("Driver Id", isEqualTo: ID)
-                    .get(),
+                future:
+                    FirebaseFirestore.instance.collection("RepairList").get(),
                 builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return Center(child: CircularProgressIndicator());
@@ -85,44 +71,49 @@ class _MyTripState extends State<MyTrip> {
                       child: Text("Error:${snapshot.error}"),
                     );
                   }
-                  final mytrips = snapshot.data?.docs ?? [];
+                  final repairs = snapshot.data?.docs ?? [];
                   return ListView.builder(
                       itemBuilder: (context, index) {
                         return Card(
                           color: Colors.red.shade50,
                           child: ListTile(
-                            title: Text('Trip $index'),
+                            title: Text(repairs[index]["Repair Name"]),
                             trailing: IconButton(
-                                onPressed: () {
-                                  setState(() {
-                                    FirebaseFirestore.instance
-                                        .collection("Create Trips")
-                                        .doc(mytrips[index].id)
-                                        .delete();
-                                  });
+                                onPressed: () async {
+                                  try {
+                                    // Attempt to launch the telephone call
+                                    await launch(
+                                        'tel:${repairs[index]["Phone Number"]}');
+                                  } catch (e) {
+                                    // Handle any exceptions
+                                    print('Error launching telephone call: $e');
+                                    // Display a friendly error message to the user
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                        content: Text(
+                                            'Failed to launch phone call. Please check your device settings.'),
+                                      ),
+                                    );
+                                  }
                                 },
-                                icon: Icon(Icons.delete_outline)),
+                                icon: Icon(Icons.call_outlined)),
                             subtitle: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Row(
-                                  children: [
-                                    Text('From:'),
-                                    Text(mytrips[index]["From"])
-                                  ],
+                                SizedBox(
+                                  height: 10,
                                 ),
-                                Row(
-                                  children: [Text('To:'), Text(mytrips[index]["To"])],
-                                )
+                                Text(repairs[index]["Location"]),
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                Text(repairs[index]["Phone Number"]),
                               ],
                             ),
                           ),
                         );
                       },
-                      // separatorBuilder: (context, index) {
-                      //   return const Divider();
-                      // },
-                      itemCount: mytrips.length);
+                      itemCount: repairs.length);
                 }),
           ),
         ],

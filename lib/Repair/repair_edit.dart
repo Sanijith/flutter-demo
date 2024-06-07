@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fleetride/Repair/repair_home.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -73,7 +74,19 @@ class _RepairEditState extends State<RepairEdit> {
       key: formKey,
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.lightBlueAccent.shade100,
+          title: const Text('FleetRide'),
+          actions: [
+            IconButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const RepairHome()),
+                );
+              },
+              icon: const Icon(Icons.home_outlined),
+            ),
+          ],
+          backgroundColor: Colors.white,
         ),
         body: Container(
           padding: EdgeInsets.all(40),

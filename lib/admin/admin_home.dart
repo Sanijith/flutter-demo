@@ -1,11 +1,10 @@
 import 'package:fleetride/admin/community_manage.dart';
 import 'package:fleetride/admin/contact_manage.dart';
-import 'package:fleetride/admin/delivery_manage.dart';
 import 'package:fleetride/admin/driver_manage.dart';
 import 'package:fleetride/admin/event_manage.dart';
 import 'package:fleetride/admin/facility_manage.dart';
 import 'package:fleetride/admin/repair_manage.dart';
-import 'package:fleetride/admin/trip_manage.dart';
+import 'package:fleetride/admin/repair_shop_manage.dart';
 import 'package:fleetride/admin/user_manage.dart';
 
 import 'package:flutter/material.dart';
@@ -93,58 +92,6 @@ class _AdminHomeState extends State<AdminHome> {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const TripManage()),
-                );
-              },
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Colors.orange,
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    CircleAvatar(
-                      radius: 30,
-                      child: Icon(Icons.manage_accounts_outlined, size: 40),
-                    ),
-                    const SizedBox(height: 10),
-                    Text('Trip Manage', style: TextStyle(color: Colors.white)),
-                  ],
-                ),
-              ),
-            ),
-            GestureDetector(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const DeliveryManage()),
-                );
-              },
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Colors.red,
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    CircleAvatar(
-                      radius: 30,
-                      child: Icon(Icons.manage_accounts_outlined, size: 40),
-                    ),
-                    const SizedBox(height: 10),
-                    Text('Delivery Manage',
-                        style: TextStyle(color: Colors.white)),
-                  ],
-                ),
-              ),
-            ),
-            GestureDetector(
-              onTap: () {
-                Navigator.push(
-                  context,
                   MaterialPageRoute(
                       builder: (context) => const ContactManage()),
                 );
@@ -178,7 +125,7 @@ class _AdminHomeState extends State<AdminHome> {
               },
               child: Container(
                 decoration: BoxDecoration(
-                  color: Colors.lightGreen,
+                  color: Colors.brown,
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: Column(
@@ -197,31 +144,6 @@ class _AdminHomeState extends State<AdminHome> {
                 ),
               ),
             ),
-            // GestureDetector(
-            //   onTap: () {
-            //     Navigator.push(
-            //       context,
-            //       MaterialPageRoute(builder: (context) => const ViewLaw()),
-            //     );
-            //   },
-            //   child: Container(
-            //     decoration: BoxDecoration(
-            //       color: Colors.brown,
-            //       borderRadius: BorderRadius.circular(10),
-            //     ),
-            //     child: Column(
-            //       mainAxisAlignment: MainAxisAlignment.center,
-            //       children: [
-            //         CircleAvatar(
-            //           radius: 30,
-            //           child: Icon(Icons.view_list_outlined, size: 40),
-            //         ),
-            //         const SizedBox(height: 10),
-            //         Text('View Laws', style: TextStyle(color: Colors.white)),
-            //       ],
-            //     ),
-            //   ),
-            // ),
             GestureDetector(
               onTap: () {
                 Navigator.push(
@@ -269,7 +191,37 @@ class _AdminHomeState extends State<AdminHome> {
                       child: Icon(Icons.manage_accounts_outlined, size: 40),
                     ),
                     const SizedBox(height: 10),
-                    Text('Repair Manage', style: TextStyle(color: Colors.white)),
+                    Text('Repair Manage',
+                        style: TextStyle(color: Colors.white)),
+                  ],
+                ),
+              ),
+            ),
+            GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const RepairShopManage()),
+                );
+              },
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.orange,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    CircleAvatar(
+                      radius: 30,
+                      child: Icon(Icons.manage_accounts_outlined, size: 40),
+                    ),
+                    const SizedBox(height: 10),
+                    Center(
+                      child: Text('Repair Shop \n Manage',
+                          style: TextStyle(color: Colors.white)),
+                    ),
                   ],
                 ),
               ),

@@ -1,11 +1,16 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fleetride/trip_community/trip_change_password.dart';
+import 'package:fleetride/trip_community/trip_comm_home.dart';
 import 'package:fleetride/trip_community/trip_edit.dart';
 import 'package:fleetride/trip_community/trip_login.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 
 class FacilityProfile extends StatefulWidget {
   const FacilityProfile({super.key});
@@ -27,7 +32,7 @@ class _FacilityProfileState extends State<FacilityProfile> {
     setState(() {
       ID = spref.getString('id');
     });
-    print('Shared Prefernce data get');
+    print('Shared Preference data get');
   }
 
   DocumentSnapshot? TripCommunity;
@@ -37,6 +42,100 @@ class _FacilityProfileState extends State<FacilityProfile> {
         .collection("CommunityRegister")
         .doc(ID)
         .get();
+  }
+
+  void _showBottomSheet(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      builder: (BuildContext context) {
+        return Container(
+          child: Wrap(
+            children: <Widget>[
+              ListTile(
+                leading: Icon(Icons.photo),
+                title: Text('Choose from Gallery'),
+                onTap: () {
+                  // Add functionality to choose from gallery
+                  _getImage();
+                  Navigator.pop(context);
+                },
+              ),
+              ListTile(
+                leading: Icon(Icons.delete),
+                title: Text('Remove Photo'),
+                onTap: () {
+                  setState(() {
+                    FirebaseFirestore.instance
+                        .collection("UserRegister")
+                        .doc(ID)
+                        .update({
+                      "Path" : "1",
+                    });
+
+                  });
+                  Navigator.pop(context);
+                },
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  PickedFile? _image;
+  Future<void> _getImage() async {
+    final pickedFile =
+    await ImagePicker().pickImage(source: ImageSource.gallery);
+
+    setState(() {
+      if (pickedFile != null) {
+        _image = PickedFile(pickedFile.path);
+        print("picked image");
+        update();
+      } else {
+        print('No image selected.');
+      }
+    });
+  }
+  Future<void> update() async {
+    try {
+      if (_image != null) {
+        final ref = firebase_storage.FirebaseStorage.instance
+            .ref()
+            .child('trip_community_images')
+            .child(DateTime.now().millisecondsSinceEpoch.toString());
+        await ref.putFile(File(_image!.path));
+
+        final imageURL = await ref.getDownloadURL();
+
+        await FirebaseFirestore.instance
+            .collection('CommunityRegister')
+            .doc(ID)
+            .update({
+          'Path': imageURL,
+        });
+
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Profile updated successfully'),
+          ),
+        );
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('No image selected'),
+          ),
+        );
+      }
+    } catch (e) {
+      print('Error updating profile: $e');
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Error updating profile'),
+        ),
+      );
+    }
   }
 
   @override
@@ -52,7 +151,19 @@ class _FacilityProfileState extends State<FacilityProfile> {
           }
           return Scaffold(
             appBar: AppBar(
-              backgroundColor: Colors.lightBlueAccent.shade100,
+              title: const Text('FleetRide'),
+              actions: [
+                IconButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const TripHomeScreen()),
+                    );
+                  },
+                  icon: const Icon(Icons.home_outlined),
+                ),
+              ],
+              backgroundColor: Colors.white,
             ),
             body: Container(
               padding: EdgeInsets.all(40),
@@ -69,15 +180,36 @@ class _FacilityProfileState extends State<FacilityProfile> {
                         Row(
                           children: [
                             Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 25),
-                              child: CircleAvatar(
-                                backgroundColor: Colors.red,
-                                radius: 30,
-                                child: Icon(
-                                  Icons.person,
-                                  size: 40,
-                                ),
+                              padding: const EdgeInsets.symmetric(horizontal: 25),
+                              child: Stack(
+                                children: [
+                                  TripCommunity!["Path"] == "1"
+                                      ? ClipOval(
+                                    child: Image.asset(
+                                      "assets/user.jpg",
+                                      height: 100,
+                                      width: 90,
+                                      fit: BoxFit.fill,
+                                    ),
+                                  )
+                                      : ClipOval(
+                                    child: Image.network(
+                                      TripCommunity!["Path"],
+                                      height: 90,
+                                      width: 90,
+                                      fit: BoxFit.fitWidth,
+                                    ),
+                                  ),
+                                  Positioned(
+                                    bottom: 0,
+                                    right: 0,
+                                    child: IconButton(onPressed: (){
+                                      setState(() {
+                                        _showBottomSheet(context);
+                                      });
+                                    }, icon: Icon(Icons.camera_alt_outlined)),
+                                  ),
+                                ],
                               ),
                             ),
                             Text(
@@ -134,7 +266,7 @@ class _FacilityProfileState extends State<FacilityProfile> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => TripChangePassword()));
+                                builder: (context) => TripChangePassword(email: TripCommunity!["Email"],)));
                       },
                       child: Padding(
                         padding: const EdgeInsets.only(bottom: 10),

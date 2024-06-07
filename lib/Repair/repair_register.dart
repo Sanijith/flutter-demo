@@ -26,6 +26,7 @@ class _RepairRegisterState extends State<RepairRegister> {
       "Password":password.text,
       "Email":email.text,
       "PhoneNumber":phone.text,
+      "Path":"1",
     });
     print('Success');
     Navigator.pushReplacement(context,

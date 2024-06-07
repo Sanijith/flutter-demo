@@ -1,18 +1,9 @@
 import 'package:firebase_core/firebase_core.dart';
-import 'package:fleetride/Repair/repair_login.dart';
-import 'package:fleetride/Repair/repair_register.dart';
-import 'package:fleetride/admin/admin_login.dart';
-import 'package:fleetride/driver/driver_login.dart';
-import 'package:fleetride/driver/driver_profile.dart';
-import 'package:fleetride/driver/driver_register.dart';
+
 import 'package:fleetride/firebase_options.dart';
 import 'package:fleetride/first.dart';
-import 'package:fleetride/trip_community/facility_detail.dart';
-import 'package:fleetride/trip_community/trip_login.dart';
-import 'package:fleetride/trip_community/trip_register.dart';
-import 'package:fleetride/user/change_password.dart';
-import 'package:fleetride/user/login.dart';
-import 'package:fleetride/user/register.dart';
+import 'package:fleetride/week.dart';
+
 import 'package:flutter/material.dart';
 
 Future<void> main() async {
@@ -36,7 +27,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: FirstPage(),
+      home: SplashScreen(),
     );
   }
 }

@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fleetride/driver/driver_home.dart';
 import 'package:fleetride/driver/my_trip.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -24,12 +25,14 @@ class _CreateTripState extends State<CreateTrip> {
 
   var ID;
   var name;
+  var phone;
 
   Future<void> getData() async {
     SharedPreferences spref = await SharedPreferences.getInstance();
     setState(() {
       ID = spref.getString('id');
       name=spref.getString('name');
+      phone=spref.getString('phone');
 
     });
     print('Shared Preference data get');
@@ -39,6 +42,7 @@ class _CreateTripState extends State<CreateTrip> {
     await FirebaseFirestore.instance.collection("Create Trips").add({
       "Driver Id":ID,
       "Driver Name":name,
+      "Driver Phone":phone,
       "From": from.text,
       "To": to.text,
     });
@@ -51,6 +55,21 @@ class _CreateTripState extends State<CreateTrip> {
     return Form(
       key: formKey,
       child: Scaffold(
+        appBar: AppBar(
+          title: const Text('FleetRide'),
+          actions: [
+            IconButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const DriverHome()),
+                );
+              },
+              icon: const Icon(Icons.home_outlined),
+            ),
+          ],
+          backgroundColor: Colors.white,
+        ),
         body: SingleChildScrollView(
           child: Container(
             padding: EdgeInsets.all(40),

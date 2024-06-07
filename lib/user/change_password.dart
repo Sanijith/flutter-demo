@@ -1,34 +1,23 @@
-import 'dart:io';
-
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fleetride/user/user_home.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:image_picker/image_picker.dart';
+
+import 'login.dart';
 
 class ChangePassword extends StatefulWidget {
-  const ChangePassword({super.key});
+  const ChangePassword({super.key, required this.email});
+  final email;
 
   @override
   State<ChangePassword> createState() => _ChangePasswordState();
 }
 
 class _ChangePasswordState extends State<ChangePassword> {
-  File? _imageFile;
-
-  Future<void> _pickImage() async {
-    final picker = ImagePicker();
-    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
-
-    if (pickedFile != null) {
-      setState(() {
-        _imageFile = File(pickedFile.path);
-      });
-    }
-  }
-  final formKey=GlobalKey<FormState>();
-  var currentPassword=TextEditingController();
-  var newPassword=TextEditingController();
-  var confirmPassword=TextEditingController();
+  final formKey = GlobalKey<FormState>();
+  var newPassword = TextEditingController();
+  var confirmPassword = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +25,19 @@ class _ChangePasswordState extends State<ChangePassword> {
       key: formKey,
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.lightBlueAccent.shade100,
+          title: const Text('FleetRide'),
+          actions: [
+            IconButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const Userhome()),
+                );
+              },
+              icon: const Icon(Icons.home_outlined),
+            ),
+          ],
+          backgroundColor: Colors.white,
         ),
         body: Container(
           padding: EdgeInsets.all(40),
@@ -66,30 +67,11 @@ class _ChangePasswordState extends State<ChangePassword> {
                 height: 30,
               ),
               Padding(
-                padding: const EdgeInsets.fromLTRB(10, 15, 10, 10),
-                child: TextFormField(
-                  controller: currentPassword,
-                  validator: (value){
-                    if(value!.isEmpty){
-                      return "Empty Password!";
-                    }
-                  },
-                  decoration: const InputDecoration(
-                    filled: true,
-                    fillColor: Colors.white,
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(30)),
-                    ),
-                    labelText: "Current Password",
-                  ),
-                ),
-              ),
-              Padding(
                 padding: const EdgeInsets.all(10),
                 child: TextFormField(
                   controller: newPassword,
-                  validator: (value){
-                    if(value!.isEmpty){
+                  validator: (value) {
+                    if (value!.isEmpty) {
                       return "Empty Password!";
                     }
                   },
@@ -107,8 +89,8 @@ class _ChangePasswordState extends State<ChangePassword> {
                 padding: const EdgeInsets.all(10),
                 child: TextFormField(
                   controller: confirmPassword,
-                  validator: (value){
-                    if(value!.isEmpty){
+                  validator: (value) {
+                    if (value!.isEmpty) {
                       return "Empty Password!";
                     }
                   },
@@ -124,9 +106,58 @@ class _ChangePasswordState extends State<ChangePassword> {
               ),
               SizedBox(height: 30),
               InkWell(
-                  onTap: () {
-                    if(formKey.currentState!.validate()) {
-                      Navigator.pop(context);
+                  onTap: () async {
+                    if (newPassword.text == confirmPassword.text) {
+                      print('equal');
+                      QuerySnapshot querySnapshot = await FirebaseFirestore
+                          .instance
+                          .collection('UserRegister')
+                          .where('Email', isEqualTo: widget.email)
+                          .get();
+
+                      if (querySnapshot.docs.isNotEmpty) {
+                        DocumentReference userDocRef =
+                            querySnapshot.docs.first.reference;
+                        await userDocRef.update({
+                          'Password': newPassword.text,
+                        });
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(
+                              "Password updated",
+                              style: TextStyle(
+                                color: Colors.green,
+                                fontSize: 14,
+                                fontWeight: FontWeight.normal,
+                              ),
+                            ),
+                          ),
+                        );
+
+                        Navigator.pop(context);
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const Login(),
+                          ),
+                        );
+                      } else {
+                        print('No user found with the provided email.');
+                      }
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(
+                            "Passwords don't match",
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 14,
+                              fontWeight: FontWeight.normal,
+                            ),
+                          ),
+                        ),
+                      );
+                      print('not equal');
                     }
                   },
                   child: Padding(

@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fleetride/user/user_home.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -15,18 +16,7 @@ class Edit extends StatefulWidget {
 }
 
 class _EditState extends State<Edit> {
-  File? _imageFile;
 
-  Future<void> _pickImage() async {
-    final picker = ImagePicker();
-    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
-
-    if (pickedFile != null) {
-      setState(() {
-        _imageFile = File(pickedFile.path);
-      });
-    }
-  }
   var ID;
 
   void initState() {
@@ -71,7 +61,19 @@ class _EditState extends State<Edit> {
       key: formKey,
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.lightBlueAccent.shade100,
+          title: const Text('FleetRide'),
+          actions: [
+            IconButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const Userhome()),
+                );
+              },
+              icon: const Icon(Icons.home_outlined),
+            ),
+          ],
+          backgroundColor: Colors.white,
         ),
         body: SingleChildScrollView(
           physics: NeverScrollableScrollPhysics(),
@@ -102,20 +104,6 @@ class _EditState extends State<Edit> {
                 ),
                 SizedBox(
                   height: 30,
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 25),
-                  child: InkWell(
-                      onTap: _pickImage,
-                      child: _imageFile != null
-                          ? CircleAvatar(
-                              radius: 50,
-                              backgroundImage: FileImage(_imageFile!),
-                            )
-                          : CircleAvatar(
-                              radius: 50,
-                              child: Icon(Icons.image),
-                            )),
                 ),
                 Padding(
                   padding: const EdgeInsets.fromLTRB(10, 15, 10, 10),

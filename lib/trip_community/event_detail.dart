@@ -20,7 +20,7 @@ class _EventDetailState extends State<EventDetail> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
-        title: const Text('FLEETRIDE'),
+        title: const Text('FleetRide'),
         actions: [
           IconButton(
               onPressed: () {
@@ -29,62 +29,95 @@ class _EventDetailState extends State<EventDetail> {
                     MaterialPageRoute(
                         builder: (context) => const TripHomeScreen()));
               },
-              icon: const Icon(Icons.home)),
+              icon: const Icon(Icons.home_outlined)),
         ],
       ),
       backgroundColor: Colors.white,
-      body: FutureBuilder(
-          future: FirebaseFirestore.instance.collection("EventDetail").get(),
-          builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return Center(child: CircularProgressIndicator());
-            }
-            if (snapshot.hasError) {
-              return Center(
-                child: Text("Error:${snapshot.error}"),
-              );
-            }
-            final event = snapshot.data?.docs ?? [];
-            return ListView.builder(
-                itemBuilder: (context, index) {
-                  return Card(
-                    color: Colors.red.shade50,
-                    child: ListTile(
-                      title: Text(event[index]["Event Name"]),
-                      trailing: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          IconButton(
-                              onPressed: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => EditEventPage(id:event[index].id)));
-                              },
-                              icon: Icon(Icons.edit)),
-                          IconButton(onPressed: () {
-                            setState(() {
-                              FirebaseFirestore.instance
-                                  .collection("EventDetail")
-                                  .doc(event[index].id)
-                                  .delete();
-                            });
-                          }, icon: Icon(Icons.delete))
-                        ],
-                      ),
-                      subtitle: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(event[index]["Location"]),
-                          Text(event[index]["Time"]),
-                          Text(event[index]["Phone Number"])
-                        ],
+      body:
+        Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Center(
+            child: Container(
+              height: 50,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(15),
+                  color: Colors.lightBlueAccent.shade200),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 50),
+                    child: Text(
+                      "Events",
+                      style: GoogleFonts.ubuntu(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
                       ),
                     ),
-                  );
-                },
-                itemCount: event.length);
-          }),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          SizedBox(height: 20,),
+          Expanded(
+            child: FutureBuilder(
+                future: FirebaseFirestore.instance.collection("EventDetail").get(),
+                builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return Center(child: CircularProgressIndicator());
+                  }
+                  if (snapshot.hasError) {
+                    return Center(
+                      child: Text("Error:${snapshot.error}"),
+                    );
+                  }
+                  final event = snapshot.data?.docs ?? [];
+                  return ListView.builder(
+                      itemBuilder: (context, index) {
+                        return Card(
+                          color: Colors.red.shade50,
+                          child: ListTile(
+                            title: Text(event[index]["Event Name"]),
+                            trailing: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                IconButton(
+                                    onPressed: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => EditEventPage(id:event[index].id)));
+                                    },
+                                    icon: Icon(Icons.edit)),
+                                IconButton(onPressed: () {
+                                  setState(() {
+                                    FirebaseFirestore.instance
+                                        .collection("EventDetail")
+                                        .doc(event[index].id)
+                                        .delete();
+                                  });
+                                }, icon: Icon(Icons.delete))
+                              ],
+                            ),
+                            subtitle: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(event[index]["Location"]),
+                                Text(event[index]["Time"]),
+                                Text(event[index]["Phone Number"])
+                              ],
+                            ),
+                          ),
+                        );
+                      },
+                      itemCount: event.length);
+                }),
+          ),
+        ],
+      ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.push(

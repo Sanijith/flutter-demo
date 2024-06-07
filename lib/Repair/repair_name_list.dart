@@ -18,68 +18,98 @@ class _RepairNamesState extends State<RepairNames> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
-        title: const Text('FLEETRIDE'),
+        title: const Text('FleetRide'),
         actions: [
           IconButton(
-              onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const RepairHome()));
-              },
-              icon: const Icon(Icons.home)),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const RepairHome()),
+              );
+            },
+            icon: const Icon(Icons.home_outlined),
+          ),
         ],
+        backgroundColor: Colors.white,
       ),
       backgroundColor: Colors.white,
-      body: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 40),
-        child: FutureBuilder(
-            future: FirebaseFirestore.instance.collection("RepairList").get(),
-            builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return Center(child: CircularProgressIndicator());
-              }
-              if (snapshot.hasError) {
-                return Center(
-                  child: Text("Error:${snapshot.error}"),
-                );
-              }
-              final repairs = snapshot.data?.docs ?? [];
-              return ListView.builder(
-                  itemBuilder: (context, index) {
-                    return Card(
-                      color: Colors.red.shade50,
-                      child: ListTile(
-                        title: Text(repairs[index]["Repair Name"]),
-                        trailing: IconButton(
-                            onPressed: () {
-                              setState(() {
-                                FirebaseFirestore.instance
-                                    .collection("RepairList")
-                                    .doc(repairs[index].id)
-                                    .delete();
-                              });
-                            },
-                            icon: Icon(Icons.delete)),
-                        subtitle: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            SizedBox(
-                              height: 10,
-                            ),
-                            Text(repairs[index]["Location"]),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            Text(repairs[index]["Phone Number"]),
-                          ],
-                        ),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Center(
+            child: Container(
+              height: 50,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(15),
+                  color: Colors.lightBlueAccent.shade200),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 50),
+                    child: Text(
+                      "Repairs ",
+                      style: GoogleFonts.ubuntu(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
                       ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          SizedBox(height: 20,),
+          Expanded(
+            child: FutureBuilder(
+                future: FirebaseFirestore.instance.collection("RepairList").get(),
+                builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return Center(child: CircularProgressIndicator());
+                  }
+                  if (snapshot.hasError) {
+                    return Center(
+                      child: Text("Error:${snapshot.error}"),
                     );
-                  },
-                  itemCount: repairs.length);
-            }),
+                  }
+                  final repairs = snapshot.data?.docs ?? [];
+                  return ListView.builder(
+                      itemBuilder: (context, index) {
+                        return Card(
+                          color: Colors.red.shade50,
+                          child: ListTile(
+                            title: Text(repairs[index]["Repair Name"]),
+                            trailing: IconButton(
+                                onPressed: () {
+                                  setState(() {
+                                    FirebaseFirestore.instance
+                                        .collection("RepairList")
+                                        .doc(repairs[index].id)
+                                        .delete();
+                                  });
+                                },
+                                icon: Icon(Icons.delete)),
+                            subtitle: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                Text(repairs[index]["Location"]),
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                Text(repairs[index]["Phone Number"]),
+                              ],
+                            ),
+                          ),
+                        );
+                      },
+                      itemCount: repairs.length);
+                }),
+          ),
+        ],
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {

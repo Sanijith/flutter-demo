@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fleetride/Repair/repair_home.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -31,7 +32,21 @@ class _EditRepairPageState extends State<EditRepairPage> {
     return Form(
       key: formKey,
       child: Scaffold(
-        appBar: AppBar(),
+        appBar: AppBar(
+          title: const Text('FleetRide'),
+          actions: [
+            IconButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const RepairHome()),
+                );
+              },
+              icon: const Icon(Icons.home_outlined),
+            ),
+          ],
+          backgroundColor: Colors.white,
+        ),
         body: SingleChildScrollView(
           child: Container(
             padding: EdgeInsets.all(40),

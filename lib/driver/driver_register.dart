@@ -27,6 +27,7 @@ class _DriverRegisterState extends State<DriverRegister> {
       "Email":email.text,
       "Phone Number":phone.text,
       "License Number":license.text,
+      "Path":"1",
     });
     print('Success');
     Navigator.pushReplacement(context,

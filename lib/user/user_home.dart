@@ -65,10 +65,10 @@ class _UserhomeState extends State<Userhome> {
                   children: [
                     CircleAvatar(
                       radius: 30,
-                      child: Icon(CupertinoIcons.car_detailed, size: 40),
+                      child: Icon(Icons.send_outlined, size: 40),
                     ),
                     const SizedBox(height: 10),
-                    Text('Trip Request', style: TextStyle(color: Colors.white)),
+                    Text('Send Request', style: TextStyle(color: Colors.white)),
                   ],
                 ),
               ),
@@ -94,33 +94,6 @@ class _UserhomeState extends State<Userhome> {
                     ),
                     const SizedBox(height: 10),
                     Text('Track Ride', style: TextStyle(color: Colors.white)),
-                  ],
-                ),
-              ),
-            ),
-            GestureDetector(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const Drivers()),
-                );
-              },
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Colors.orange,
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    CircleAvatar(
-                      radius: 30,
-                      child: Icon(Icons.delivery_dining_outlined, size: 40),
-                    ),
-                    const SizedBox(height: 10),
-                    Text('Delivery Request',
-                        style: TextStyle(color: Colors.white)),
                   ],
                 ),
               ),

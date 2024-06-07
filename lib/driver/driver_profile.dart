@@ -1,11 +1,16 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fleetride/driver/driver_change_password.dart';
 import 'package:fleetride/driver/driver_edit.dart';
+import 'package:fleetride/driver/driver_home.dart';
 import 'package:fleetride/driver/driver_login.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 
 class DriverProfile extends StatefulWidget {
   const DriverProfile({super.key});
@@ -38,6 +43,99 @@ class _DriverProfileState extends State<DriverProfile> {
         .doc(ID)
         .get();
   }
+  void _showBottomSheet(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      builder: (BuildContext context) {
+        return Container(
+          child: Wrap(
+            children: <Widget>[
+              ListTile(
+                leading: Icon(Icons.photo),
+                title: Text('Choose from Gallery'),
+                onTap: () {
+                  // Add functionality to choose from gallery
+                  _getImage();
+                  Navigator.pop(context);
+                },
+              ),
+              ListTile(
+                leading: Icon(Icons.delete),
+                title: Text('Remove Photo'),
+                onTap: () {
+                  setState(() {
+                    FirebaseFirestore.instance
+                        .collection("UserRegister")
+                        .doc(ID)
+                        .update({
+                      "Path" : "1",
+                    });
+
+                  });
+                  Navigator.pop(context);
+                },
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  PickedFile? _image;
+  Future<void> _getImage() async {
+    final pickedFile =
+    await ImagePicker().pickImage(source: ImageSource.gallery);
+
+    setState(() {
+      if (pickedFile != null) {
+        _image = PickedFile(pickedFile.path);
+        print("picked image");
+        update();
+      } else {
+        print('No image selected.');
+      }
+    });
+  }
+  Future<void> update() async {
+    try {
+      if (_image != null) {
+        final ref = firebase_storage.FirebaseStorage.instance
+            .ref()
+            .child('driver_images')
+            .child(DateTime.now().millisecondsSinceEpoch.toString());
+        await ref.putFile(File(_image!.path));
+
+        final imageURL = await ref.getDownloadURL();
+
+        await FirebaseFirestore.instance
+            .collection('DriverRegister')
+            .doc(ID)
+            .update({
+          'Path': imageURL,
+        });
+
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Profile updated successfully'),
+          ),
+        );
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('No image selected'),
+          ),
+        );
+      }
+    } catch (e) {
+      print('Error updating profile: $e');
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Error updating profile'),
+        ),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +150,19 @@ class _DriverProfileState extends State<DriverProfile> {
           }
           return Scaffold(
             appBar: AppBar(
-              backgroundColor: Colors.lightBlueAccent.shade100,
+              title: const Text('FleetRide'),
+              actions: [
+                IconButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const DriverHome()),
+                    );
+                  },
+                  icon: const Icon(Icons.home_outlined),
+                ),
+              ],
+              backgroundColor: Colors.white,
             ),
             body: SingleChildScrollView(
               child: Container(
@@ -70,15 +180,36 @@ class _DriverProfileState extends State<DriverProfile> {
                           Row(
                             children: [
                               Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 25),
-                                child: CircleAvatar(
-                                  backgroundColor: Colors.red,
-                                  radius: 30,
-                                  child: Icon(
-                                    Icons.person,
-                                    size: 40,
-                                  ),
+                                padding: const EdgeInsets.symmetric(horizontal: 25),
+                                child: Stack(
+                                  children: [
+                                    Drivers!["Path"] == "1"
+                                        ? ClipOval(
+                                      child: Image.asset(
+                                        "assets/user.jpg",
+                                        height: 100,
+                                        width: 90,
+                                        fit: BoxFit.fill,
+                                      ),
+                                    )
+                                        : ClipOval(
+                                      child: Image.network(
+                                        Drivers!["Path"],
+                                        height: 90,
+                                        width: 90,
+                                        fit: BoxFit.fitWidth,
+                                      ),
+                                    ),
+                                    Positioned(
+                                      bottom: 0,
+                                      right: 0,
+                                      child: IconButton(onPressed: (){
+                                        setState(() {
+                                          _showBottomSheet(context);
+                                        });
+                                      }, icon: Icon(Icons.camera_alt_outlined)),
+                                    ),
+                                  ],
                                 ),
                               ),
                               Text(
@@ -149,7 +280,7 @@ class _DriverProfileState extends State<DriverProfile> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => DriverChangePassword()));
+                                  builder: (context) => DriverChangePassword(email: Drivers!["Email"],)));
                         },
                         child: Padding(
                           padding: const EdgeInsets.only(bottom: 10),

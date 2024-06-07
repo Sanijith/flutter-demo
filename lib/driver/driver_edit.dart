@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fleetride/driver/driver_home.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -75,7 +76,19 @@ class _DriverEditState extends State<DriverEdit> {
       key: formKey,
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.lightBlueAccent.shade100,
+          title: const Text('FleetRide'),
+          actions: [
+            IconButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const DriverHome()),
+                );
+              },
+              icon: const Icon(Icons.home_outlined),
+            ),
+          ],
+          backgroundColor: Colors.white,
         ),
         body: Container(
           padding: EdgeInsets.all(40),

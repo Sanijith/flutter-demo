@@ -1,41 +1,49 @@
-import 'dart:io';
-
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fleetride/driver/driver_login.dart';
+import 'package:fleetride/user/user_home.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:image_picker/image_picker.dart';
+
+
 
 class DriverChangePassword extends StatefulWidget {
-  const DriverChangePassword({super.key});
+  const DriverChangePassword({super.key, required this.email});
+  final email;
 
   @override
   State<DriverChangePassword> createState() => _DriverChangePasswordState();
 }
 
 class _DriverChangePasswordState extends State<DriverChangePassword> {
-  File? _imageFile;
-
-  Future<void> _pickImage() async {
-    final picker = ImagePicker();
-    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
-
-    if (pickedFile != null) {
-      setState(() {
-        _imageFile = File(pickedFile.path);
-      });
-    }
-  }
+  final formKey = GlobalKey<FormState>();
+  var newPassword = TextEditingController();
+  var confirmPassword = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.lightBlueAccent.shade100,
-      ),
-      body: SingleChildScrollView(
-        child: Container(
+    return Form(
+      key: formKey,
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text('FleetRide'),
+          actions: [
+            IconButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const Userhome()),
+                );
+              },
+              icon: const Icon(Icons.home_outlined),
+            ),
+          ],
+          backgroundColor: Colors.white,
+        ),
+        body: Container(
           padding: EdgeInsets.all(40),
-          child: Column(
+          child: ListView(
+            physics: NeverScrollableScrollPhysics(),
             children: [
               Container(
                 height: 50,
@@ -60,21 +68,14 @@ class _DriverChangePasswordState extends State<DriverChangePassword> {
                 height: 30,
               ),
               Padding(
-                padding: const EdgeInsets.fromLTRB(10, 15, 10, 10),
-                child: TextFormField(
-                  decoration: const InputDecoration(
-                    filled: true,
-                    fillColor: Colors.white,
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(30)),
-                    ),
-                    labelText: "Current Password",
-                  ),
-                ),
-              ),
-              Padding(
                 padding: const EdgeInsets.all(10),
                 child: TextFormField(
+                  controller: newPassword,
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return "Empty Password!";
+                    }
+                  },
                   decoration: const InputDecoration(
                     filled: true,
                     fillColor: Colors.white,
@@ -88,6 +89,12 @@ class _DriverChangePasswordState extends State<DriverChangePassword> {
               Padding(
                 padding: const EdgeInsets.all(10),
                 child: TextFormField(
+                  controller: confirmPassword,
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return "Empty Password!";
+                    }
+                  },
                   decoration: const InputDecoration(
                     filled: true,
                     fillColor: Colors.white,
@@ -100,8 +107,59 @@ class _DriverChangePasswordState extends State<DriverChangePassword> {
               ),
               SizedBox(height: 30),
               InkWell(
-                  onTap: () {
-                    Navigator.pop(context);
+                  onTap: () async {
+                    if (newPassword.text == confirmPassword.text) {
+                      print('equal');
+                      QuerySnapshot querySnapshot = await FirebaseFirestore
+                          .instance
+                          .collection('UserRegister')
+                          .where('Email', isEqualTo: widget.email)
+                          .get();
+
+                      if (querySnapshot.docs.isNotEmpty) {
+                        DocumentReference userDocRef =
+                            querySnapshot.docs.first.reference;
+                        await userDocRef.update({
+                          'Password': newPassword.text,
+                        });
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(
+                              "Password updated",
+                              style: TextStyle(
+                                color: Colors.green,
+                                fontSize: 14,
+                                fontWeight: FontWeight.normal,
+                              ),
+                            ),
+                          ),
+                        );
+
+                        Navigator.pop(context);
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const DriverLogin(),
+                          ),
+                        );
+                      } else {
+                        print('No user found with the provided email.');
+                      }
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(
+                            "Passwords don't match",
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 14,
+                              fontWeight: FontWeight.normal,
+                            ),
+                          ),
+                        ),
+                      );
+                      print('not equal');
+                    }
                   },
                   child: Padding(
                     padding: const EdgeInsets.only(bottom: 10),

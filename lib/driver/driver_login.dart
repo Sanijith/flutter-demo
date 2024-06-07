@@ -18,6 +18,7 @@ class _DriverLoginState extends State<DriverLogin> {
   var password=TextEditingController();
   String id='';
   String name='';
+  String phone='';
   void DRIVERLogin() async {
     final driver = await FirebaseFirestore.instance
         .collection('DriverRegister')
@@ -28,6 +29,7 @@ class _DriverLoginState extends State<DriverLogin> {
     if (driver.docs.isNotEmpty) {
       id = driver.docs[0].id;
       name=driver.docs[0]["UserName"];
+      phone=driver.docs[0]["Phone Number"];
 
 
       SharedPreferences data = await SharedPreferences.getInstance();
