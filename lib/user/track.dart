@@ -66,7 +66,7 @@ class _TrackState extends State<Track> {
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 50),
                         child: Text(
-                          "Track ",
+                          "Track",
                           style: GoogleFonts.ubuntu(
                             fontSize: 24,
                             fontWeight: FontWeight.bold,

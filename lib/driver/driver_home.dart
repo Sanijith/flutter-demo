@@ -6,15 +6,9 @@ import 'package:fleetride/driver/facilty_search2.dart';
 import 'package:fleetride/driver/my_trip.dart';
 import 'package:fleetride/driver/trip_create.dart';
 import 'package:fleetride/driver/trip_request_decision.dart';
-import 'package:fleetride/user/profile.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:fleetride/user/delivery_request.dart';
-import 'package:fleetride/user/facilty_search1.dart';
 import 'package:fleetride/user/help_line.dart';
-
-import 'package:fleetride/user/track_ride.dart';
-import 'package:fleetride/user/trip_request.dart';
 
 class DriverHome extends StatefulWidget {
   const DriverHome({Key? key}) : super(key: key);
@@ -101,8 +95,7 @@ class _DriverHomeState extends State<DriverHome> {
                       child: Icon(CupertinoIcons.car_detailed, size: 40),
                     ),
                     const SizedBox(height: 10),
-                    Text('My Trips',
-                        style: TextStyle(color: Colors.white)),
+                    Text('My Trips', style: TextStyle(color: Colors.white)),
                   ],
                 ),
               ),
@@ -207,7 +200,8 @@ class _DriverHomeState extends State<DriverHome> {
                       child: Icon(Icons.search, size: 40),
                     ),
                     const SizedBox(height: 10),
-                    Text(' Search Events', style: TextStyle(color: Colors.white)),
+                    Text(' Search Events',
+                        style: TextStyle(color: Colors.white)),
                   ],
                 ),
               ),

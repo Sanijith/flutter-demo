@@ -121,7 +121,7 @@ class _EditState extends State<Edit> {
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.all(Radius.circular(15)),
                       ),
-                      labelText: "UserName",
+                      hintText: "UserName",
                     ),
                   ),
                 ),
@@ -141,7 +141,7 @@ class _EditState extends State<Edit> {
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.all(Radius.circular(15)),
                       ),
-                      labelText: "Email",
+                      hintText: "Email",
                     ),
                   ),
                 ),
@@ -161,7 +161,7 @@ class _EditState extends State<Edit> {
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.all(Radius.circular(15)),
                       ),
-                      labelText: "Phone Number",
+                      hintText:"Phone Number",
                     ),
                   ),
                 ),

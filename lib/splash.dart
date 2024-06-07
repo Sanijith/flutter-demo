@@ -17,7 +17,7 @@ class SplashScreen extends StatelessWidget {
               TyperAnimatedText(
                 'FLEET RIDE',
                 textStyle: GoogleFonts.itim(fontSize: 40, color: Colors.red),
-                speed: const Duration(milliseconds: 200),
+                speed: const Duration(seconds: 3),
               ),
             ],
             totalRepeatCount: 1,

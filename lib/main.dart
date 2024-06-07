@@ -1,8 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
-
 import 'package:fleetride/firebase_options.dart';
-import 'package:fleetride/first.dart';
-import 'package:fleetride/week.dart';
+import 'package:fleetride/splash.dart';
 
 import 'package:flutter/material.dart';
 

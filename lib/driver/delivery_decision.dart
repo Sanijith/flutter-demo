@@ -95,43 +95,66 @@ class _DeliveryDecisionState extends State<DeliveryDecision> {
                                     Text(trip[index]["Phone Number"])
                                   ],
                                 ),
-                                Row(
-                                  children: [
-                                    ElevatedButton(
-                                      onPressed: () {
-                                        setState(() {
-                                          FirebaseFirestore.instance
-                                              .collection("Request List")
-                                              .doc(trip[index].id)
-                                              .update({
-                                            'Status': "1"
-                                          }); // Update the 'Status' field to 1
-                                        });
-                                        print("object");
-                                      },
-                                      child: const Text('Accept'),
-                                      style: ElevatedButton.styleFrom(
-                                        backgroundColor:
-                                            Colors.lightGreenAccent,
-                                      ),
-                                    ),
-                                    SizedBox(width: 30),
-                                    ElevatedButton(
-                                      onPressed: () {
-                                        setState(() {
-                                          FirebaseFirestore.instance
-                                              .collection("Request List")
-                                              .doc(trip[index].id)
-                                              .delete();
-                                        });
-                                      },
-                                      child: const Text('Reject'),
-                                      style: ElevatedButton.styleFrom(
-                                        backgroundColor: Colors.red,
-                                      ),
-                                    ),
-                                  ],
-                                ),
+                                trip[index]["Status"] == "0"
+                                    ? Row(
+                                        children: [
+                                          ElevatedButton(
+                                            onPressed: () {
+                                              setState(() {
+                                                FirebaseFirestore.instance
+                                                    .collection("Request List")
+                                                    .doc(trip[index].id)
+                                                    .update({
+                                                  'Status': "1"
+                                                }); // Update the 'Status' field to 1
+                                              });
+                                              print("object");
+                                            },
+                                            child: const Text('Accept'),
+                                            style: ElevatedButton.styleFrom(
+                                              backgroundColor:
+                                                  Colors.lightGreenAccent,
+                                            ),
+                                          ),
+                                          SizedBox(width: 30),
+                                          ElevatedButton(
+                                            onPressed: () {
+                                              setState(() {
+                                                FirebaseFirestore.instance
+                                                    .collection("Request List")
+                                                    .doc(trip[index].id)
+                                                    .update({
+                                                  'Status': "2"
+                                                }); // Update the 'Status' field to 1
+                                              });
+                                            },
+                                            child: const Text('Reject'),
+                                            style: ElevatedButton.styleFrom(
+                                              backgroundColor: Colors.red,
+                                            ),
+                                          ),
+                                        ],
+                                      )
+                                    : trip[index]["Status"] == "1"
+                                        ? ElevatedButton(
+                                            onPressed: () {
+                                              print("object");
+                                            },
+                                            child: const Text('Accepted'),
+                                            style: ElevatedButton.styleFrom(
+                                              backgroundColor:
+                                                  Colors.lightGreenAccent,
+                                            ),
+                                          )
+                                        : ElevatedButton(
+                                            onPressed: () {
+                                              print("object");
+                                            },
+                                            child: const Text('Rejected'),
+                                            style: ElevatedButton.styleFrom(
+                                              backgroundColor: Colors.red,
+                                            ),
+                                          ),
                               ],
                             ),
                           ),

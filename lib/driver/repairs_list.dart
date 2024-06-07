@@ -45,7 +45,7 @@ class _RepairNamesListState extends State<RepairNamesList> {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 50),
                     child: Text(
-                      "Repairs ",
+                      "Repairs",
                       style: GoogleFonts.ubuntu(
                         fontSize: 24,
                         fontWeight: FontWeight.bold,

@@ -95,7 +95,8 @@ class _UserTripRequestState extends State<UserTripRequest> {
                                     Text(trip[index]["Phone Number"])
                                   ],
                                 ),
-                                Row(
+                                trip[index]["Status"] == "0"
+                                    ? Row(
                                   children: [
                                     ElevatedButton(
                                       onPressed: () {
@@ -112,7 +113,7 @@ class _UserTripRequestState extends State<UserTripRequest> {
                                       child: const Text('Accept'),
                                       style: ElevatedButton.styleFrom(
                                         backgroundColor:
-                                            Colors.lightGreenAccent,
+                                        Colors.lightGreenAccent,
                                       ),
                                     ),
                                     SizedBox(width: 30),
@@ -122,7 +123,9 @@ class _UserTripRequestState extends State<UserTripRequest> {
                                           FirebaseFirestore.instance
                                               .collection("Request List")
                                               .doc(trip[index].id)
-                                              .delete();
+                                              .update({
+                                            'Status': "2"
+                                          }); // Update the 'Status' field to 1
                                         });
                                       },
                                       child: const Text('Reject'),
@@ -131,6 +134,26 @@ class _UserTripRequestState extends State<UserTripRequest> {
                                       ),
                                     ),
                                   ],
+                                )
+                                    : trip[index]["Status"] == "1"
+                                    ? ElevatedButton(
+                                  onPressed: () {
+                                    print("object");
+                                  },
+                                  child: const Text('Accepted'),
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor:
+                                    Colors.lightGreenAccent,
+                                  ),
+                                )
+                                    : ElevatedButton(
+                                  onPressed: () {
+                                    print("object");
+                                  },
+                                  child: const Text('Rejected'),
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: Colors.red,
+                                  ),
                                 ),
                               ],
                             ),

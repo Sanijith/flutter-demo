@@ -16,14 +16,10 @@ class _DriversState extends State<Drivers> {
   var userName;
   var phoneNumber;
 
-  String? _selectedMessage;
+  List<String> locationlist = ['Trip Request', 'Delivery Request'];
+  String? selectedvalue;
 
   @override
-  void initState() {
-    super.initState();
-    _selectedMessage = null; // Initialize with null or any default value
-  }
-
   Future<void> sendRequest(
       String driverName, String driverPhone, String from, String to) async {
     SharedPreferences spref = await SharedPreferences.getInstance();
@@ -37,7 +33,7 @@ class _DriversState extends State<Drivers> {
       "Driver Phone": driverPhone, // Add driver's phone number
       "From": from, // Add trip from
       "To": to, // Add trip to
-      "Type Request": _selectedMessage,
+      "Type Request": selectedvalue,
       "Status": "0",
     });
 
@@ -45,7 +41,7 @@ class _DriversState extends State<Drivers> {
       const SnackBar(
         content: Text(
           "Request Sent Successfully",
-          style: TextStyle(fontSize: 15, color: Colors.red),
+          style: TextStyle(fontSize: 15, color: Colors.green),
         ),
       ),
     );
@@ -58,22 +54,41 @@ class _DriversState extends State<Drivers> {
         builder: (context) {
           return AlertDialog(
             title: Text('Select Category'),
-            content: DropdownButton<String>(
-              hint: Text("Type Request"),
-              value: _selectedMessage,
-              onChanged: (String? newValue) {
-                setState(() {
-                  _selectedMessage =
-                      newValue!; // Update _selectedMessage with the selected value
-                });
-              },
-              items: <String?>['Trip Request', 'Delivery Request']
-                  .map<DropdownMenuItem<String>>((String? value) {
-                return DropdownMenuItem<String>(
-                  value: value,
-                  child: Text(value ?? ""), // Display the value in the dropdown
-                );
-              }).toList(),
+            content: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  width: 200,
+                  height: 50,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(6),
+                    color: Colors.transparent,
+                  ),
+                  child: DropdownButton<String>(
+                      isExpanded: true,
+                      elevation: 0,
+                      hint: Text(
+                        "Category",
+                        style: TextStyle(
+                            fontSize: 16,
+                            color: Colors.black,
+                            fontWeight: FontWeight.normal),
+                      ),
+                      underline: const SizedBox(),
+                      value: selectedvalue,
+                      items: locationlist.map((String value) {
+                        return DropdownMenuItem<String>(
+                            value: value, child: Text(value));
+                      }).toList(),
+                      onChanged: (newvalue) {
+                        setState(() {
+                          selectedvalue = newvalue;
+                          print(selectedvalue);
+                        });
+                      },
+                      padding: const EdgeInsets.symmetric(horizontal: 10)),
+                ),
+              ],
             ),
             actions: <Widget>[
               TextButton(
@@ -136,7 +151,9 @@ class _DriversState extends State<Drivers> {
               ),
             ),
           ),
-          SizedBox(height: 20,),
+          SizedBox(
+            height: 20,
+          ),
           Expanded(
             child: FutureBuilder(
               future:
@@ -182,13 +199,15 @@ class _DriversState extends State<Drivers> {
                         ),
                         trailing: ElevatedButton(
                           onPressed: () {
-                            _displayDropDownDialog(
-                              context,
-                              mytrip[index]["Driver Name"],
-                              mytrip[index]["Driver Phone"],
-                              mytrip[index]["From"],
-                              mytrip[index]["To"],
-                            );
+                            setState(() {
+                              _displayDropDownDialog(
+                                context,
+                                mytrip[index]["Driver Name"],
+                                mytrip[index]["Driver Phone"],
+                                mytrip[index]["From"],
+                                mytrip[index]["To"],
+                              );
+                            });
                           },
                           child: const Text('Send Request'),
                           style: ElevatedButton.styleFrom(
