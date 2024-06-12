@@ -3,8 +3,11 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fleetride/Repair/repair_change_password.dart';
 import 'package:fleetride/Repair/repair_edit.dart';
-import 'package:fleetride/Repair/repair_home.dart';
 import 'package:fleetride/Repair/repair_login.dart';
+import 'package:fleetride/user/change_password.dart';
+import 'package:fleetride/user/edit.dart';
+import 'package:fleetride/user/login.dart';
+import 'package:fleetride/user/user_home.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -21,6 +24,7 @@ class RepairProfile extends StatefulWidget {
 
 class _RepairProfileState extends State<RepairProfile> {
   var ID;
+  bool isloading = false;
 
   void initState() {
     super.initState();
@@ -43,6 +47,7 @@ class _RepairProfileState extends State<RepairProfile> {
         .doc(ID)
         .get();
   }
+
   void _showBottomSheet(BuildContext context) {
     showModalBottomSheet(
       context: context,
@@ -55,8 +60,11 @@ class _RepairProfileState extends State<RepairProfile> {
                 title: Text('Choose from Gallery'),
                 onTap: () {
                   // Add functionality to choose from gallery
-                  _getImage();
-                  Navigator.pop(context);
+                  setState(() {
+                    isloading = true;
+                    _getImage();
+                    Navigator.pop(context);
+                  });
                 },
               ),
               ListTile(
@@ -65,12 +73,11 @@ class _RepairProfileState extends State<RepairProfile> {
                 onTap: () {
                   setState(() {
                     FirebaseFirestore.instance
-                        .collection("UserRegister")
+                        .collection("RepairRegister")
                         .doc(ID)
                         .update({
-                      "Path" : "1",
+                      "Path": "https://media.istockphoto.com/id/1300845620/vector/user-icon-flat-isolated-on-white-background-user-symbol-vector-illustration.jpg?s=612x612&w=0&k=20&c=yBeyba0hUkh14_jgv1OKqIH0CCSWU_4ckRkAoy2p73o=",
                     });
-
                   });
                   Navigator.pop(context);
                 },
@@ -83,6 +90,7 @@ class _RepairProfileState extends State<RepairProfile> {
   }
 
   PickedFile? _image;
+
   Future<void> _getImage() async {
     final pickedFile =
     await ImagePicker().pickImage(source: ImageSource.gallery);
@@ -97,6 +105,7 @@ class _RepairProfileState extends State<RepairProfile> {
       }
     });
   }
+
   Future<void> update() async {
     try {
       if (_image != null) {
@@ -120,6 +129,9 @@ class _RepairProfileState extends State<RepairProfile> {
             content: Text('Profile updated successfully'),
           ),
         );
+        setState(() {
+          isloading = false;
+        });
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
@@ -140,208 +152,224 @@ class _RepairProfileState extends State<RepairProfile> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future: getFirebase(),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: CircularProgressIndicator());
-          }
-          if (snapshot.hasError) {
-            return Text("Error${snapshot.error}");
-          }
-          return Scaffold(
-            appBar: AppBar(
-              title: const Text('FleetRide'),
-              actions: [
-                IconButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const RepairHome()),
-                    );
-                  },
-                  icon: const Icon(Icons.home_outlined),
-                ),
-              ],
-              backgroundColor: Colors.white,
-            ),
-            body: Container(
-              padding: EdgeInsets.all(40),
-              child: Column(
-                children: [
-                  Container(
-                    height: 150,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(40),
-                        color: Colors.lightBlueAccent.shade200),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Row(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 25),
-                              child: Stack(
-                                children: [
-                                  Repair!["Path"] == "1"
-                                      ? ClipOval(
-                                    child: Image.asset(
-                                      "assets/user.jpg",
-                                      height: 100,
-                                      width: 90,
-                                      fit: BoxFit.fill,
-                                    ),
-                                  )
-                                      : ClipOval(
-                                    child: Image.network(
-                                      Repair!["Path"],
-                                      height: 90,
-                                      width: 90,
-                                      fit: BoxFit.fitWidth,
-                                    ),
-                                  ),
-                                  Positioned(
-                                    bottom: 0,
-                                    right: 0,
-                                    child: IconButton(onPressed: (){
+      future: getFirebase(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return Center(child: CircularProgressIndicator());
+        }
+        if (snapshot.hasError) {
+          return Text("Error${snapshot.error}");
+        }
+        return Scaffold(
+          appBar: AppBar(
+            title: const Text('FleetRide'),
+            actions: [
+              IconButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const Userhome()),
+                  );
+                },
+                icon: const Icon(Icons.home_outlined),
+              ),
+            ],
+            backgroundColor: Colors.white,
+          ),
+          body: Container(
+            padding: EdgeInsets.all(40),
+            child: Column(
+              children: [
+                Container(
+                  height: 100,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(15),
+                      color: Colors.lightBlueAccent.shade200),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Row(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 25),
+                            child: Stack(
+                              children: [
+                                isloading
+                                    ? CircularProgressIndicator(
+                                  color: Color(0xFF93B4D1),
+                                )
+                                    : Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 5, top: 10),
+                                    child: Container(
+                                      height: MediaQuery.of(context)
+                                          .size
+                                          .height *
+                                          .09,
+                                      width: MediaQuery.of(context)
+                                          .size
+                                          .width *
+                                          .15,
+                                      decoration: BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          image: DecorationImage(
+                                              fit: BoxFit.cover,
+                                              image: NetworkImage(
+                                                  Repair!["Path"]))),
+                                      // child: CircleAvatar(
+                                      //   radius: 50,
+                                      //   backgroundColor: Colors.transparent,
+                                      // ),
+                                    )),
+                                Positioned(
+                                  top: 50,
+                                  left: 40,
+                                  bottom: 0,
+                                  right: 0,
+                                  child: IconButton(
+                                    onPressed: () {
                                       setState(() {
                                         _showBottomSheet(context);
                                       });
-                                    }, icon: Icon(Icons.camera_alt_outlined)),
+                                    },
+                                    icon: Icon(Icons.camera_alt_outlined),
+                                    color: Colors.black,
                                   ),
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
-                            Text(
-                              Repair!["UserName"],
-                              style: GoogleFonts.ubuntu(
-                                fontSize: 24,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white,
-                              ),
+                          ),
+                          Text(
+                            Repair!["UserName"],
+                            style: GoogleFonts.ubuntu(
+                              fontSize: 24,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
                             ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                  SizedBox(
-                    height: 40,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(10),
-                    child: Card(
-                      color: Colors.red.shade50,
-                      elevation: 4,
-                      child: ListTile(
-                        leading: Icon(Icons.email),
-                        trailing: Text(
-                          Repair!["Email"],
-                          style: TextStyle(fontSize: 15),
-                        ),
+                          ),
+                        ],
                       ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(10),
-                    child: Card(
-                      color: Colors.red.shade50,
-                      elevation: 4,
-                      child: ListTile(
-                        leading: Icon(Icons.phone),
-                        trailing: Text(
-                          Repair!["PhoneNumber"],
-                          style: TextStyle(
-                              fontSize: 15,
-                              color: Color.fromRGBO(43, 44, 47, 1)),
-                        ),
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 50,
-                  ),
-                  InkWell(
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => RepairChangePassword(email: Repair!["Email"],)));
-                      },
-                      child: Padding(
-                        padding: const EdgeInsets.only(bottom: 10),
-                        child: Container(
-                            height: 53,
-                            width: 200,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                color: Colors.grey),
-                            child: Center(
-                              child: Text('Change Password',
-                                  style: GoogleFonts.ubuntu(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.white)),
-                            )),
-                      )),
-                  SizedBox(height: 30,),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      InkWell(
-                          onTap: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => RepairEdit()));
-                          },
-                          child: Padding(
-                            padding: const EdgeInsets.only(bottom: 10),
-                            child: Container(
-                                height: 53,
-                                width: 100,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                    color: Colors.green),
-                                child: Center(
-                                  child: Text('Edit',
-                                      style: GoogleFonts.ubuntu(
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.white)),
-                                )),
-                          )),
-                      SizedBox(
-                        width: 30,
-                      ),
-                      InkWell(
-                          onTap: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => RepairLogin()));
-                          },
-                          child: Padding(
-                            padding: const EdgeInsets.only(bottom: 10),
-                            child: Container(
-                                height: 53,
-                                width: 100,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                    color: Colors.redAccent),
-                                child: Center(
-                                  child: Text('Logout',
-                                      style: GoogleFonts.ubuntu(
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.white)),
-                                )),
-                          )),
                     ],
                   ),
-                ],
-              ),
+                ),
+                SizedBox(
+                  height: 40,
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: Card(
+                    color: Colors.red.shade50,
+                    elevation: 4,
+                    child: ListTile(
+                      leading: Icon(Icons.email),
+                      trailing: Text(
+                        Repair!["Email"],
+                        style: TextStyle(fontSize: 15),
+                      ),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: Card(
+                    color: Colors.red.shade50,
+                    elevation: 4,
+                    child: ListTile(
+                      leading: Icon(Icons.phone),
+                      trailing: Text(
+                        Repair!["Phone Number"],
+                        style: TextStyle(
+                            fontSize: 15, color: Color.fromRGBO(43, 44, 47, 1)),
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 50,
+                ),
+                InkWell(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => RepairChangePassword(
+                                email: Repair!["Email"],
+                              )));
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.only(bottom: 10),
+                      child: Container(
+                          height: 53,
+                          width: 200,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color: Colors.grey),
+                          child: Center(
+                            child: Text('Change Password',
+                                style: GoogleFonts.ubuntu(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white)),
+                          )),
+                    )),
+                SizedBox(
+                  height: 30,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    InkWell(
+                        onTap: () {
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (context) => RepairEdit()));
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.only(bottom: 10),
+                          child: Container(
+                              height: 53,
+                              width: 100,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  color: Colors.green),
+                              child: Center(
+                                child: Text('Edit',
+                                    style: GoogleFonts.ubuntu(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white)),
+                              )),
+                        )),
+                    SizedBox(
+                      width: 30,
+                    ),
+                    InkWell(
+                        onTap: () {
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (context) => RepairLogin()));
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.only(bottom: 10),
+                          child: Container(
+                              height: 53,
+                              width: 100,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  color: Colors.redAccent),
+                              child: Center(
+                                child: Text('Logout',
+                                    style: GoogleFonts.ubuntu(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white)),
+                              )),
+                        )),
+                  ],
+                ),
+              ],
             ),
-          );
-        });
+          ),
+        );
+      },
+    );
   }
 }

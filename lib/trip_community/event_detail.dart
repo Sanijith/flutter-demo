@@ -80,7 +80,10 @@ class _EventDetailState extends State<EventDetail> {
                         return Card(
                           color: Colors.red.shade50,
                           child: ListTile(
-                            title: Text(event[index]["Event Name"]),
+                            title: Text(event[index]["Event Name"],style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18,
+                            ),),
                             trailing: Row(
                               mainAxisSize: MainAxisSize.min,
                               children: [
@@ -105,9 +108,9 @@ class _EventDetailState extends State<EventDetail> {
                             subtitle: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(event[index]["Location"]),
-                                Text(event[index]["Time"]),
-                                Text(event[index]["Phone Number"])
+                                Text("Location: ${event[index]["Location"]}"),
+                                Text("Time: ${event[index]["Time"]}"),
+                                Text("Phone Number: ${event[index]["Phone Number"]}")
                               ],
                             ),
                           ),

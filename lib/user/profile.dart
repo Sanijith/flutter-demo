@@ -21,6 +21,7 @@ class Profile extends StatefulWidget {
 
 class _ProfileState extends State<Profile> {
   var ID;
+  bool isloading = false;
 
   void initState() {
     super.initState();
@@ -56,8 +57,11 @@ class _ProfileState extends State<Profile> {
                 title: Text('Choose from Gallery'),
                 onTap: () {
                   // Add functionality to choose from gallery
-                  _getImage();
-                  Navigator.pop(context);
+                  setState(() {
+                    isloading = true;
+                    _getImage();
+                    Navigator.pop(context);
+                  });
                 },
               ),
               ListTile(
@@ -69,9 +73,8 @@ class _ProfileState extends State<Profile> {
                         .collection("UserRegister")
                         .doc(ID)
                         .update({
-                    "Path" : "1",
+                      "Path": "https://media.istockphoto.com/id/1300845620/vector/user-icon-flat-isolated-on-white-background-user-symbol-vector-illustration.jpg?s=612x612&w=0&k=20&c=yBeyba0hUkh14_jgv1OKqIH0CCSWU_4ckRkAoy2p73o=",
                     });
-
                   });
                   Navigator.pop(context);
                 },
@@ -82,10 +85,12 @@ class _ProfileState extends State<Profile> {
       },
     );
   }
+
   PickedFile? _image;
+
   Future<void> _getImage() async {
     final pickedFile =
-    await ImagePicker().pickImage(source: ImageSource.gallery);
+        await ImagePicker().pickImage(source: ImageSource.gallery);
 
     setState(() {
       if (pickedFile != null) {
@@ -97,6 +102,7 @@ class _ProfileState extends State<Profile> {
       }
     });
   }
+
   Future<void> update() async {
     try {
       if (_image != null) {
@@ -120,6 +126,9 @@ class _ProfileState extends State<Profile> {
             content: Text('Profile updated successfully'),
           ),
         );
+        setState(() {
+          isloading = false;
+        });
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
@@ -136,15 +145,16 @@ class _ProfileState extends State<Profile> {
       );
     }
   }
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
       future: getFirebase(),
       builder: (context, snapshot) {
-        if(snapshot.connectionState==ConnectionState.waiting){
+        if (snapshot.connectionState == ConnectionState.waiting) {
           return Center(child: CircularProgressIndicator());
         }
-        if(snapshot.hasError){
+        if (snapshot.hasError) {
           return Text("Error${snapshot.error}");
         }
         return Scaffold(
@@ -181,38 +191,51 @@ class _ProfileState extends State<Profile> {
                             padding: const EdgeInsets.symmetric(horizontal: 25),
                             child: Stack(
                               children: [
-                                User!["Path"] == "1"
-                                    ? ClipOval(
-                                  child: Image.asset(
-                                    "assets/user.jpg",
-                                    height: 90,
-                                    width: 90,
-                                    fit: BoxFit.fill,
-                                  ),
-                                )
-                                    : ClipOval(
-                                  child: Image.network(
-                                    User!["Path"],
-                                    height: 90,
-                                    width: 90,
-                                    fit: BoxFit.fill,
-                                  ),
-                                ),
+                                isloading
+                                    ? CircularProgressIndicator(
+                                        color: Color(0xFF93B4D1),
+                                      )
+                                    : Padding(
+                                        padding: const EdgeInsets.only(
+                                            left: 5, top: 10),
+                                        child: Container(
+                                          height: MediaQuery.of(context)
+                                                  .size
+                                                  .height *
+                                              .09,
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              .15,
+                                          decoration: BoxDecoration(
+                                            shape: BoxShape.circle,
+                                              image: DecorationImage(
+                                                  fit: BoxFit.cover,
+                                                  image: NetworkImage(
+                                                      User!["Path"]))),
+                                          // child: CircleAvatar(
+                                          //   radius: 50,
+                                          //   backgroundColor: Colors.transparent,
+                                          // ),
+                                        )),
                                 Positioned(
-                                  top: 60,
-                                  left: 50,
+                                  top: 50,
+                                  left: 40,
                                   bottom: 0,
                                   right: 0,
-                                  child: IconButton(onPressed: (){
-                                    setState(() {
-                                      _showBottomSheet(context);
-                                    });
-                                  }, icon: Icon(Icons.camera_alt_outlined),color: Colors.black,),
+                                  child: IconButton(
+                                    onPressed: () {
+                                      setState(() {
+                                        _showBottomSheet(context);
+                                      });
+                                    },
+                                    icon: Icon(Icons.camera_alt_outlined),
+                                    color: Colors.black,
+                                  ),
                                 ),
                               ],
                             ),
                           ),
-
                           Text(
                             User!["Username"],
                             style: GoogleFonts.ubuntu(
@@ -226,7 +249,9 @@ class _ProfileState extends State<Profile> {
                     ],
                   ),
                 ),
-                SizedBox(height: 40,),
+                SizedBox(
+                  height: 40,
+                ),
                 Padding(
                   padding: const EdgeInsets.all(10),
                   child: Card(
@@ -264,7 +289,9 @@ class _ProfileState extends State<Profile> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => ChangePassword(email: User!["Email"],)));
+                              builder: (context) => ChangePassword(
+                                    email: User!["Email"],
+                                  )));
                     },
                     child: Padding(
                       padding: const EdgeInsets.only(bottom: 10),

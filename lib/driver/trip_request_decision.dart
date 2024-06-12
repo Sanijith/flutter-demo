@@ -79,22 +79,16 @@ class _UserTripRequestState extends State<UserTripRequest> {
                       itemBuilder: (context, index) {
                         return Card(
                           child: ListTile(
-                            title: Text('User Request $index'),
+                            title: Text('User Request $index',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18,
+                              ),),
                             subtitle: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Row(
-                                  children: [
-                                    Text('User Name:'),
-                                    Text(trip[index]["User Name"])
-                                  ],
-                                ),
-                                Row(
-                                  children: [
-                                    Text('Phone Number:'),
-                                    Text(trip[index]["Phone Number"])
-                                  ],
-                                ),
+                                Text('User Name: ${trip[index]["User Name"]}'),
+                                Text('Phone Number: ${trip[index]["Phone Number"]}'),
                                 trip[index]["Status"] == "0"
                                     ? Row(
                                   children: [

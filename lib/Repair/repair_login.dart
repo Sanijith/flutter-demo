@@ -17,19 +17,21 @@ class _RepairLoginState extends State<RepairLogin> {
   var email = TextEditingController();
   var password = TextEditingController();
   String id = '';
+  String rname = '';
 
   void REPAIRLogin() async {
-    final user = await FirebaseFirestore.instance
+    final repair = await FirebaseFirestore.instance
         .collection('RepairRegister')
         .where('Email', isEqualTo: email.text)
         .where('Password', isEqualTo: password.text)
-        // .where('status', isEqualTo: 1)
         .get();
-    if (user.docs.isNotEmpty) {
-      id = user.docs[0].id;
+    if (repair.docs.isNotEmpty) {
+      id = repair.docs[0].id;
+      rname=repair.docs[0]["UserName"];
 
       SharedPreferences data = await SharedPreferences.getInstance();
       data.setString('id', id);
+      data.setString('RepairShopName', rname);
 
       Navigator.push(context, MaterialPageRoute(
         builder: (context) {
@@ -131,7 +133,7 @@ class _RepairLoginState extends State<RepairLogin> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Text('Dont have an accout?'),
+                      const Text("Don't have an account?"),
                       TextButton(
                           onPressed: () {
                             Navigator.push(

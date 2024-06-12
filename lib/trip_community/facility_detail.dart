@@ -14,7 +14,6 @@ class FacilityDetail extends StatefulWidget {
 }
 
 class _FacilityDetailState extends State<FacilityDetail> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,8 +32,7 @@ class _FacilityDetailState extends State<FacilityDetail> {
           ],
         ),
         backgroundColor: Colors.white,
-        body:
-          Column(
+        body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Center(
@@ -61,11 +59,12 @@ class _FacilityDetailState extends State<FacilityDetail> {
                 ),
               ),
             ),
-            SizedBox(height:20),
+            SizedBox(height: 20),
             Expanded(
               child: FutureBuilder(
-                  future:
-                      FirebaseFirestore.instance.collection("FacilityDetail").get(),
+                  future: FirebaseFirestore.instance
+                      .collection("FacilityDetail")
+                      .get(),
                   builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
                       return Center(child: CircularProgressIndicator());
@@ -91,16 +90,18 @@ class _FacilityDetailState extends State<FacilityDetail> {
                                             context,
                                             MaterialPageRoute(
                                                 builder: (context) =>
-                                                    EditFacilityPage(id:facility[index].id)));
+                                                    EditFacilityPage(
+                                                        id: facility[index]
+                                                            .id)));
                                       },
                                       icon: Icon(Icons.edit)),
                                   IconButton(
                                       onPressed: () {
                                         setState(() {
-                                        FirebaseFirestore.instance
-                                            .collection("FacilityDetail")
-                                            .doc(facility[index].id)
-                                            .delete();
+                                          FirebaseFirestore.instance
+                                              .collection("FacilityDetail")
+                                              .doc(facility[index].id)
+                                              .delete();
                                         });
                                       },
                                       icon: Icon(Icons.delete))
@@ -109,9 +110,8 @@ class _FacilityDetailState extends State<FacilityDetail> {
                               subtitle: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(facility[index]["Location"]),
-                                  Text(facility[index]["Fee"]),
-                                  Text(facility[index]["Phone Number"])
+                                  Text("Location: ${facility[index]["Location"]}"),
+                                  Text("Phone Number: ${facility[index]["Phone Number"]}"),
                                 ],
                               ),
                             ),
@@ -131,5 +131,3 @@ class _FacilityDetailState extends State<FacilityDetail> {
         ));
   }
 }
-
-

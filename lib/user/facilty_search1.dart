@@ -5,63 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-// class IconButtonTextField extends StatefulWidget {
-//   final IconData icon;
-//   final String initialText;
-//   final Function(String) onSubmit;
-//
-//   const IconButtonTextField({
-//     Key? key,
-//     required this.icon,
-//     this.initialText = '',
-//     required this.onSubmit,
-//   }) : super(key: key);
-//
-//   @override
-//   State<IconButtonTextField> createState() => _IconButtonTextFieldState();
-// }
-//
-// class _IconButtonTextFieldState extends State<IconButtonTextField> {
-//   bool _showTextField = false;
-//   final TextEditingController _textController = TextEditingController();
-//
-//   @override
-//   void initState() {
-//     super.initState();
-//     _textController.text = widget.initialText;
-//   }
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return AnimatedContainer(
-//       duration: Duration(milliseconds: 200),
-//       width: _showTextField ? 200.0 : 50.0,
-//       child: Row(
-//         children: [
-//           IconButton(
-//             icon: Icon(widget.icon),
-//             onPressed: () => setState(() => _showTextField = !_showTextField),
-//           ),
-//           if (_showTextField)
-//             Expanded(
-//               child: TextFormField(
-//                 controller: _textController,
-//                 decoration: InputDecoration(
-//                   hintText: 'Search Facilities...',
-//                 ),
-//                 onFieldSubmitted: (text) {
-//                   widget.onSubmit(text);
-//                   setState(() => _showTextField = false);
-//                   _textController.clear();
-//                 },
-//               ),
-//             ),
-//         ],
-//       ),
-//     );
-//   }
-// }
-
 class FacilitySearch1 extends StatefulWidget {
   const FacilitySearch1({super.key});
 
@@ -81,6 +24,10 @@ class _FacilitySearch1State extends State<FacilitySearch1> {
           backgroundColor: Colors.white,
           title: const Text('FleetRide'),
           actions: [
+            // IconButtonTextField(
+            //   icon: Icons.search,
+            //   onSubmit: handleSearch,
+            // ),
             IconButton(
                 onPressed: () {
                   Navigator.push(
@@ -92,8 +39,7 @@ class _FacilitySearch1State extends State<FacilitySearch1> {
           ],
         ),
         backgroundColor: Colors.white,
-        body:
-          Column(
+        body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Center(
@@ -108,7 +54,7 @@ class _FacilitySearch1State extends State<FacilitySearch1> {
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 50),
                       child: Text(
-                        "Facility",
+                        "Facility ",
                         style: GoogleFonts.ubuntu(
                           fontSize: 24,
                           fontWeight: FontWeight.bold,
@@ -120,11 +66,14 @@ class _FacilitySearch1State extends State<FacilitySearch1> {
                 ),
               ),
             ),
-            SizedBox(height: 20,),
+            SizedBox(
+              height: 20,
+            ),
             Expanded(
               child: FutureBuilder(
-                  future:
-                      FirebaseFirestore.instance.collection("FacilityDetail").get(),
+                  future: FirebaseFirestore.instance
+                      .collection("FacilityDetail")
+                      .get(),
                   builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
                       return Center(child: CircularProgressIndicator());
@@ -140,7 +89,13 @@ class _FacilitySearch1State extends State<FacilitySearch1> {
                           return Card(
                             color: Colors.red.shade50,
                             child: ListTile(
-                              title: Text(facility[index]["Facility Name"]),
+                              title: Text(
+                                facility[index]["Facility Name"],
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 18,
+                                ),
+                              ),
                               trailing: IconButton(
                                   onPressed: () async {
                                     try {
@@ -149,9 +104,11 @@ class _FacilitySearch1State extends State<FacilitySearch1> {
                                           'tel:${facility[index]["Phone Number"]}');
                                     } catch (e) {
                                       // Handle any exceptions
-                                      print('Error launching telephone call: $e');
+                                      print(
+                                          'Error launching telephone call: $e');
                                       // Display a friendly error message to the user
-                                      ScaffoldMessenger.of(context).showSnackBar(
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
                                         SnackBar(
                                           content: Text(
                                               'Failed to launch phone call. Please check your device settings.'),
@@ -163,33 +120,8 @@ class _FacilitySearch1State extends State<FacilitySearch1> {
                               subtitle: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Row(
-                                    children: [
-                                      Text('Location:'),
-                                      SizedBox(
-                                        width: 10,
-                                      ),
-                                      Text(facility[index]["Location"]),
-                                    ],
-                                  ),
-                                  Row(
-                                    children: [
-                                      Text('Fee:'),
-                                      SizedBox(
-                                        width: 10,
-                                      ),
-                                      Text(facility[index]["Fee"]),
-                                    ],
-                                  ),
-                                  Row(
-                                    children: [
-                                      Text('Phone:'),
-                                      SizedBox(
-                                        width: 10,
-                                      ),
-                                      Text(facility[index]["Phone Number"]),
-                                    ],
-                                  ),
+                                  Text('Location: ${facility[index]["Location"]}'),
+                                  Text('Phone: ${facility[index]["Phone Number"]}'),
                                 ],
                               ),
                             ),

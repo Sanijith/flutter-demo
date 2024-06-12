@@ -77,37 +77,16 @@ class _VehicleIssueState extends State<VehicleIssue> {
                         return Card(
                           color: Colors.red.shade50,
                           child: ListTile(
-                            title: Text('Vehicle Issue $index'),
+                            title: Text('Vehicle Issue $index',style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18,
+                            ),),
                             subtitle: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Row(
-                                  children: [
-                                    Text("Vehicle No:"),
-                                    SizedBox(
-                                      width: 10,
-                                    ),
-                                    Text(issue[index]["Vehicle Number"]),
-                                  ],
-                                ),
-                                Row(
-                                  children: [
-                                    Text("Driver Name:"),
-                                    SizedBox(
-                                      width: 10,
-                                    ),
-                                    Text(issue[index]["Driver Name"]),
-                                  ],
-                                ),
-                                Row(
-                                  children: [
-                                    Text("Vehicle Issue:"),
-                                    SizedBox(
-                                      width: 10,
-                                    ),
-                                    Text(issue[index]["Vehicle Issue"]),
-                                  ],
-                                ),
+                                Text("Vehicle No: ${issue[index]["Vehicle Number"]}"),
+                                Text("Driver Name: ${issue[index]["Driver Name"]}"),
+                                Text("Vehicle Issue: ${issue[index]["Vehicle Issue"]}"),
                               ],
                             ),
                           ),

@@ -24,7 +24,7 @@ class _RegisterState extends State<Register> {
       "Password": password.text,
       "Email": email.text,
       "Phone Number": phone.text,
-      "Path":"1",
+      "Path":"https://media.istockphoto.com/id/1300845620/vector/user-icon-flat-isolated-on-white-background-user-symbol-vector-illustration.jpg?s=612x612&w=0&k=20&c=yBeyba0hUkh14_jgv1OKqIH0CCSWU_4ckRkAoy2p73o=",
     });
     print("done");
     Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>Login()));
@@ -112,11 +112,14 @@ class _RegisterState extends State<Register> {
                   SizedBox(height: 20),
                   TextFormField(
                     controller: phone,
-                    validator: (value){
-                      if(value!.isEmpty){
-                        return "Empty Phone Number!";
-                      }
-                    },
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return "Empty Phone Number!";
+                        } else if (value.length != 10 || !RegExp(r'^[0-9]+$').hasMatch(value)) {
+                          return "Invalid Phone Number";
+                        }
+                        return null; // Valid input
+                      },
                     keyboardType: TextInputType.phone,
                     decoration: InputDecoration(
                       filled: true,

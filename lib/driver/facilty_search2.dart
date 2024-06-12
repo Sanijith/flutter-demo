@@ -89,7 +89,13 @@ class _FacilitySearch2State extends State<FacilitySearch2> {
                           return Card(
                             color: Colors.red.shade50,
                             child: ListTile(
-                              title: Text(facility[index]["Facility Name"]),
+                              title: Text(
+                                facility[index]["Facility Name"],
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 18,
+                                ),
+                              ),
                               trailing: IconButton(
                                   onPressed: () async {
                                     try {
@@ -114,33 +120,8 @@ class _FacilitySearch2State extends State<FacilitySearch2> {
                               subtitle: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Row(
-                                    children: [
-                                      Text('Location:'),
-                                      SizedBox(
-                                        width: 10,
-                                      ),
-                                      Text(facility[index]["Location"]),
-                                    ],
-                                  ),
-                                  Row(
-                                    children: [
-                                      Text('Fee:'),
-                                      SizedBox(
-                                        width: 10,
-                                      ),
-                                      Text(facility[index]["Fee"]),
-                                    ],
-                                  ),
-                                  Row(
-                                    children: [
-                                      Text('Phone:'),
-                                      SizedBox(
-                                        width: 10,
-                                      ),
-                                      Text(facility[index]["Phone Number"]),
-                                    ],
-                                  ),
+                                  Text('Location: ${facility[index]["Location"]}'),
+                                  Text('Phone: ${facility[index]["Phone Number"]}'),
                                 ],
                               ),
                             ),

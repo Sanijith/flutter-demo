@@ -91,7 +91,10 @@ class _MyTripState extends State<MyTrip> {
                         return Card(
                           color: Colors.red.shade50,
                           child: ListTile(
-                            title: Text('Trip $index'),
+                            title: Text('Trip $index',style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18,
+                            ),),
                             trailing: IconButton(
                                 onPressed: () {
                                   setState(() {
@@ -105,23 +108,13 @@ class _MyTripState extends State<MyTrip> {
                             subtitle: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Row(
-                                  children: [
-                                    Text('From:'),
-                                    Text(mytrips[index]["From"])
-                                  ],
-                                ),
-                                Row(
-                                  children: [Text('To:'), Text(mytrips[index]["To"])],
-                                )
+                                Text('From: ${mytrips[index]["From"]}'),
+                                Text('From: ${mytrips[index]["To"]}'),
                               ],
                             ),
                           ),
                         );
                       },
-                      // separatorBuilder: (context, index) {
-                      //   return const Divider();
-                      // },
                       itemCount: mytrips.length);
                 }),
           ),

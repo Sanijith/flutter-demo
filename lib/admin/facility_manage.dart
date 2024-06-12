@@ -90,7 +90,6 @@ class _FacilityManageState extends State<FacilityManage> {
                           subtitle: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(facility[index]["Fee"]),
                               Text(facility[index]["Location"]),
                               Text(facility[index]["Phone Number"])
                             ],

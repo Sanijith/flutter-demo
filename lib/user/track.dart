@@ -87,7 +87,9 @@ class _TrackState extends State<Track> {
                       trailing: Text(
                         widget.id,
                         style: TextStyle(
-                            fontSize: 15, color: Color.fromRGBO(43, 44, 47, 1)),
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18,
+                        ),
                       ),
                     ),
                   ),
@@ -101,7 +103,10 @@ class _TrackState extends State<Track> {
                       leading: Icon(Icons.person),
                       trailing: Text(
                         Req!["Driver Name"],
-                        style: TextStyle(fontSize: 15),
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18,
+                        ),
                       ),
                     ),
                   ),
@@ -116,7 +121,9 @@ class _TrackState extends State<Track> {
                       trailing: Text(
                         Req!["Driver Phone"],
                         style: TextStyle(
-                            fontSize: 15, color: Color.fromRGBO(43, 44, 47, 1)),
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18,
+                        ),
                       ),
                     ),
                   ),
@@ -131,7 +138,9 @@ class _TrackState extends State<Track> {
                       trailing: Text(
                         Req!["From"],
                         style: TextStyle(
-                            fontSize: 15, color: Color.fromRGBO(43, 44, 47, 1)),
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18,
+                        ),
                       ),
                     ),
                   ),
@@ -146,7 +155,9 @@ class _TrackState extends State<Track> {
                       trailing: Text(
                         Req!["To"],
                         style: TextStyle(
-                            fontSize: 15, color: Color.fromRGBO(43, 44, 47, 1)),
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18,
+                        ),
                       ),
                     ),
                   ),
@@ -161,7 +172,9 @@ class _TrackState extends State<Track> {
                       trailing: Text(
                         "Current Location",
                         style: TextStyle(
-                            fontSize: 15, color: Color.fromRGBO(43, 44, 47, 1)),
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18,
+                        ),
                       ),
                     ),
                   ),

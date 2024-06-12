@@ -144,7 +144,13 @@ class _EventSearch2State extends State<EventSearch2> {
                       return Card(
                         color: Colors.red.shade50,
                         child: ListTile(
-                          title: Text(event[index]["Event Name"]),
+                          title: Text(
+                            event[index]["Event Name"],
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18,
+                            ),
+                          ),
                           trailing: Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
@@ -174,33 +180,9 @@ class _EventSearch2State extends State<EventSearch2> {
                           subtitle: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Row(
-                                children: [
-                                  Text('Location:'),
-                                  SizedBox(
-                                    width: 10,
-                                  ),
-                                  Text(event[index]["Location"]),
-                                ],
-                              ),
-                              Row(
-                                children: [
-                                  Text('Time:'),
-                                  SizedBox(
-                                    width: 10,
-                                  ),
-                                  Text(event[index]["Time"]),
-                                ],
-                              ),
-                              Row(
-                                children: [
-                                  Text('Phone:'),
-                                  SizedBox(
-                                    width: 10,
-                                  ),
-                                  Text(event[index]["Phone Number"]),
-                                ],
-                              )
+                              Text('Location: ${event[index]["Location"]}'),
+                              Text('Time: ${event[index]["Time"]}'),
+                              Text('Phone: ${event[index]["Phone Number"]}'),
                             ],
                           ),
                         ),

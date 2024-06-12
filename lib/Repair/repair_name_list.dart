@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fleetride/Repair/repair_home.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'add_repair_detail.dart';
 
@@ -13,6 +14,20 @@ class RepairNames extends StatefulWidget {
 }
 
 class _RepairNamesState extends State<RepairNames> {
+  var ID;
+
+  void initState() {
+    super.initState();
+    getData();
+  }
+
+  Future<void> getData() async {
+    SharedPreferences spref = await SharedPreferences.getInstance();
+    setState(() {
+      ID = spref.getString('id');
+    });
+    print('Shared Preference data get');
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -60,10 +75,15 @@ class _RepairNamesState extends State<RepairNames> {
               ),
             ),
           ),
-          SizedBox(height: 20,),
+          SizedBox(
+            height: 20,
+          ),
           Expanded(
             child: FutureBuilder(
-                future: FirebaseFirestore.instance.collection("RepairList").get(),
+                future: FirebaseFirestore.instance
+                    .collection("RepairList")
+                    .where("Repair Id", isEqualTo: ID)
+                    .get(),
                 builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return Center(child: CircularProgressIndicator());
@@ -79,7 +99,13 @@ class _RepairNamesState extends State<RepairNames> {
                         return Card(
                           color: Colors.red.shade50,
                           child: ListTile(
-                            title: Text(repairs[index]["Repair Name"]),
+                            title: Text(
+                              repairs[index]["Repair Name"],
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18,
+                              ),
+                            ),
                             trailing: IconButton(
                                 onPressed: () {
                                   setState(() {
@@ -96,11 +122,21 @@ class _RepairNamesState extends State<RepairNames> {
                                 SizedBox(
                                   height: 10,
                                 ),
-                                Text(repairs[index]["Location"]),
+                                Row(
+                                  children: [
+                                    Text("Location: "),
+                                    Text(repairs[index]["Location"]),
+                                  ],
+                                ),
                                 SizedBox(
                                   height: 10,
                                 ),
-                                Text(repairs[index]["Phone Number"]),
+                                Row(
+                                  children: [
+                                    Text("Phone Number: "),
+                                    Text(repairs[index]["Phone Number"]),
+                                  ],
+                                ),
                               ],
                             ),
                           ),
@@ -115,7 +151,6 @@ class _RepairNamesState extends State<RepairNames> {
         onPressed: () {
           Navigator.push(context,
               MaterialPageRoute(builder: (context) => const EditRepairPage()));
-
         },
         tooltip: 'Add',
         child: const Icon(Icons.add),

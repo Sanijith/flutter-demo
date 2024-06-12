@@ -109,7 +109,7 @@ class _EventSearch1State extends State<EventSearch1> {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 50),
                     child: Text(
-                      "Events ",
+                      "Events",
                       style: GoogleFonts.ubuntu(
                         fontSize: 24,
                         fontWeight: FontWeight.bold,
@@ -121,10 +121,13 @@ class _EventSearch1State extends State<EventSearch1> {
               ),
             ),
           ),
-          SizedBox(height: 20,),
+          SizedBox(
+            height: 20,
+          ),
           Expanded(
             child: FutureBuilder(
-                future: FirebaseFirestore.instance.collection("EventDetail").get(),
+                future:
+                FirebaseFirestore.instance.collection("EventDetail").get(),
                 builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return Center(child: CircularProgressIndicator());
@@ -141,7 +144,13 @@ class _EventSearch1State extends State<EventSearch1> {
                       return Card(
                         color: Colors.red.shade50,
                         child: ListTile(
-                          title: Text(event[index]["Event Name"]),
+                          title: Text(
+                            event[index]["Event Name"],
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18,
+                            ),
+                          ),
                           trailing: Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
@@ -153,9 +162,11 @@ class _EventSearch1State extends State<EventSearch1> {
                                           'tel:${event[index]["Phone Number"]}');
                                     } catch (e) {
                                       // Handle any exceptions
-                                      print('Error launching telephone call: $e');
+                                      print(
+                                          'Error launching telephone call: $e');
                                       // Display a friendly error message to the user
-                                      ScaffoldMessenger.of(context).showSnackBar(
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
                                         SnackBar(
                                           content: Text(
                                               'Failed to launch phone call. Please check your device settings.'),
@@ -169,33 +180,9 @@ class _EventSearch1State extends State<EventSearch1> {
                           subtitle: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Row(
-                                children: [
-                                  Text('Location:'),
-                                  SizedBox(
-                                    width: 10,
-                                  ),
-                                  Text(event[index]["Location"]),
-                                ],
-                              ),
-                              Row(
-                                children: [
-                                  Text('Time:'),
-                                  SizedBox(
-                                    width: 10,
-                                  ),
-                                  Text(event[index]["Time"]),
-                                ],
-                              ),
-                              Row(
-                                children: [
-                                  Text('Phone:'),
-                                  SizedBox(
-                                    width: 10,
-                                  ),
-                                  Text(event[index]["Phone Number"]),
-                                ],
-                              )
+                              Text('Location: ${event[index]["Location"]}'),
+                              Text('Time: ${event[index]["Time"]}'),
+                              Text('Phone: ${event[index]["Phone Number"]}'),
                             ],
                           ),
                         ),

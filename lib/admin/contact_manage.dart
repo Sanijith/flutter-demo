@@ -10,9 +10,8 @@ class ContactManage extends StatefulWidget {
 }
 
 class _ContactManageState extends State<ContactManage> {
-  int _itemCount = 0;
-
   // Controllers for the text fields
+  final formKey = GlobalKey<FormState>();
   var _nameController = TextEditingController();
   var _phoneNumberController = TextEditingController();
 
@@ -128,44 +127,59 @@ class _ContactManageState extends State<ContactManage> {
           showDialog(
             context: context,
             builder: (BuildContext context) {
-              return AlertDialog(
-                title: Text('Add Contact'),
-                content: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    TextFormField(
-                      controller: _nameController,
-                      decoration: InputDecoration(hintText: 'Name'),
+              return Form(
+                key: formKey,
+                child: AlertDialog(
+                  title: Text('Add Contact'),
+                  content: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      TextFormField(
+                        controller: _nameController,
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return "Empty Name";
+                          }
+                        },
+                        decoration: InputDecoration(hintText: 'Name'),
+                      ),
+                      TextFormField(
+                        controller: _phoneNumberController,
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return "Empty Phone Number";
+                          }
+                        },
+                        decoration: InputDecoration(hintText: 'Phone Number'),
+                      ),
+                    ],
+                  ),
+                  actions: <Widget>[
+                    TextButton(
+                      onPressed: () {
+                        // Dismiss the dialog
+                        Navigator.of(context).pop();
+                      },
+                      child: Text('Cancel'),
                     ),
-                    TextFormField(
-                      controller: _phoneNumberController,
-                      decoration: InputDecoration(hintText: 'Phone Number'),
+                    TextButton(
+                      onPressed: () {
+                        if (formKey.currentState!.validate()) {
+                          // Add your logic to save the contact details
+                          setState(() {
+                            Contact();
+                          });
+                        }
+                        // Clear text field controllers
+                        _nameController.clear();
+                        _phoneNumberController.clear();
+                        // Dismiss the dialog
+                        Navigator.of(context).pop();
+                      },
+                      child: Text('Save'),
                     ),
                   ],
                 ),
-                actions: <Widget>[
-                  TextButton(
-                    onPressed: () {
-                      // Dismiss the dialog
-                      Navigator.of(context).pop();
-                    },
-                    child: Text('Cancel'),
-                  ),
-                  TextButton(
-                    onPressed: () {
-                      // Add your logic to save the contact details
-                      setState(() {
-                        Contact();
-                      });
-                      // Clear text field controllers
-                      _nameController.clear();
-                      _phoneNumberController.clear();
-                      // Dismiss the dialog
-                      Navigator.of(context).pop();
-                    },
-                    child: Text('Save'),
-                  ),
-                ],
               );
             },
           );

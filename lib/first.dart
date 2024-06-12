@@ -30,7 +30,7 @@ class _FirstPageState extends State<FirstPage> {
               SizedBox(height: 10),
               Center(
                 child: Text('FLEETRIDE',
-                    style: GoogleFonts.itim(fontSize: 40, color: Colors.red)),
+                    style: GoogleFonts.aclonica(fontSize: 40, color: Colors.red)),
               ),
             ],
           ),

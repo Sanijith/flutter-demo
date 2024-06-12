@@ -3,6 +3,7 @@ import 'package:fleetride/Repair/repair_home.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class EditRepairPage extends StatefulWidget {
   const EditRepairPage({super.key});
@@ -12,6 +13,22 @@ class EditRepairPage extends StatefulWidget {
 }
 
 class _EditRepairPageState extends State<EditRepairPage> {
+  var ID;
+  var rname;
+
+  void initState() {
+    super.initState();
+    getData();
+  }
+
+  Future<void> getData() async {
+    SharedPreferences spref = await SharedPreferences.getInstance();
+    setState(() {
+      ID = spref.getString('id');
+      rname=spref.getString("RepairShopName");
+    });
+    print('Shared Preference data get');
+  }
   final formKey=GlobalKey<FormState>();
   var name=TextEditingController();
   var location=TextEditingController();
@@ -19,6 +36,8 @@ class _EditRepairPageState extends State<EditRepairPage> {
 
   Future<dynamic>Repair()async{
     await FirebaseFirestore.instance.collection("RepairList").add({
+      "Repair Id":ID,
+      "Repair Shop Name":rname,
       "Repair Name":name.text,
       "Location":location.text,
       "Phone Number":phone.text,

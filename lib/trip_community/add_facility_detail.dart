@@ -15,14 +15,12 @@ class _AddFacilityPageState extends State<AddFacilityPage> {
   final formKey = GlobalKey<FormState>();
   var facilityname = TextEditingController();
   var location = TextEditingController();
-  var fees = TextEditingController();
   var phone = TextEditingController();
 
   Future<dynamic> Facility() async {
     await FirebaseFirestore.instance.collection('FacilityDetail').add({
       "Facility Name": facilityname.text,
       "Location": location.text,
-      "Fee": fees.text,
       "Phone Number": phone.text,
     });
     print('done');
@@ -114,26 +112,6 @@ class _AddFacilityPageState extends State<AddFacilityPage> {
                         borderRadius: BorderRadius.all(Radius.circular(30)),
                       ),
                       labelText: "Location",
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(10),
-                  child: TextFormField(
-                    keyboardType: TextInputType.phone,
-                    controller: fees,
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return "Empty Fees!";
-                      }
-                    },
-                    decoration: const InputDecoration(
-                      filled: true,
-                      fillColor: Colors.white,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(30)),
-                      ),
-                      labelText: "Fees",
                     ),
                   ),
                 ),

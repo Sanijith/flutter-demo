@@ -61,7 +61,7 @@ class _RepairNamesListState extends State<RepairNamesList> {
           Expanded(
             child: FutureBuilder(
                 future:
-                    FirebaseFirestore.instance.collection("RepairList").get(),
+                FirebaseFirestore.instance.collection("RepairList").get(),
                 builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return Center(child: CircularProgressIndicator());
@@ -77,7 +77,13 @@ class _RepairNamesListState extends State<RepairNamesList> {
                         return Card(
                           color: Colors.red.shade50,
                           child: ListTile(
-                            title: Text(repairs[index]["Repair Name"]),
+                            title: Text(
+                              repairs[index]["Repair Name"],
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18,
+                              ),
+                            ),
                             trailing: IconButton(
                                 onPressed: () async {
                                   try {
@@ -103,11 +109,18 @@ class _RepairNamesListState extends State<RepairNamesList> {
                                 SizedBox(
                                   height: 10,
                                 ),
-                                Text(repairs[index]["Location"]),
+                                Text("Shop Name: ${repairs[index]["Repair Shop Name"]}",
+                                    style: TextStyle(fontSize: 14)),
                                 SizedBox(
                                   height: 10,
                                 ),
-                                Text(repairs[index]["Phone Number"]),
+                                Text("Location: ${repairs[index]["Location"]}",
+                                    style: TextStyle(fontSize: 14)),
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                Text("Phone Number: ${repairs[index]["Phone Number"]}",
+                                    style: TextStyle(fontSize: 14)),
                               ],
                             ),
                           ),

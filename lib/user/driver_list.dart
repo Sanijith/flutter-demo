@@ -15,25 +15,29 @@ class _DriversState extends State<Drivers> {
   var ID;
   var userName;
   var phoneNumber;
+  var address = TextEditingController();
 
   List<String> locationlist = ['Trip Request', 'Delivery Request'];
   String? selectedvalue;
 
   @override
-  Future<void> sendRequest(
-      String driverName, String driverPhone, String from, String to) async {
+  Future<void> sendRequest(String driverName, String driverPhone, String from, String to, String additionalInfo) async {
     SharedPreferences spref = await SharedPreferences.getInstance();
     userName = spref.getString('name');
     phoneNumber = spref.getString('phone');
+
+    // Extract the address from the TextEditingController
+    String deliveryAddress = address.text;
 
     await FirebaseFirestore.instance.collection("Request List").add({
       "User Name": userName,
       "Phone Number": phoneNumber,
       "Driver Name": driverName,
-      "Driver Phone": driverPhone, // Add driver's phone number
-      "From": from, // Add trip from
-      "To": to, // Add trip to
+      "Driver Phone": driverPhone,
+      "From": from,
+      "To": to,
       "Type Request": selectedvalue,
+      "Delivery Address": deliveryAddress, // Add address to Firestore
       "Status": "0",
     });
 
@@ -49,58 +53,80 @@ class _DriversState extends State<Drivers> {
 
   Future<void> _displayDropDownDialog(BuildContext context, String driverName,
       String driverPhone, String from, String to) {
+    String additionalInfo = ''; // State variable to hold the text entered in the TextFormField
+
     return showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            title: Text('Select Category'),
-            content: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                  width: 200,
-                  height: 50,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(6),
-                    color: Colors.transparent,
-                  ),
-                  child: DropdownButton<String>(
-                      isExpanded: true,
-                      elevation: 0,
-                      hint: Text(
-                        "Category",
-                        style: TextStyle(
-                            fontSize: 16,
-                            color: Colors.black,
-                            fontWeight: FontWeight.normal),
-                      ),
-                      underline: const SizedBox(),
-                      value: selectedvalue,
-                      items: locationlist.map((String value) {
-                        return DropdownMenuItem<String>(
-                            value: value, child: Text(value));
-                      }).toList(),
-                      onChanged: (newvalue) {
-                        setState(() {
-                          selectedvalue = newvalue;
-                          print(selectedvalue);
-                        });
-                      },
-                      padding: const EdgeInsets.symmetric(horizontal: 10)),
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text('Select Category'),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
+                width: 200,
+                height: 50,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(6),
+                  color: Colors.transparent,
                 ),
-              ],
-            ),
-            actions: <Widget>[
-              TextButton(
-                child: Text('SEND'),
-                onPressed: () {
-                  sendRequest(driverName, driverPhone, from, to);
-                  Navigator.pop(context);
+                child: DropdownButton<String>(
+                  isExpanded: true,
+                  elevation: 0,
+                  hint: Text(
+                    "Category",
+                    style: TextStyle(
+                        fontSize: 16,
+                        color: Colors.black,
+                        fontWeight: FontWeight.normal),
+                  ),
+                  underline: const SizedBox(),
+                  value: selectedvalue,
+                  items: locationlist.map((String value) {
+                    return DropdownMenuItem<String>(
+                        value: value, child: Text(value));
+                  }).toList(),
+                  onChanged: (newvalue) {
+                    setState(() {
+                      selectedvalue = newvalue;
+                      print(selectedvalue);
+                    });
+                  },
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                ),
+              ),
+              SizedBox(height: 20),
+              TextFormField(
+                keyboardType: TextInputType.emailAddress,
+                controller: address,
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return "Empty Address";
+                  }
                 },
+                decoration: const InputDecoration(
+                  filled: true,
+                  fillColor: Colors.transparent,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(15.0)),
+                  ),
+                  hintText: "Delivery Address",
+                ),
               ),
             ],
-          );
-        });
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: Text('SEND'),
+              onPressed: () {
+                sendRequest(driverName, driverPhone, from, to, additionalInfo); // Pass additionalInfo to the sendRequest method
+                Navigator.pop(context);
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 
   @override
@@ -157,7 +183,7 @@ class _DriversState extends State<Drivers> {
           Expanded(
             child: FutureBuilder(
               future:
-                  FirebaseFirestore.instance.collection("Create Trips").get(),
+              FirebaseFirestore.instance.collection("Create Trips").get(),
               builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return Center(child: CircularProgressIndicator());
@@ -173,28 +199,16 @@ class _DriversState extends State<Drivers> {
                     return Card(
                       color: Colors.red.shade50,
                       child: ListTile(
-                        title: Text(mytrip[index]["Driver Name"]),
+                        title: Text(mytrip[index]["Driver Name"],
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18,
+                          ),),
                         subtitle: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Row(
-                              children: [
-                                Text('From:'),
-                                SizedBox(
-                                  width: 10,
-                                ),
-                                Text(mytrip[index]["From"]),
-                              ],
-                            ),
-                            Row(
-                              children: [
-                                Text('To:'),
-                                SizedBox(
-                                  width: 10,
-                                ),
-                                Text(mytrip[index]["To"]),
-                              ],
-                            ),
+                            Text("From: ${mytrip[index]["From"]}"),
+                            Text("To: ${mytrip[index]["To"]}"),
                           ],
                         ),
                         trailing: ElevatedButton(

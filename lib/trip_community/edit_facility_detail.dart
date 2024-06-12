@@ -17,14 +17,12 @@ class _EditFacilityPageState extends State<EditFacilityPage> {
   final formKey = GlobalKey<FormState>();
   var facilityname = TextEditingController();
   var location = TextEditingController();
-  var fees = TextEditingController();
   var phone = TextEditingController();
 
   Future<dynamic> EditFacility() async {
     await FirebaseFirestore.instance.collection("FacilityDetail").doc(widget.id).update({
       "Facility Name": facilityname.text,
       "Location": location.text,
-      "Fee":fees.text,
       "Phone Number": phone.text,
     });
     print("Update Successfully");
@@ -116,26 +114,6 @@ class _EditFacilityPageState extends State<EditFacilityPage> {
                         borderRadius: BorderRadius.all(Radius.circular(30)),
                       ),
                       labelText: "Location",
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(10),
-                  child: TextFormField(
-                    keyboardType: TextInputType.phone,
-                    controller: fees,
-                    validator: (value){
-                      if(value!.isEmpty){
-                        return "Empty Fees!";
-                      }
-                    },
-                    decoration: const InputDecoration(
-                      filled: true,
-                      fillColor: Colors.white,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(30)),
-                      ),
-                      labelText: "Fees",
                     ),
                   ),
                 ),

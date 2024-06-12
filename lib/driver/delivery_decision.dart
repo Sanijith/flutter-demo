@@ -64,6 +64,7 @@ class _DeliveryDecisionState extends State<DeliveryDecision> {
                 future: FirebaseFirestore.instance
                     .collection("Request List")
                     .where("Type Request", isEqualTo: "Delivery Request")
+                    .where("Delivery Address", isNotEqualTo: null)
                     .get(),
                 builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {

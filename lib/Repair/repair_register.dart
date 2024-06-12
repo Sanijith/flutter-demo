@@ -25,8 +25,8 @@ class _RepairRegisterState extends State<RepairRegister> {
       "UserName":name.text,
       "Password":password.text,
       "Email":email.text,
-      "PhoneNumber":phone.text,
-      "Path":"1",
+      "Phone Number":phone.text,
+      "Path":"https://media.istockphoto.com/id/1300845620/vector/user-icon-flat-isolated-on-white-background-user-symbol-vector-illustration.jpg?s=612x612&w=0&k=20&c=yBeyba0hUkh14_jgv1OKqIH0CCSWU_4ckRkAoy2p73o=",
     });
     print('Success');
     Navigator.pushReplacement(context,
@@ -116,10 +116,13 @@ class _RepairRegisterState extends State<RepairRegister> {
                   SizedBox(height: 20),
                   TextFormField(
                     controller: phone,
-                    validator: (value){
-                      if(value!.isEmpty){
-                        return "Empty Phone Number";
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return "Empty Phone Number!";
+                      } else if (value.length != 10 || !RegExp(r'^[0-9]+$').hasMatch(value)) {
+                        return "Invalid Phone Number";
                       }
+                      return null; // Valid input
                     },
                     keyboardType: TextInputType.phone,
                     decoration: InputDecoration(
