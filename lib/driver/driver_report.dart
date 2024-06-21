@@ -33,136 +33,138 @@ class _DriverReportState extends State<DriverReport> {
 
   @override
   Widget build(BuildContext context) {
-    return Form(
-      key: formKey,
-      child: Scaffold(
-        appBar: AppBar(
-          title: const Text('FleetRide'),
-          actions: [
-            IconButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const DriverHome()),
-                );
-              },
-              icon: const Icon(Icons.home_outlined),
-            ),
-          ],
-          backgroundColor: Colors.white,
-        ),
-        body: SingleChildScrollView(
-          child: Container(
-            padding: EdgeInsets.all(40),
-            child: Column(
-              children: [
-                Container(
-                  height: 50,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(40),
-                      color: Colors.lightBlueAccent.shade200),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        "Report Issue",
-                        style: GoogleFonts.ubuntu(
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
+    return SafeArea(
+      child: Form(
+        key: formKey,
+        child: Scaffold(
+          appBar: AppBar(
+            title: const Text('FleetRide'),
+            actions: [
+              IconButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const DriverHome()),
+                  );
+                },
+                icon: const Icon(Icons.home_outlined),
+              ),
+            ],
+            backgroundColor: Colors.white,
+          ),
+          body: SingleChildScrollView(
+            child: Container(
+              padding: EdgeInsets.all(40),
+              child: Column(
+                children: [
+                  Container(
+                    height: 50,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(40),
+                        color: Colors.lightBlueAccent.shade200),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          "Report Issue",
+                          style: GoogleFonts.ubuntu(
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
-                ),
-                SizedBox(
-                  height: 30,
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(10),
-                  child: TextFormField(
-                    keyboardType: TextInputType.text,
-                    controller: driverName,
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return "Empty Name!";
-                      }
-                    },
-                    decoration: const InputDecoration(
-                      filled: true,
-                      fillColor: Colors.white,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(30)),
-                      ),
-                      labelText: "Driver Name",
+                      ],
                     ),
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(10),
-                  child: TextFormField(
-                    keyboardType: TextInputType.text,
-                    controller: vehicleNumber,
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return "Empty Number!";
-                      }
-                    },
-                    decoration: const InputDecoration(
-                      filled: true,
-                      fillColor: Colors.white,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(30)),
+                  SizedBox(
+                    height: 30,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(10),
+                    child: TextFormField(
+                      keyboardType: TextInputType.text,
+                      controller: driverName,
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return "Empty Name!";
+                        }
+                      },
+                      decoration: const InputDecoration(
+                        filled: true,
+                        fillColor: Colors.white,
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(30)),
+                        ),
+                        labelText: "Driver Name",
                       ),
-                      labelText: "Vehicle Number",
                     ),
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(10),
-                  child: TextFormField(
-                    keyboardType: TextInputType.text,
-                    controller: vehicleIssue,
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return "Empty!";
-                      }
-                    },
-                    maxLines: 4,
-                    decoration: const InputDecoration(
-                      filled: true,
-                      fillColor: Colors.white,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(30)),
+                  Padding(
+                    padding: const EdgeInsets.all(10),
+                    child: TextFormField(
+                      keyboardType: TextInputType.text,
+                      controller: vehicleNumber,
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return "Empty Number!";
+                        }
+                      },
+                      decoration: const InputDecoration(
+                        filled: true,
+                        fillColor: Colors.white,
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(30)),
+                        ),
+                        labelText: "Vehicle Number",
                       ),
-                      labelText: "Vehicle Issue",
                     ),
                   ),
-                ),
-                SizedBox(height: 30),
-                InkWell(
-                    onTap: () {
-                      if (formKey.currentState!.validate()) {
-                        Report();
-                      }
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.only(bottom: 10),
-                      child: Container(
-                          height: 53,
-                          width: 150,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              color: Colors.green),
-                          child: Center(
-                            child: Text('Report',
-                                style: GoogleFonts.ubuntu(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white)),
-                          )),
-                    )),
-              ],
+                  Padding(
+                    padding: const EdgeInsets.all(10),
+                    child: TextFormField(
+                      keyboardType: TextInputType.text,
+                      controller: vehicleIssue,
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return "Empty!";
+                        }
+                      },
+                      maxLines: 4,
+                      decoration: const InputDecoration(
+                        filled: true,
+                        fillColor: Colors.white,
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(30)),
+                        ),
+                        labelText: "Vehicle Issue",
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 30),
+                  InkWell(
+                      onTap: () {
+                        if (formKey.currentState!.validate()) {
+                          Report();
+                        }
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.only(bottom: 10),
+                        child: Container(
+                            height: 53,
+                            width: 150,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                color: Colors.green),
+                            child: Center(
+                              child: Text('Report',
+                                  style: GoogleFonts.ubuntu(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white)),
+                            )),
+                      )),
+                ],
+              ),
             ),
           ),
         ),

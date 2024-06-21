@@ -4,6 +4,7 @@ import 'package:fleetride/driver/driver_login.dart';
 import 'package:fleetride/trip_community/trip_login.dart';
 import 'package:fleetride/user/login.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class LandingPage extends StatefulWidget {
   const LandingPage({super.key});
@@ -56,32 +57,13 @@ class _LandingPageState extends State<LandingPage> {
                   ),
                 ],
               ),
-              // Row(
-              //   mainAxisAlignment: MainAxisAlignment.end,
-              //   children: [
-              //     Card(
-              //       child: TextButton(
-              //           onPressed: () {
-              //             Navigator.push(
-              //                 context,
-              //                 MaterialPageRoute(
-              //                     builder: (context) => const PoliceLogin()));
-              //           },
-              //           child: const Text(
-              //             'Police',
-              //             style: TextStyle(
-              //                 fontSize: 15, fontWeight: FontWeight.bold),
-              //           )),
-              //     ),
-              //   ],
-              // ),
               SizedBox(height: 120),
-              const Text(
+               Text(
                 'Select User Type',
-                style: TextStyle(
-                    fontSize: 35,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.brown),
+                style: GoogleFonts.radley(
+                  fontSize: 30,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
               SizedBox(height: 30),
               Row(

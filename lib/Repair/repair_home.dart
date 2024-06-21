@@ -14,90 +14,92 @@ class RepairHome extends StatefulWidget {
 class _RepairHomeState extends State<RepairHome> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('FleetRide'),
-        actions: [
-          IconButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const RepairProfile()),
-              );
-            },
-            icon: const Icon(Icons.person),
-          ),
-        ],
-        backgroundColor: Colors.white,
-      ),
-      body: Container(
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage('assets/background.jpeg'),
-            fit: BoxFit.fill,
-          ),
-        ),
-        padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 50),
-        child: GridView.count(
-          crossAxisCount: 2,
-          mainAxisSpacing: 40,
-          crossAxisSpacing: 40,
-          children: [
-            GestureDetector(
-              onTap: () {
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text('FleetRide'),
+          actions: [
+            IconButton(
+              onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const RepairNames()),
+                  MaterialPageRoute(builder: (context) => const RepairProfile()),
                 );
               },
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Colors.orange,
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    CircleAvatar(
-                      radius: 30,
-                      child: Icon(Icons.schedule_outlined, size: 40),
-                    ),
-                    const SizedBox(height: 10),
-                    Text('Schedule Repair',
-                        style: TextStyle(color: Colors.white)),
-                  ],
-                ),
-              ),
-            ),
-            GestureDetector(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const VehicleIssue()),
-                );
-              },
-              child: Container(
-                width: 100,
-                height: 100,
-                decoration: BoxDecoration(
-                  color: Colors.red,
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    CircleAvatar(
-                      radius: 30,
-                      child: Icon(Icons.report_outlined, size: 40),
-                    ),
-                    const SizedBox(height: 10),
-                    Text('Vehicle Issues',
-                        style: TextStyle(color: Colors.white)),
-                  ],
-                ),
-              ),
+              icon: const Icon(Icons.person),
             ),
           ],
+          backgroundColor: Colors.white,
+        ),
+        body: Container(
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage('assets/background.jpeg'),
+              fit: BoxFit.fill,
+            ),
+          ),
+          padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 50),
+          child: GridView.count(
+            crossAxisCount: 2,
+            mainAxisSpacing: 40,
+            crossAxisSpacing: 40,
+            children: [
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const RepairNames()),
+                  );
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.orange,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      CircleAvatar(
+                        radius: 30,
+                        child: Icon(Icons.schedule_outlined, size: 40),
+                      ),
+                      const SizedBox(height: 10),
+                      Text('Schedule Repair',
+                          style: TextStyle(color: Colors.white)),
+                    ],
+                  ),
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const VehicleIssue()),
+                  );
+                },
+                child: Container(
+                  width: 100,
+                  height: 100,
+                  decoration: BoxDecoration(
+                    color: Colors.red,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      CircleAvatar(
+                        radius: 30,
+                        child: Icon(Icons.report_outlined, size: 40),
+                      ),
+                      const SizedBox(height: 10),
+                      Text('Vehicle Issues',
+                          style: TextStyle(color: Colors.white)),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

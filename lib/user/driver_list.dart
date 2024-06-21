@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fleetride/user/user_home.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Drivers extends StatefulWidget {
@@ -131,112 +132,125 @@ class _DriversState extends State<Drivers> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        title: const Text('FleetRide'),
-        actions: [
-          IconButton(
-            onPressed: () {
-              Navigator.push(
-                (context),
-                MaterialPageRoute(
-                  builder: (context) => const Userhome(),
-                ),
-              );
-            },
-            icon: const Icon(Icons.home_outlined),
-          ),
-        ],
-      ),
-      backgroundColor: Colors.white,
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Center(
-            child: Container(
-              height: 50,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15),
-                  color: Colors.lightBlueAccent.shade200),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 50),
-                    child: Text(
-                      "Drivers ",
-                      style: GoogleFonts.ubuntu(
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                      ),
-                    ),
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: Colors.white,
+          title: const Text('FleetRide'),
+          actions: [
+            IconButton(
+              onPressed: () {
+                Navigator.push(
+                  (context),
+                  MaterialPageRoute(
+                    builder: (context) => const Userhome(),
                   ),
-                ],
-              ),
-            ),
-          ),
-          SizedBox(
-            height: 20,
-          ),
-          Expanded(
-            child: FutureBuilder(
-              future:
-              FirebaseFirestore.instance.collection("Create Trips").get(),
-              builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return Center(child: CircularProgressIndicator());
-                }
-                if (snapshot.hasError) {
-                  return Center(
-                    child: Text("Error:${snapshot.error}"),
-                  );
-                }
-                final mytrip = snapshot.data?.docs ?? [];
-                return ListView.builder(
-                  itemBuilder: (context, index) {
-                    return Card(
-                      color: Colors.red.shade50,
-                      child: ListTile(
-                        title: Text(mytrip[index]["Driver Name"],
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 18,
-                          ),),
-                        subtitle: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text("From: ${mytrip[index]["From"]}"),
-                            Text("To: ${mytrip[index]["To"]}"),
-                          ],
-                        ),
-                        trailing: ElevatedButton(
-                          onPressed: () {
-                            setState(() {
-                              _displayDropDownDialog(
-                                context,
-                                mytrip[index]["Driver Name"],
-                                mytrip[index]["Driver Phone"],
-                                mytrip[index]["From"],
-                                mytrip[index]["To"],
-                              );
-                            });
-                          },
-                          child: const Text('Send Request'),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.lightGreenAccent,
-                          ),
-                        ),
-                      ),
-                    );
-                  },
-                  itemCount: mytrip.length,
                 );
               },
+              icon: const Icon(Icons.home_outlined),
             ),
-          ),
-        ],
+          ],
+        ),
+        backgroundColor: Colors.white,
+        body: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Center(
+              child: Container(
+                height: 50,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15),
+                    color: Colors.lightBlueAccent.shade200),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 50),
+                      child: Text(
+                        "Drivers ",
+                        style: GoogleFonts.ubuntu(
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            Expanded(
+              child: FutureBuilder(
+                future:
+                FirebaseFirestore.instance.collection("Create Trips").get(),
+                builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return Center(child: CircularProgressIndicator());
+                  }
+                  if (snapshot.hasError) {
+                    return Center(
+                      child: Text("Error:${snapshot.error}"),
+                    );
+                  }
+                  final mytrip = snapshot.data?.docs ?? [];
+
+                  // Filter out trips where the date is not greater than or equal to DateTime.now()
+                  final filteredTrips = mytrip.where((trip) {
+                    // Assuming "Date" is stored as a String in Firestore
+                    DateTime tripDate = DateFormat("dd-MM-yyyy").parse(trip["Date"] as String);
+                    return tripDate.isAfter(DateTime.now()) || tripDate.isAtSameMomentAs(DateTime.now());
+                  }).toList();
+
+                  return ListView.builder(
+                    itemBuilder: (context, index) {
+                      return Card(
+                        color: Colors.red.shade50,
+                        child: ListTile(
+                          title: Text(
+                            filteredTrips[index]["Driver Name"],
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18,
+                            ),
+                          ),
+                          subtitle: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text("From: ${filteredTrips[index]["From"]}"),
+                              Text("To: ${filteredTrips[index]["To"]}"),
+                              Text('Date: ${filteredTrips[index]["Date"]}'),
+                            ],
+                          ),
+                          trailing: ElevatedButton(
+                            onPressed: () {
+                              setState(() {
+                                _displayDropDownDialog(
+                                  context,
+                                  filteredTrips[index]["Driver Name"],
+                                  filteredTrips[index]["Driver Phone"],
+                                  filteredTrips[index]["From"],
+                                  filteredTrips[index]["To"],
+                                );
+                              });
+                            },
+                            child: const Text('Send Request'),
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.lightGreenAccent,
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                    itemCount: filteredTrips.length,
+                  );
+                },
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

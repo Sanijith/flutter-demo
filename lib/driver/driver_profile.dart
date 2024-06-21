@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fleetride/driver/driver_edit.dart';
 import 'package:fleetride/driver/driver_home.dart';
+import 'package:fleetride/first.dart';
 import 'package:fleetride/user/change_password.dart';
 import 'package:fleetride/user/edit.dart';
 import 'package:fleetride/user/login.dart';
@@ -78,7 +79,8 @@ class _DriverProfileState extends State<DriverProfile> {
                         .collection("DriverRegister")
                         .doc(ID)
                         .update({
-                      "Path": "https://media.istockphoto.com/id/1300845620/vector/user-icon-flat-isolated-on-white-background-user-symbol-vector-illustration.jpg?s=612x612&w=0&k=20&c=yBeyba0hUkh14_jgv1OKqIH0CCSWU_4ckRkAoy2p73o=",
+                      "Path":
+                          "https://media.istockphoto.com/id/1300845620/vector/user-icon-flat-isolated-on-white-background-user-symbol-vector-illustration.jpg?s=612x612&w=0&k=20&c=yBeyba0hUkh14_jgv1OKqIH0CCSWU_4ckRkAoy2p73o=",
                     });
                   });
                   Navigator.pop(context);
@@ -95,7 +97,7 @@ class _DriverProfileState extends State<DriverProfile> {
 
   Future<void> _getImage() async {
     final pickedFile =
-    await ImagePicker().pickImage(source: ImageSource.gallery);
+        await ImagePicker().pickImage(source: ImageSource.gallery);
 
     setState(() {
       if (pickedFile != null) {
@@ -153,225 +155,230 @@ class _DriverProfileState extends State<DriverProfile> {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: getFirebase(),
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return Center(child: CircularProgressIndicator());
-        }
-        if (snapshot.hasError) {
-          return Text("Error${snapshot.error}");
-        }
-        return Scaffold(
-          appBar: AppBar(
-            title: const Text('FleetRide'),
-            actions: [
-              IconButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const DriverHome()),
-                  );
-                },
-                icon: const Icon(Icons.home_outlined),
-              ),
-            ],
-            backgroundColor: Colors.white,
-          ),
-          body: Container(
-            padding: EdgeInsets.all(40),
-            child: Column(
-              children: [
-                Container(
-                  height: 100,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(15),
-                      color: Colors.lightBlueAccent.shade200),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Row(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 25),
-                            child: Stack(
-                              children: [
-                                isloading
-                                    ? CircularProgressIndicator(
-                                  color: Color(0xFF93B4D1),
-                                )
-                                    : Padding(
-                                    padding: const EdgeInsets.only(
-                                        left: 5, top: 10),
-                                    child: Container(
-                                      height: MediaQuery.of(context)
-                                          .size
-                                          .height *
-                                          .09,
-                                      width: MediaQuery.of(context)
-                                          .size
-                                          .width *
-                                          .15,
-                                      decoration: BoxDecoration(
-                                          shape: BoxShape.circle,
-                                          image: DecorationImage(
-                                              fit: BoxFit.cover,
-                                              image: NetworkImage(
-                                                  Driver!["Path"]))),
-                                      // child: CircleAvatar(
-                                      //   radius: 50,
-                                      //   backgroundColor: Colors.transparent,
-                                      // ),
-                                    )),
-                                Positioned(
-                                  top: 50,
-                                  left: 40,
-                                  bottom: 0,
-                                  right: 0,
-                                  child: IconButton(
-                                    onPressed: () {
-                                      setState(() {
-                                        _showBottomSheet(context);
-                                      });
-                                    },
-                                    icon: Icon(Icons.camera_alt_outlined),
-                                    color: Colors.black,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Text(
-                            Driver!["UserName"],
-                            style: GoogleFonts.ubuntu(
-                              fontSize: 24,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-                SizedBox(
-                  height: 40,
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(10),
-                  child: Card(
-                    color: Colors.red.shade50,
-                    elevation: 4,
-                    child: ListTile(
-                      leading: Icon(Icons.email),
-                      trailing: Text(
-                        Driver!["Email"],
-                        style: TextStyle(fontSize: 15),
-                      ),
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(10),
-                  child: Card(
-                    color: Colors.red.shade50,
-                    elevation: 4,
-                    child: ListTile(
-                      leading: Icon(Icons.phone),
-                      trailing: Text(
-                        Driver!["Phone Number"],
-                        style: TextStyle(
-                            fontSize: 15, color: Color.fromRGBO(43, 44, 47, 1)),
-                      ),
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: 50,
-                ),
-                InkWell(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => DriverChangePassword(
-                                email: Driver!["Email"],
-                              )));
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.only(bottom: 10),
-                      child: Container(
-                          height: 53,
-                          width: 200,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              color: Colors.grey),
-                          child: Center(
-                            child: Text('Change Password',
-                                style: GoogleFonts.ubuntu(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white)),
-                          )),
-                    )),
-                SizedBox(
-                  height: 30,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    InkWell(
-                        onTap: () {
-                          Navigator.push(context,
-                              MaterialPageRoute(builder: (context) => DriverEdit()));
-                        },
-                        child: Padding(
-                          padding: const EdgeInsets.only(bottom: 10),
-                          child: Container(
-                              height: 53,
-                              width: 100,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  color: Colors.green),
-                              child: Center(
-                                child: Text('Edit',
-                                    style: GoogleFonts.ubuntu(
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.white)),
-                              )),
-                        )),
-                    SizedBox(
-                      width: 30,
-                    ),
-                    InkWell(
-                        onTap: () {
-                          Navigator.push(context,
-                              MaterialPageRoute(builder: (context) => DriverLogin()));
-                        },
-                        child: Padding(
-                          padding: const EdgeInsets.only(bottom: 10),
-                          child: Container(
-                              height: 53,
-                              width: 100,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  color: Colors.redAccent),
-                              child: Center(
-                                child: Text('Logout',
-                                    style: GoogleFonts.ubuntu(
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.white)),
-                              )),
-                        )),
-                  ],
+    return SafeArea(
+      child: FutureBuilder(
+        future: getFirebase(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(child: CircularProgressIndicator());
+          }
+          if (snapshot.hasError) {
+            return Text("Error${snapshot.error}");
+          }
+          return Scaffold(
+            appBar: AppBar(
+              title: const Text('FleetRide'),
+              actions: [
+                IconButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const DriverHome()),
+                    );
+                  },
+                  icon: const Icon(Icons.home_outlined),
                 ),
               ],
+              backgroundColor: Colors.white,
             ),
-          ),
-        );
-      },
+            body: Container(
+              padding: EdgeInsets.all(40),
+              child: Column(
+                children: [
+                  Container(
+                    height: 100,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(15),
+                        color: Colors.lightBlueAccent.shade200),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Row(
+                          children: [
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 25),
+                              child: Stack(
+                                children: [
+                                  isloading
+                                      ? CircularProgressIndicator(
+                                          color: Color(0xFF93B4D1),
+                                        )
+                                      : Padding(
+                                          padding: const EdgeInsets.only(
+                                              left: 5, top: 10),
+                                          child: Container(
+                                            height: MediaQuery.of(context)
+                                                    .size
+                                                    .height *
+                                                .09,
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
+                                                .15,
+                                            decoration: BoxDecoration(
+                                                shape: BoxShape.circle,
+                                                image: DecorationImage(
+                                                    fit: BoxFit.cover,
+                                                    image: NetworkImage(
+                                                        Driver!["Path"]))),
+                                          )),
+                                  Positioned(
+                                    top: 50,
+                                    left: 40,
+                                    bottom: 0,
+                                    right: 0,
+                                    child: IconButton(
+                                      onPressed: () {
+                                        setState(() {
+                                          _showBottomSheet(context);
+                                        });
+                                      },
+                                      icon: Icon(Icons.camera_alt_outlined),
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Text(
+                              Driver!["UserName"],
+                              style: GoogleFonts.ubuntu(
+                                fontSize: 24,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    height: 40,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(10),
+                    child: Card(
+                      color: Colors.red.shade50,
+                      elevation: 4,
+                      child: ListTile(
+                        leading: Icon(Icons.email),
+                        trailing: Text(
+                          Driver!["Email"],
+                          style: TextStyle(fontSize: 15),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(10),
+                    child: Card(
+                      color: Colors.red.shade50,
+                      elevation: 4,
+                      child: ListTile(
+                        leading: Icon(Icons.phone),
+                        trailing: Text(
+                          Driver!["Phone Number"],
+                          style: TextStyle(
+                              fontSize: 15,
+                              color: Color.fromRGBO(43, 44, 47, 1)),
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 50,
+                  ),
+                  InkWell(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => DriverChangePassword(
+                                      email: Driver!["Email"],
+                                    )));
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.only(bottom: 10),
+                        child: Container(
+                            height: 53,
+                            width: 200,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                color: Colors.grey),
+                            child: Center(
+                              child: Text('Change Password',
+                                  style: GoogleFonts.ubuntu(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white)),
+                            )),
+                      )),
+                  SizedBox(
+                    height: 30,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      InkWell(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => DriverEdit()));
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.only(bottom: 10),
+                            child: Container(
+                                height: 53,
+                                width: 100,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    color: Colors.green),
+                                child: Center(
+                                  child: Text('Edit',
+                                      style: GoogleFonts.ubuntu(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.white)),
+                                )),
+                          )),
+                      SizedBox(
+                        width: 30,
+                      ),
+                      InkWell(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => FirstPage()));
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.only(bottom: 10),
+                            child: Container(
+                                height: 53,
+                                width: 100,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    color: Colors.redAccent),
+                                child: Center(
+                                  child: Text('Logout',
+                                      style: GoogleFonts.ubuntu(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.white)),
+                                )),
+                          )),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          );
+        },
+      ),
     );
   }
 }
