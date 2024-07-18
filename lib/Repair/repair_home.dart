@@ -48,7 +48,7 @@ class _RepairHomeState extends State<RepairHome> {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const RepairNames()),
+                    MaterialPageRoute(builder: (context) => const ScheduleList()),
                   );
                 },
                 child: Container(

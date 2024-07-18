@@ -4,6 +4,7 @@ import 'package:fleetride/driver/driver_report.dart';
 import 'package:fleetride/driver/event_search2.dart';
 import 'package:fleetride/driver/facilty_search2.dart';
 import 'package:fleetride/driver/my_trip.dart';
+import 'package:fleetride/driver/repairs_list.dart';
 import 'package:fleetride/driver/trip_create.dart';
 import 'package:fleetride/driver/trip_request_decision.dart';
 import 'package:flutter/cupertino.dart';
@@ -234,10 +235,7 @@ class _DriverHomeState extends State<DriverHome> {
               ),
               GestureDetector(
                 onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const DriverReport()),
-                  );
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => RepairNamesList(),));
                 },
                 child: Container(
                   decoration: BoxDecoration(

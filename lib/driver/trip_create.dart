@@ -4,11 +4,11 @@ import 'package:fleetride/driver/my_trip.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:intl/intl.dart'; // Import the intl package
+import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class CreateTrip extends StatefulWidget {
-  const CreateTrip({super.key});
+  const CreateTrip({Key? key}) : super(key: key);
 
   @override
   State<CreateTrip> createState() => _CreateTripState();
@@ -18,7 +18,10 @@ class _CreateTripState extends State<CreateTrip> {
   final formKey = GlobalKey<FormState>();
   var from = TextEditingController();
   var to = TextEditingController();
+  var dateController = TextEditingController(); // Controller for date text field
+  var timeController = TextEditingController(); // Controller for time text field
   DateTime? _selectedDate;
+  TimeOfDay? _selectedTime;
 
   void initState() {
     super.initState();
@@ -33,25 +36,52 @@ class _CreateTripState extends State<CreateTrip> {
     SharedPreferences spref = await SharedPreferences.getInstance();
     setState(() {
       ID = spref.getString('id');
-      name=spref.getString('name');
-      phone=spref.getString('Phone');
+      name = spref.getString('name');
+      phone = spref.getString('Phone');
     });
     print('Shared Preference data get');
   }
 
-  Future<dynamic> Create() async {
-    // Format the selected date
-    String formattedDate = DateFormat('dd-MM-yyyy').format(_selectedDate!);
+  Future<void> _selectDate(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime.now(),
+      lastDate: DateTime(DateTime.now().year + 11),
+    );
+    if (picked != null && picked != _selectedDate) {
+      setState(() {
+        _selectedDate = picked;
+        dateController.text = DateFormat('dd-MM-yyyy').format(_selectedDate!); // Format and set date in text field
+      });
+    }
+  }
 
+  Future<void> _selectTime(BuildContext context) async {
+    final TimeOfDay? picked = await showTimePicker(
+      context: context,
+      initialTime: TimeOfDay.now(),
+    );
+    if (picked != null && picked != _selectedTime) {
+      setState(() {
+        _selectedTime = picked;
+        timeController.text = '${_selectedTime!.format(context)}'; // Format and set time in text field
+      });
+    }
+  }
+
+  Future<void> createTrip() async {
     await FirebaseFirestore.instance.collection("Create Trips").add({
-      "Driver Id":ID,
-      "Driver Name":name,
-      "Driver Phone":phone,
+      "Driver Id": ID,
+      "Driver Name": name,
+      "Driver Phone": phone,
       "From": from.text,
       "To": to.text,
-      "Date": formattedDate, // Save the formatted date
+      "Date": dateController.text,
+      "Time": timeController.text, // Save the formatted time
     });
-    print('done');
+
+    print('Trip created successfully');
     Navigator.push(context, MaterialPageRoute(builder: (context) => MyTrip()));
   }
 
@@ -82,10 +112,11 @@ class _CreateTripState extends State<CreateTrip> {
               child: Column(
                 children: [
                   Container(
-                    height: 50,
+                    height: 60,
                     decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(40),
-                        color: Colors.lightBlueAccent.shade200),
+                      borderRadius: BorderRadius.circular(15),
+                      color: Colors.lightBlueAccent.shade200,
+                    ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -100,9 +131,7 @@ class _CreateTripState extends State<CreateTrip> {
                       ],
                     ),
                   ),
-                  SizedBox(
-                    height: 30,
-                  ),
+                  SizedBox(height: 30),
                   Padding(
                     padding: const EdgeInsets.all(10),
                     child: TextFormField(
@@ -112,12 +141,13 @@ class _CreateTripState extends State<CreateTrip> {
                         if (value!.isEmpty) {
                           return "Empty!";
                         }
+                        return null;
                       },
                       decoration: const InputDecoration(
                         filled: true,
                         fillColor: Colors.white,
                         border: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(30)),
+                          borderRadius: BorderRadius.all(Radius.circular(15)),
                         ),
                         labelText: "From",
                       ),
@@ -132,71 +162,97 @@ class _CreateTripState extends State<CreateTrip> {
                         if (value!.isEmpty) {
                           return "Empty!";
                         }
+                        return null;
                       },
                       decoration: const InputDecoration(
                         filled: true,
                         fillColor: Colors.white,
                         border: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(30)),
+                          borderRadius: BorderRadius.all(Radius.circular(15)),
                         ),
                         labelText: "To",
                       ),
                     ),
                   ),
-                  ElevatedButton(
-                    onPressed: () async {
-                      DateTime? datepick = await showDatePicker(
-                        context: context,
-                        initialDate: DateTime.now(),
-                        firstDate: DateTime.now(),
-                        lastDate: DateTime(DateTime.now().year + 1),
-                      );
-                      if (datepick != null) {
-                        setState(() {
-                          _selectedDate = datepick;
-                        });
-                      }
-                    },
-                    child: Text('Select Date'),
+                  SizedBox(height: 20),
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: TextFormField(
+                      readOnly: true,
+                      controller: dateController,
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return "Empty!";
+                        }
+                        return null;
+                      },
+                      onTap: () {
+                        _selectDate(context); // Show date picker
+                      },
+                      decoration: const InputDecoration(
+                        filled: true,
+                        fillColor: Colors.white,
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(15)),
+                        ),
+                        labelText: "Date",
+                      ),
+                    ),
                   ),
                   SizedBox(height: 20),
-                  if (_selectedDate != null)
-                    Text(
-                      'Selected Date: ${DateFormat('dd-MM-yyyy').format(_selectedDate!)}',
-                      style: TextStyle(fontSize: 18),
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: TextFormField(
+                      readOnly: true,
+                      controller: timeController,
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return "Empty!";
+                        }
+                        return null;
+                      },
+                      onTap: () {
+                        _selectTime(context); // Show time picker
+                      },
+                      decoration: const InputDecoration(
+                        filled: true,
+                        fillColor: Colors.white,
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(15)),
+                        ),
+                        labelText: "Time",
+                      ),
                     ),
+                  ),
                   SizedBox(height: 30),
                   InkWell(
-                      onTap: () {
-                        if (_selectedDate == null) {
-                          // Show an error message indicating that the date is not selected
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: Text('Please select a date'),
+                    onTap: () {
+                      if (formKey.currentState!.validate()) {
+                        createTrip();
+                      }
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.only(bottom: 10),
+                      child: Container(
+                        height: 53,
+                        width: 150,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: Colors.green,
+                        ),
+                        child: Center(
+                          child: Text(
+                            'Create Trip',
+                            style: GoogleFonts.ubuntu(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
                             ),
-                          );
-                        } else {
-                          if (formKey.currentState!.validate()) {
-                            Create();
-                          }
-                        }
-                      },
-                      child: Padding(
-                        padding: const EdgeInsets.only(bottom: 10),
-                        child: Container(
-                            height: 53,
-                            width: 150,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                color: Colors.green),
-                            child: Center(
-                              child: Text('Create Trip',
-                                  style: GoogleFonts.ubuntu(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.white)),
-                            )),
-                      )),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -206,3 +262,4 @@ class _CreateTripState extends State<CreateTrip> {
     );
   }
 }
+

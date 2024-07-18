@@ -59,7 +59,7 @@ class _EditFacilityPageState extends State<EditFacilityPage> {
                   Container(
                     height: 50,
                     decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(40),
+                        borderRadius: BorderRadius.circular(15),
                         color: Colors.lightBlueAccent.shade200),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -92,7 +92,7 @@ class _EditFacilityPageState extends State<EditFacilityPage> {
                         filled: true,
                         fillColor: Colors.white,
                         border: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(30)),
+                          borderRadius: BorderRadius.all(Radius.circular(15)),
                         ),
                         labelText: "Facility Name",
                       ),
@@ -112,7 +112,7 @@ class _EditFacilityPageState extends State<EditFacilityPage> {
                         filled: true,
                         fillColor: Colors.white,
                         border: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(30)),
+                          borderRadius: BorderRadius.all(Radius.circular(15)),
                         ),
                         labelText: "Location",
                       ),
@@ -123,16 +123,19 @@ class _EditFacilityPageState extends State<EditFacilityPage> {
                     child: TextFormField(
                       keyboardType: TextInputType.phone,
                       controller: phone,
-                      validator: (value){
-                        if(value!.isEmpty){
+                      validator: (value) {
+                        if (value!.isEmpty) {
                           return "Empty Phone Number!";
+                        } else if (value.length != 10 || !RegExp(r'^[0-9]+$').hasMatch(value)) {
+                          return "Invalid Phone Number";
                         }
+                        return null; // Valid input
                       },
                       decoration: const InputDecoration(
                         filled: true,
                         fillColor: Colors.white,
                         border: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(30)),
+                          borderRadius: BorderRadius.all(Radius.circular(15)),
                         ),
                         labelText: "Phone Number",
                       ),

@@ -21,19 +21,33 @@ class _DriverManageState extends State<DriverManage> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Image.network(
-                  licensePhotoUrl,
-                  height: 300,
-                  width: 300,
-                  fit: BoxFit.contain,
+                Text(
+                  "License Photo",
+                  style: GoogleFonts.ubuntu(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: Image.network(
+                    licensePhotoUrl,
+                    height: 300,
+                    width: 300,
+                    fit: BoxFit.fill,
+                  ),
                 ),
                 SizedBox(height: 20),
                 TextButton(
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
-                  child: Text('Close'),
-                ),
+                  child: Text('Close',style: TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,),
+                ),),
               ],
             ),
           ),
@@ -59,26 +73,23 @@ class _DriverManageState extends State<DriverManage> {
         ),
         backgroundColor: Colors.white,
         body: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Center(
               child: Container(
                 height: 50,
+                width: 200,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(15),
                     color: Colors.lightBlueAccent.shade200),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 50),
-                      child: Text(
-                        "Drivers ",
-                        style: GoogleFonts.ubuntu(
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
-                        ),
+                    Text(
+                      "Drivers ",
+                      style: GoogleFonts.ubuntu(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
                       ),
                     ),
                   ],

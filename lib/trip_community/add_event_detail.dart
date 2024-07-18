@@ -21,6 +21,36 @@ class _AddEventPageState extends State<AddEventPage> {
   var timeController = TextEditingController();
   var dateController = TextEditingController();
   String select = '';
+  DateTime? _selectedDate;
+  TimeOfDay? _selectedTime;
+
+
+  Future<void> _selectDate(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime.now(),
+      lastDate: DateTime(DateTime.now().year + 11),
+    );
+    if (picked != null && picked != _selectedDate) {
+      setState(() {
+        _selectedDate = picked;
+        dateController.text = DateFormat('dd-MM-yyyy').format(_selectedDate!); // Format and set date in text field
+      });
+    }
+  }
+  Future<void> _selectTime(BuildContext context) async {
+    final TimeOfDay? picked = await showTimePicker(
+      context: context,
+      initialTime: TimeOfDay.now(),
+    );
+    if (picked != null && picked != _selectedTime) {
+      setState(() {
+        _selectedTime = picked;
+        timeController.text = '${_selectedTime!.format(context)}'; // Format and set time in text field
+      });
+    }
+  }
 
   Future<dynamic> Event() async {
     await FirebaseFirestore.instance.collection("EventDetail").add({
@@ -64,7 +94,7 @@ class _AddEventPageState extends State<AddEventPage> {
                   Container(
                     height: 50,
                     decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(40),
+                        borderRadius: BorderRadius.circular(15),
                         color: Colors.lightBlueAccent.shade200),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -97,7 +127,7 @@ class _AddEventPageState extends State<AddEventPage> {
                         filled: true,
                         fillColor: Colors.white,
                         border: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(30)),
+                          borderRadius: BorderRadius.all(Radius.circular(15)),
                         ),
                         labelText: "Event Name",
                       ),
@@ -117,7 +147,7 @@ class _AddEventPageState extends State<AddEventPage> {
                         filled: true,
                         fillColor: Colors.white,
                         border: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(30)),
+                          borderRadius: BorderRadius.all(Radius.circular(15)),
                         ),
                         labelText: "Location",
                       ),
@@ -131,13 +161,16 @@ class _AddEventPageState extends State<AddEventPage> {
                       validator: (value) {
                         if (value!.isEmpty) {
                           return "Empty Phone Number!";
+                        } else if (value.length != 10 || !RegExp(r'^[0-9]+$').hasMatch(value)) {
+                          return "Invalid Phone Number";
                         }
+                        return null; // Valid input
                       },
                       decoration: const InputDecoration(
                         filled: true,
                         fillColor: Colors.white,
                         border: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(30)),
+                          borderRadius: BorderRadius.all(Radius.circular(15)),
                         ),
                         labelText: "Phone Number",
                       ),
@@ -146,70 +179,48 @@ class _AddEventPageState extends State<AddEventPage> {
                   Padding(
                     padding: const EdgeInsets.all(10),
                     child: TextFormField(
-                      keyboardType: TextInputType.phone,
+                      readOnly: true,
                       controller: timeController,
                       validator: (value) {
                         if (value!.isEmpty) {
-                          return "Empty Time!";
+                          return "Empty!";
                         }
+                        return null;
                       },
-                      decoration: InputDecoration(
+                      onTap: () {
+                        _selectTime(context); // Show time picker
+                      },
+                      decoration: const InputDecoration(
                         filled: true,
                         fillColor: Colors.white,
                         border: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(30)),
+                          borderRadius: BorderRadius.all(Radius.circular(15)),
                         ),
                         labelText: "Time",
-                        suffixIcon: TextButton(
-                          onPressed: () async {
-                            TimeOfDay? timepick = await showTimePicker(
-                              context: context,
-                              initialTime: TimeOfDay.now(),
-                              initialEntryMode: TimePickerEntryMode.input,
-                            );
-                            if (timepick != null) {
-                              select = '${timepick.format(context)}';
-                              timeController.text = select;
-                              print(
-                                  "time selected:${timepick.hour}:${timepick.minute}");
-                            }
-                          },
-                          child: Icon(Icons.schedule),
-                        ),
                       ),
                     ),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(10),
                     child: TextFormField(
-                      keyboardType: TextInputType.phone,
+                      readOnly: true,
                       controller: dateController,
                       validator: (value) {
                         if (value!.isEmpty) {
-                          return "Empty Date!";
+                          return "Empty!";
                         }
+                        return null;
                       },
-                      decoration: InputDecoration(
+                      onTap: () {
+                        _selectDate(context); // Show date picker
+                      },
+                      decoration: const InputDecoration(
                         filled: true,
                         fillColor: Colors.white,
                         border: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(30)),
+                          borderRadius: BorderRadius.all(Radius.circular(15)),
                         ),
                         labelText: "Date",
-                        suffixIcon: TextButton(
-                          onPressed: () async {
-                            final DateTime? pickedDate = await showDatePicker(
-                              context: context,
-                              initialDate: DateTime.now(),
-                              firstDate: DateTime.now(),
-                              lastDate: DateTime(2101),
-                            );
-                            if (pickedDate != null) {
-                              dateController.text = DateFormat('dd-MM-yyyy').format(pickedDate);
-                            }
-                          },
-                          child: Icon(Icons.calendar_today),
-                        ),
                       ),
                     ),
                   ),

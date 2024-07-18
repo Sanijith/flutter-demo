@@ -4,11 +4,11 @@ import 'package:fleetride/trip_community/trip_comm_home.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:intl/intl.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:intl/intl.dart'; // Import the intl package
 
 class EditEventPage extends StatefulWidget {
-  const EditEventPage({super.key, required this. id});
+  const EditEventPage({Key? key, required this.id});
+
   final id;
 
   @override
@@ -16,7 +16,6 @@ class EditEventPage extends StatefulWidget {
 }
 
 class _EditEventPageState extends State<EditEventPage> {
-
   final formKey = GlobalKey<FormState>();
   var eventname = TextEditingController();
   var location = TextEditingController();
@@ -24,17 +23,53 @@ class _EditEventPageState extends State<EditEventPage> {
   var timeController = TextEditingController();
   var dateController = TextEditingController();
   String select = '';
+  DateTime? _selectedDate;
+  TimeOfDay? _selectedTime;
+
+  Future<void> _selectDate(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime.now(),
+      lastDate: DateTime(DateTime.now().year + 11),
+    );
+    if (picked != null && picked != _selectedDate) {
+      setState(() {
+        _selectedDate = picked;
+        dateController.text = DateFormat('dd-MM-yyyy')
+            .format(_selectedDate!); // Format and set date in text field
+      });
+    }
+  }
+
+  Future<void> _selectTime(BuildContext context) async {
+    final TimeOfDay? picked = await showTimePicker(
+      context: context,
+      initialTime: TimeOfDay.now(),
+    );
+    if (picked != null && picked != _selectedTime) {
+      setState(() {
+        _selectedTime = picked;
+        timeController.text =
+            '${_selectedTime!.format(context)}'; // Format and set time in text field
+      });
+    }
+  }
 
   Future<dynamic> EditEvents() async {
-    await FirebaseFirestore.instance.collection("EventDetail").doc(widget.id).update({
+    await FirebaseFirestore.instance
+        .collection("EventDetail")
+        .doc(widget.id)
+        .update({
       "Event Name": eventname.text,
       "Location": location.text,
       "Phone Number": phone.text,
-      "Date":dateController.text,
-      "Time":timeController.text,
+      "Date": dateController.text,
+      "Time": timeController.text,
     });
     print("Update Successfully");
-    Navigator.push(context, MaterialPageRoute(builder: (context)=>EventDetail()));
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => EventDetail()));
   }
 
   @override
@@ -50,7 +85,8 @@ class _EditEventPageState extends State<EditEventPage> {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const TripHomeScreen()),
+                    MaterialPageRoute(
+                        builder: (context) => const TripHomeScreen()),
                   );
                 },
                 icon: const Icon(Icons.home_outlined),
@@ -73,7 +109,7 @@ class _EditEventPageState extends State<EditEventPage> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          "Edit Event ",
+                          "Add Event ",
                           style: GoogleFonts.ubuntu(
                             fontSize: 24,
                             fontWeight: FontWeight.bold,
@@ -129,80 +165,16 @@ class _EditEventPageState extends State<EditEventPage> {
                   Padding(
                     padding: const EdgeInsets.all(10),
                     child: TextFormField(
-                        keyboardType: TextInputType.phone,
-                        controller: timeController,
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return "Empty Time!";
-                          }
-                        },
-                        decoration: InputDecoration(
-                          filled: true,
-                          fillColor: Colors.white,
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(15)),
-                          ),
-                          labelText: "Time",
-                          suffixIcon: TextButton(
-                              onPressed: () async {
-                                TimeOfDay? timepick = await showTimePicker(
-                                  context: context,
-                                  initialTime: TimeOfDay.now(),
-                                  initialEntryMode: TimePickerEntryMode.input,
-                                );
-                                if (timepick != null) {
-                                  select = '${timepick.format(context)}';
-                                  timeController.text = select;
-                                  print(
-                                      "time selected:${timepick.hour}:${timepick.minute}");
-                                }
-                              },
-                              child: Icon(Icons.schedule)),
-                        )),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(10),
-                    child: TextFormField(
-                      keyboardType: TextInputType.phone,
-                      controller: dateController,
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return "Empty Date!";
-                        }
-                      },
-                      decoration: InputDecoration(
-                        filled: true,
-                        fillColor: Colors.white,
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(15)),
-                        ),
-                        labelText: "Date",
-                        suffixIcon: TextButton(
-                          onPressed: () async {
-                            final DateTime? pickedDate = await showDatePicker(
-                              context: context,
-                              initialDate: DateTime.now(),
-                              firstDate: DateTime.now(),
-                              lastDate: DateTime(2101),
-                            );
-                            if (pickedDate != null) {
-                              dateController.text = DateFormat('dd-MM-yyyy').format(pickedDate);
-                            }
-                          },
-                          child: Icon(Icons.calendar_today),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(10),
-                    child: TextFormField(
                       keyboardType: TextInputType.phone,
                       controller: phone,
                       validator: (value) {
                         if (value!.isEmpty) {
                           return "Empty Phone Number!";
+                        } else if (value.length != 10 ||
+                            !RegExp(r'^[0-9]+$').hasMatch(value)) {
+                          return "Invalid Phone Number";
                         }
+                        return null; // Valid input
                       },
                       decoration: const InputDecoration(
                         filled: true,
@@ -214,29 +186,73 @@ class _EditEventPageState extends State<EditEventPage> {
                       ),
                     ),
                   ),
+                  Padding(
+                    padding: const EdgeInsets.all(10),
+                    child: TextFormField(
+                      readOnly: true,
+                      controller: timeController,
+                      onTap: () {
+                        _selectTime(context); // Show time picker
+                      },
+                      decoration: const InputDecoration(
+                        filled: true,
+                        fillColor: Colors.white,
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(15)),
+                        ),
+                        labelText: "Time",
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(10),
+                    child: TextFormField(
+                      readOnly: true,
+                      controller: dateController,
+                      onTap: () {
+                        _selectDate(context); // Show date picker
+                      },
+                      decoration: const InputDecoration(
+                        filled: true,
+                        fillColor: Colors.white,
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(15)),
+                        ),
+                        labelText: "Date",
+                      ),
+                    ),
+                  ),
                   SizedBox(height: 30),
                   InkWell(
-                      onTap: () {
-                        if (formKey.currentState!.validate()) {
+                    onTap: () {
+                      if (formKey.currentState!.validate()) {
+                        setState(() {
                           EditEvents();
-                        }
-                      },
-                      child: Padding(
-                        padding: const EdgeInsets.only(bottom: 10),
-                        child: Container(
-                            height: 53,
-                            width: 150,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                color: Colors.green),
-                            child: Center(
-                              child: Text('Update',
-                                  style: GoogleFonts.ubuntu(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.white)),
-                            )),
-                      )),
+                        });
+                      }
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.only(bottom: 10),
+                      child: Container(
+                        height: 53,
+                        width: 150,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: Colors.green,
+                        ),
+                        child: Center(
+                          child: Text(
+                            'Save',
+                            style: GoogleFonts.ubuntu(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),

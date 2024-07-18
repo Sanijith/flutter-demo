@@ -151,10 +151,13 @@ class _EditState extends State<Edit> {
                     child: TextFormField(
                       keyboardType: TextInputType.phone,
                       controller: phone,
-                      validator: (value){
-                        if(value!.isEmpty){
-                           return "Empty Phone Number!";
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return "Empty Phone Number!";
+                        } else if (value.length != 10 || !RegExp(r'^[0-9]+$').hasMatch(value)) {
+                          return "Invalid Phone Number";
                         }
+                        return null; // Valid input
                       },
                       decoration: const InputDecoration(
                         filled: true,

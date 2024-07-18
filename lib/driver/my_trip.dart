@@ -110,8 +110,9 @@ class _MyTripState extends State<MyTrip> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text('From: ${mytrips[index]["From"]}'),
-                                  Text('From: ${mytrips[index]["To"]}'),
+                                  Text('To: ${mytrips[index]["To"]}'),
                                   Text('Date: ${mytrips[index]["Date"]}'),
+                                  Text('Date: ${mytrips[index]["Time"]}')
                                 ],
                               ),
                             ),

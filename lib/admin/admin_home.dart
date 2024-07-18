@@ -6,6 +6,7 @@ import 'package:fleetride/admin/facility_manage.dart';
 import 'package:fleetride/admin/repair_manage.dart';
 import 'package:fleetride/admin/repair_shop_manage.dart';
 import 'package:fleetride/admin/user_manage.dart';
+import 'package:fleetride/first.dart';
 
 import 'package:flutter/material.dart';
 
@@ -24,6 +25,17 @@ class _AdminHomeState extends State<AdminHome> {
         appBar: AppBar(
           title: const Text('FleetRide'),
           backgroundColor: Colors.white,
+          actions: [
+            IconButton(
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => FirstPage(),
+                      ));
+                },
+                icon: Icon(Icons.logout_outlined))
+          ],
         ),
         body: Container(
           decoration: const BoxDecoration(
@@ -58,7 +70,8 @@ class _AdminHomeState extends State<AdminHome> {
                         child: Icon(Icons.manage_accounts_outlined, size: 40),
                       ),
                       const SizedBox(height: 10),
-                      Text('User Manage', style: TextStyle(color: Colors.white)),
+                      Text('User Manage',
+                          style: TextStyle(color: Colors.white)),
                     ],
                   ),
                 ),
@@ -67,7 +80,8 @@ class _AdminHomeState extends State<AdminHome> {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const DriverManage()),
+                    MaterialPageRoute(
+                        builder: (context) => const DriverManage()),
                   );
                 },
                 child: Container(
@@ -176,7 +190,8 @@ class _AdminHomeState extends State<AdminHome> {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const RepairManage()),
+                    MaterialPageRoute(
+                        builder: (context) => const RepairManage()),
                   );
                 },
                 child: Container(
@@ -231,7 +246,8 @@ class _AdminHomeState extends State<AdminHome> {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const EventManage()),
+                    MaterialPageRoute(
+                        builder: (context) => const EventManage()),
                   );
                 },
                 child: Container(
@@ -247,7 +263,8 @@ class _AdminHomeState extends State<AdminHome> {
                         child: Icon(Icons.manage_accounts_outlined, size: 40),
                       ),
                       const SizedBox(height: 10),
-                      Text('Event Manage', style: TextStyle(color: Colors.white)),
+                      Text('Event Manage',
+                          style: TextStyle(color: Colors.white)),
                     ],
                   ),
                 ),

@@ -1,9 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:fleetride/user/user_home.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import 'user_home.dart';
 
 class Drivers extends StatefulWidget {
   const Drivers({Key? key});
@@ -13,13 +14,12 @@ class Drivers extends StatefulWidget {
 }
 
 class _DriversState extends State<Drivers> {
-  var ID;
   var userName;
   var phoneNumber;
   var address = TextEditingController();
 
-  List<String> locationlist = ['Trip Request', 'Delivery Request'];
-  String? selectedvalue;
+  List<String> locationList = ['Trip Request', 'Delivery Request'];
+  String? selectedValue;
 
   @override
   Future<void> sendRequest(String driverName, String driverPhone, String from, String to, String additionalInfo) async {
@@ -37,8 +37,8 @@ class _DriversState extends State<Drivers> {
       "Driver Phone": driverPhone,
       "From": from,
       "To": to,
-      "Type Request": selectedvalue,
-      "Delivery Address": deliveryAddress, // Add address to Firestore
+      "Type Request": selectedValue,
+      "Delivery Address": deliveryAddress,
       "Status": "0",
     });
 
@@ -52,8 +52,7 @@ class _DriversState extends State<Drivers> {
     );
   }
 
-  Future<void> _displayDropDownDialog(BuildContext context, String driverName,
-      String driverPhone, String from, String to) {
+  Future<void> _displayDropDownDialog(BuildContext context, String driverName, String driverPhone, String from, String to) {
     String additionalInfo = ''; // State variable to hold the text entered in the TextFormField
 
     return showDialog(
@@ -82,15 +81,15 @@ class _DriversState extends State<Drivers> {
                         fontWeight: FontWeight.normal),
                   ),
                   underline: const SizedBox(),
-                  value: selectedvalue,
-                  items: locationlist.map((String value) {
+                  value: selectedValue,
+                  items: locationList.map((String value) {
                     return DropdownMenuItem<String>(
                         value: value, child: Text(value));
                   }).toList(),
                   onChanged: (newvalue) {
                     setState(() {
-                      selectedvalue = newvalue;
-                      print(selectedvalue);
+                      selectedValue = newvalue;
+                      print(selectedValue);
                     });
                   },
                   padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -104,6 +103,7 @@ class _DriversState extends State<Drivers> {
                   if (value!.isEmpty) {
                     return "Empty Address";
                   }
+                  return null;
                 },
                 decoration: const InputDecoration(
                   filled: true,
@@ -141,7 +141,7 @@ class _DriversState extends State<Drivers> {
             IconButton(
               onPressed: () {
                 Navigator.push(
-                  (context),
+                  context,
                   MaterialPageRoute(
                     builder: (context) => const Userhome(),
                   ),
@@ -184,24 +184,25 @@ class _DriversState extends State<Drivers> {
             ),
             Expanded(
               child: FutureBuilder(
-                future:
-                FirebaseFirestore.instance.collection("Create Trips").get(),
+                future: FirebaseFirestore.instance.collection("Create Trips").get(),
                 builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return Center(child: CircularProgressIndicator());
                   }
                   if (snapshot.hasError) {
                     return Center(
-                      child: Text("Error:${snapshot.error}"),
+                      child: Text("Error: ${snapshot.error}"),
                     );
                   }
-                  final mytrip = snapshot.data?.docs ?? [];
+                  final myTrips = snapshot.data?.docs ?? [];
 
-                  // Filter out trips where the date is not greater than or equal to DateTime.now()
-                  final filteredTrips = mytrip.where((trip) {
-                    // Assuming "Date" is stored as a String in Firestore
-                    DateTime tripDate = DateFormat("dd-MM-yyyy").parse(trip["Date"] as String);
-                    return tripDate.isAfter(DateTime.now()) || tripDate.isAtSameMomentAs(DateTime.now());
+                  // Filter out trips where the date and time are not in the future or current
+                  final filteredTrips = myTrips.where((trip) {
+                    // Parse date and time from Firestore document
+                    DateTime tripDateTime = DateFormat("dd-MM-yyyy HH:mm").parse("${trip["Date"]} ${trip["Time"]}");
+
+                    // Compare with current date and time
+                    return tripDateTime.isAfter(DateTime.now()) || tripDateTime.isAtSameMomentAs(DateTime.now());
                   }).toList();
 
                   return ListView.builder(
@@ -222,6 +223,7 @@ class _DriversState extends State<Drivers> {
                               Text("From: ${filteredTrips[index]["From"]}"),
                               Text("To: ${filteredTrips[index]["To"]}"),
                               Text('Date: ${filteredTrips[index]["Date"]}'),
+                              Text('Time: ${filteredTrips[index]["Time"]}'),
                             ],
                           ),
                           trailing: ElevatedButton(
