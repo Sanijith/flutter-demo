@@ -1,10 +1,8 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:image_picker/image_picker.dart';
 
 import 'driver_login.dart';
 
@@ -25,27 +23,14 @@ class _DriverRegisterState extends State<DriverRegister> {
   File? licenseImage;
 
   Future<dynamic> driverreg() async {
-    if (!formKey.currentState!.validate()) {
-      return; // If the form is not valid, return without registering
-    }
-
-    String imageUrl = ""; // Initialize imageUrl as empty string
-
-    // Check if there's a license image to upload
-    if (licenseImage != null) {
-      // Upload the license image to Firebase Storage
-      imageUrl = await uploadLicenseImage();
-    }
-
-    // Save the data to Firestore
     await FirebaseFirestore.instance.collection('DriverRegister').add({
       "UserName": name.text,
       "Password": password.text,
       "Email": email.text,
       "Phone Number": phone.text,
       "License Number": license.text,
-      "License Photo": imageUrl,
-      "Path": "https://media.istockphoto.com/id/1300845620/vector/user-icon-flat-isolated-on-white-background-user-symbol-vector-illustration.jpg?s=612x612&w=0&k=20&c=yBeyba0hUkh14_jgv1OKqIH0CCSWU_4ckRkAoy2p73o=",
+      "Path":
+          "https://media.istockphoto.com/id/1300845620/vector/user-icon-flat-isolated-on-white-background-user-symbol-vector-illustration.jpg?s=612x612&w=0&k=20&c=yBeyba0hUkh14_jgv1OKqIH0CCSWU_4ckRkAoy2p73o=",
     });
 
     print('Success');
@@ -53,32 +38,6 @@ class _DriverRegisterState extends State<DriverRegister> {
       context,
       MaterialPageRoute(builder: (context) => DriverLogin()),
     );
-  }
-
-  Future<String> uploadLicenseImage() async {
-
-    final ref = firebase_storage.FirebaseStorage.instance
-        .ref()
-        .child('license_images')
-        .child(DateTime.now().millisecondsSinceEpoch.toString());
-    await ref.putFile(File(licenseImage!.path));
-
-
-    // Get the download URL
-    String imageUrl = await ref.getDownloadURL();
-
-    return imageUrl;
-  }
-
-  Future<void> pickLicenseImage() async {
-    final ImagePicker _picker = ImagePicker();
-    final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
-
-    if (image != null) {
-      setState(() {
-        licenseImage = File(image.path);
-      });
-    }
   }
 
   @override
@@ -208,11 +167,6 @@ class _DriverRegisterState extends State<DriverRegister> {
                       icon: const Icon(Icons.credit_card),
                       hintText: "License Number",
                     ),
-                  ),
-                  SizedBox(height: 10),
-                  ElevatedButton(
-                    onPressed: pickLicenseImage,
-                    child: Text('Pick License Image'),
                   ),
                   SizedBox(height: 30),
                   InkWell(

@@ -18,19 +18,21 @@ class _CreateTripState extends State<CreateTrip> {
   final formKey = GlobalKey<FormState>();
   var from = TextEditingController();
   var to = TextEditingController();
-  var dateController = TextEditingController(); // Controller for date text field
-  var timeController = TextEditingController(); // Controller for time text field
+  var dateController = TextEditingController();
+  var timeController = TextEditingController();
   DateTime? _selectedDate;
   TimeOfDay? _selectedTime;
+  String? selectedVehicle;
+  int vacantSeats = 1; // Initial vacant seats
+  var ID;
+  var name;
+  var phone;
+  bool vehicleSelected = false; // Track if a vehicle is selected
 
   void initState() {
     super.initState();
     getData();
   }
-
-  var ID;
-  var name;
-  var phone;
 
   Future<void> getData() async {
     SharedPreferences spref = await SharedPreferences.getInstance();
@@ -52,7 +54,7 @@ class _CreateTripState extends State<CreateTrip> {
     if (picked != null && picked != _selectedDate) {
       setState(() {
         _selectedDate = picked;
-        dateController.text = DateFormat('dd-MM-yyyy').format(_selectedDate!); // Format and set date in text field
+        dateController.text = DateFormat('dd-MM-yyyy').format(_selectedDate!);
       });
     }
   }
@@ -65,7 +67,21 @@ class _CreateTripState extends State<CreateTrip> {
     if (picked != null && picked != _selectedTime) {
       setState(() {
         _selectedTime = picked;
-        timeController.text = '${_selectedTime!.format(context)}'; // Format and set time in text field
+        timeController.text = '${_selectedTime!.format(context)}';
+      });
+    }
+  }
+
+  void incrementVacantSeats() {
+    setState(() {
+      vacantSeats++;
+    });
+  }
+
+  void decrementVacantSeats() {
+    if (vacantSeats > 1) {
+      setState(() {
+        vacantSeats--;
       });
     }
   }
@@ -78,7 +94,9 @@ class _CreateTripState extends State<CreateTrip> {
       "From": from.text,
       "To": to.text,
       "Date": dateController.text,
-      "Time": timeController.text, // Save the formatted time
+      "Time": timeController.text,
+      "Vehicle": selectedVehicle,
+      "Vacant Seats": vacantSeats.toString(),
     });
 
     print('Trip created successfully');
@@ -174,7 +192,6 @@ class _CreateTripState extends State<CreateTrip> {
                       ),
                     ),
                   ),
-                  SizedBox(height: 20),
                   Padding(
                     padding: const EdgeInsets.all(10.0),
                     child: TextFormField(
@@ -187,7 +204,7 @@ class _CreateTripState extends State<CreateTrip> {
                         return null;
                       },
                       onTap: () {
-                        _selectDate(context); // Show date picker
+                        _selectDate(context);
                       },
                       decoration: const InputDecoration(
                         filled: true,
@@ -199,7 +216,6 @@ class _CreateTripState extends State<CreateTrip> {
                       ),
                     ),
                   ),
-                  SizedBox(height: 20),
                   Padding(
                     padding: const EdgeInsets.all(10.0),
                     child: TextFormField(
@@ -212,7 +228,7 @@ class _CreateTripState extends State<CreateTrip> {
                         return null;
                       },
                       onTap: () {
-                        _selectTime(context); // Show time picker
+                        _selectTime(context);
                       },
                       decoration: const InputDecoration(
                         filled: true,
@@ -224,10 +240,74 @@ class _CreateTripState extends State<CreateTrip> {
                       ),
                     ),
                   ),
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: DropdownButtonFormField<String>(
+                      value: selectedVehicle,
+                      onChanged: (String? newValue) {
+                        setState(() {
+                          selectedVehicle = newValue;
+                          vehicleSelected = true; // Mark vehicle as selected
+                        });
+                      },
+                      items: ['2 Wheeler', '4 Wheeler',]
+                          .map<DropdownMenuItem<String>>((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(value),
+                        );
+                      }).toList(),
+                      decoration: const InputDecoration(
+                        filled: true,
+                        fillColor: Colors.white,
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(15)),
+                        ),
+                        labelText: "Select Vehicle",
+                      ),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return "Please select a vehicle";
+                        }
+                        return null;
+                      },
+                    ),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "Vaccant Seats",
+                        style: GoogleFonts.ubuntu(
+                          fontSize: 14,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                        ),
+                      ),
+                      IconButton(
+                        onPressed: () {
+                          decrementVacantSeats();
+                        },
+                        icon: Icon(Icons.remove),
+                      ),
+                      SizedBox(width: 20),
+                      Text(
+                        vacantSeats.toString(),
+                        style: TextStyle(fontSize: 20),
+                      ),
+                      SizedBox(width: 20),
+                      IconButton(
+                        onPressed: () {
+                          incrementVacantSeats();
+                        },
+                        icon: Icon(Icons.add),
+                      ),
+                    ],
+                  ),
                   SizedBox(height: 30),
                   InkWell(
                     onTap: () {
-                      if (formKey.currentState!.validate()) {
+                      if (formKey.currentState!.validate() && vehicleSelected) {
                         createTrip();
                       }
                     },
@@ -262,4 +342,3 @@ class _CreateTripState extends State<CreateTrip> {
     );
   }
 }
-

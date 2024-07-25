@@ -1,4 +1,5 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:fleetride/driver/schedule%20booking.dart';
 import 'package:fleetride/firebase_options.dart';
 import 'package:fleetride/splash.dart';
 import 'package:flutter/material.dart';
@@ -24,7 +25,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: SplashScreen(),
+      home: ScheduleBook(),
     );
   }
 }
