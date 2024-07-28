@@ -3,34 +3,15 @@ import 'package:fleetride/Repair/repair_home.dart';
 import 'package:fleetride/driver/driver_home.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:url_launcher/url_launcher.dart';
 
-class ScheduleList extends StatefulWidget {
-  const ScheduleList({super.key});
+class BookDecision extends StatefulWidget {
+  const BookDecision({super.key});
 
   @override
-  State<ScheduleList> createState() => _ScheduleListState();
+  State<BookDecision> createState() => _BookDecisionState();
 }
 
-class _ScheduleListState extends State<ScheduleList> {
-  var Name;
-  Future<void> getData() async {
-    SharedPreferences spref = await SharedPreferences.getInstance();
-    setState(() {
-      Name = spref.getString('rname');
-    });
-    print('Shared Prefernce data get');
-  }
-
-  DocumentSnapshot? Repair;
-
-  getFirebase() async {
-    Repair = await FirebaseFirestore.instance
-        .collection("RepairRegister")
-        .doc(Name)
-        .get();
-  }
+class _BookDecisionState extends State<BookDecision> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -65,7 +46,7 @@ class _ScheduleListState extends State<ScheduleList> {
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 50),
                       child: Text(
-                        "Schedule List",
+                        "Schedule",
                         style: GoogleFonts.ubuntu(
                           fontSize: 24,
                           fontWeight: FontWeight.bold,
@@ -83,7 +64,7 @@ class _ScheduleListState extends State<ScheduleList> {
             Expanded(
               child: FutureBuilder(
                   future: FirebaseFirestore.instance
-                      .collection("Report Issues").where("Repair Name",isEqualTo: Name)
+                      .collection("Report Issues")
                       .get(),
                   builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
@@ -94,50 +75,90 @@ class _ScheduleListState extends State<ScheduleList> {
                         child: Text("Error:${snapshot.error}"),
                       );
                     }
-                    final report = snapshot.data?.docs ?? [];
+                    final trip = snapshot.data?.docs ?? [];
                     return ListView.builder(
                         itemBuilder: (context, index) {
                           return Card(
                             child: ListTile(
-                              title: Text('User Report $index',
+                              title: Text('User Request $index',
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 18,
                                 ),),
-                              trailing: IconButton(
-                                  onPressed: () async {
-                                    try {
-                                      // Attempt to launch the telephone call
-                                      await launch(
-                                          'tel:${report[index]["Driver Phone Number"]}');
-                                    } catch (e) {
-                                      // Handle any exceptions
-                                      print(
-                                          'Error launching telephone call: $e');
-                                      // Display a friendly error message to the user
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(
-                                        SnackBar(
-                                          content: Text(
-                                              'Failed to launch phone call. Please check your device settings.'),
-                                        ),
-                                      );
-                                    }
-                                  },
-                                  icon: Icon(Icons.call_outlined)),
                               subtitle: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text("User Name: ${report[index]["Driver Name"]}"),
-                                  Text("Phone Number: ${report[index]["Driver Phone Number"]}"),
-                                  Text("Vehicle Number: ${report[index]["Vehicle Number"]}"),
-                                  Text("Vehicle Issue: ${report[index]["Vehicle Issue"]}"),
+                                  Text("Driver Name: ${trip[index]["Driver Name"]}"),
+                                  Text("Phone Number: ${trip[index]["Driver Phone Number"]}"),
+                                  Text("Vehicle Name: ${trip[index]["Vehicle Name"]}"),
+                                  Text("Vehicle Number: ${trip[index]["Vehicle Number"]}"),
+                                  Text("Service Item: ${trip[index]["Service Item"]}"),
+                                  trip[index]["Status"] == "0"
+                                      ? Row(
+                                    children: [
+                                      ElevatedButton(
+                                        onPressed: () {
+                                          setState(() {
+                                            FirebaseFirestore.instance
+                                                .collection("Report Issues")
+                                                .doc(trip[index].id)
+                                                .update({
+                                              'Status': "1"
+                                            }); // Update the 'Status' field to 1
+                                          });
+                                          print("object");
+                                        },
+                                        child: const Text('Accept'),
+                                        style: ElevatedButton.styleFrom(
+                                          backgroundColor:
+                                          Colors.lightGreenAccent,
+                                        ),
+                                      ),
+                                      SizedBox(width: 30),
+                                      ElevatedButton(
+                                        onPressed: () {
+                                          setState(() {
+                                            FirebaseFirestore.instance
+                                                .collection("Report Issues")
+                                                .doc(trip[index].id)
+                                                .update({
+                                              'Status': "2"
+                                            }); // Update the 'Status' field to 1
+                                          });
+                                        },
+                                        child: const Text('Reject'),
+                                        style: ElevatedButton.styleFrom(
+                                          backgroundColor: Colors.red,
+                                        ),
+                                      ),
+                                    ],
+                                  )
+                                      : trip[index]["Status"] == "1"
+                                      ? ElevatedButton(
+                                    onPressed: () {
+                                      print("object");
+                                    },
+                                    child: const Text('Accepted'),
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor:
+                                      Colors.lightGreenAccent,
+                                    ),
+                                  )
+                                      : ElevatedButton(
+                                    onPressed: () {
+                                      print("object");
+                                    },
+                                    child: const Text('Rejected'),
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor: Colors.red,
+                                    ),
+                                  ),
                                 ],
                               ),
                             ),
                           );
                         },
-                        itemCount: report.length);
+                        itemCount: trip.length);
                   }),
             ),
           ],

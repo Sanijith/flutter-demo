@@ -106,35 +106,14 @@ class _RepairNamesListState extends State<RepairNamesList> {
                                           width: 70,
                                           decoration: BoxDecoration(
                                               borderRadius: BorderRadius.circular(10),
-                                              color: Colors.green),
+                                              color: Colors.redAccent),
                                           child: Center(
-                                            child: Text('Book',
+                                            child: Text('Report',
                                                 style: GoogleFonts.ubuntu(
                                                     fontSize: 18,
                                                     fontWeight: FontWeight.bold,
                                                     color: Colors.white)),
                                           ))),
-                                  IconButton(
-                                      onPressed: () async {
-                                        try {
-                                          // Attempt to launch the telephone call
-                                          await launch(
-                                              'tel:${repairs[index]["Phone Number"]}');
-                                        } catch (e) {
-                                          // Handle any exceptions
-                                          print(
-                                              'Error launching telephone call: $e');
-                                          // Display a friendly error message to the user
-                                          ScaffoldMessenger.of(context)
-                                              .showSnackBar(
-                                            SnackBar(
-                                              content: Text(
-                                                  'Failed to launch phone call. Please check your device settings.'),
-                                            ),
-                                          );
-                                        }
-                                      },
-                                      icon: Icon(Icons.call_outlined)),
                                 ],
                               ),
                               subtitle: Column(
