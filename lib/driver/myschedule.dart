@@ -1,20 +1,33 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:fleetride/Repair/repair_home.dart';
-import 'package:fleetride/driver/booking.dart';
+import 'package:fleetride/driver/driver_home.dart';
+import 'package:fleetride/driver/report.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class RepairNamesList extends StatefulWidget {
-  const RepairNamesList({
-    super.key,
-  });
+class MySchedule extends StatefulWidget {
+  const MySchedule({super.key});
 
   @override
-  State<RepairNamesList> createState() => _RepairNamesListState();
+  State<MySchedule> createState() => _MyScheduleState();
 }
 
-class _RepairNamesListState extends State<RepairNamesList> {
+class _MyScheduleState extends State<MySchedule> {
+  var ID;
+
+  void initState() {
+    super.initState();
+    getData();
+  }
+
+  Future<void> getData() async {
+    SharedPreferences spref = await SharedPreferences.getInstance();
+    setState(() {
+      ID = spref.getString('id');
+    });
+    print('Shared Preference data get');
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -23,16 +36,12 @@ class _RepairNamesListState extends State<RepairNamesList> {
           title: const Text('FleetRide'),
           actions: [
             IconButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const RepairHome()),
-                );
-              },
-              icon: const Icon(Icons.home_outlined),
-            ),
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => DriverHome()));
+                },
+                icon: const Icon(Icons.home_outlined))
           ],
-          backgroundColor: Colors.white,
         ),
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -49,7 +58,7 @@ class _RepairNamesListState extends State<RepairNamesList> {
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 50),
                       child: Text(
-                        "Repairs",
+                        "My Books",
                         style: GoogleFonts.ubuntu(
                           fontSize: 24,
                           fontWeight: FontWeight.bold,
@@ -67,7 +76,9 @@ class _RepairNamesListState extends State<RepairNamesList> {
             Expanded(
               child: FutureBuilder(
                   future: FirebaseFirestore.instance
-                      .collection("RepairRegister")
+                      .collection("Booking Send")
+                      .where("Driver Id", isEqualTo: ID)
+                      .where("Status", isEqualTo: "1")
                       .get(),
                   builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
@@ -78,62 +89,52 @@ class _RepairNamesListState extends State<RepairNamesList> {
                         child: Text("Error:${snapshot.error}"),
                       );
                     }
-                    final repairs = snapshot.data?.docs ?? [];
+                    final mybook = snapshot.data?.docs ?? [];
                     return ListView.builder(
                         itemBuilder: (context, index) {
+                          var booking = mybook[index];
                           return Card(
                             color: Colors.red.shade50,
                             child: ListTile(
                               title: Text(
-                                repairs[index]["UserName"],
+                                'Booking $index',
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 18,
                                 ),
                               ),
-                              trailing: Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  InkWell(
-                                      onTap: () {
-                                        Navigator.push(context, MaterialPageRoute(builder: (context) => DriverReport(
-                                          userName: repairs[index]["UserName"],
-                                          phoneNumber: repairs[index]["Phone Number"],
-                                        ),));
-                                      },
-                                      child: Container(
-                                          height: 40,
-                                          width: 70,
-                                          decoration: BoxDecoration(
-                                              borderRadius: BorderRadius.circular(10),
-                                              color: Colors.redAccent),
-                                          child: Center(
-                                            child: Text('Report',
-                                                style: GoogleFonts.ubuntu(
-                                                    fontSize: 18,
-                                                    fontWeight: FontWeight.bold,
-                                                    color: Colors.white)),
-                                          ))),
-                                ],
-                              ),
+                              trailing: IconButton(
+                                  onPressed: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                               DriverReport(
+                                            repairName: booking["Repair Name"],
+                                            repairPhoneNumber:
+                                                booking["Repair Phone Number"],
+                                          ),
+                                        ));
+                                  },
+                                  icon: Icon(
+                                      Icons.report_gmailerrorred_outlined)),
                               subtitle: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  // Text("Shop Name: ${repairs[index]["Repair Shop Name"]}",
-                                  //     style: TextStyle(fontSize: 14)),
-
-                                  SizedBox(
-                                    height: 10,
-                                  ),
                                   Text(
-                                      "Phone Number: ${repairs[index]["Phone Number"]}",
-                                      style: TextStyle(fontSize: 14)),
+                                      'Repair Name: ${mybook[index]["Repair Name"]}'),
+                                  Text(
+                                      'Phone Number: ${mybook[index]["Repair Phone Number"]}'),
+                                  Text(
+                                      'Item: ${mybook[index]["Service Item"]}'),
+                                  Text('Date: ${mybook[index]["Date"]}'),
+                                  Text('Time: ${mybook[index]["Time"]}')
                                 ],
                               ),
                             ),
                           );
                         },
-                        itemCount: repairs.length);
+                        itemCount: mybook.length);
                   }),
             ),
           ],

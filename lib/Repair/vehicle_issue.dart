@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fleetride/Repair/repair_home.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class VehicleIssue extends StatefulWidget {
   const VehicleIssue({super.key});
@@ -11,6 +12,22 @@ class VehicleIssue extends StatefulWidget {
 }
 
 class _VehicleIssueState extends State<VehicleIssue> {
+  
+  var name;
+  var phone;
+  void initState() {
+    super.initState();
+    getData();
+  }
+
+  Future<void> getData() async {
+    SharedPreferences spref = await SharedPreferences.getInstance();
+    setState(() {
+      name = spref.getString('name');
+      phone = spref.getString('Phone');
+    });
+    print('Shared Preference data get');
+  }
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -62,6 +79,8 @@ class _VehicleIssueState extends State<VehicleIssue> {
               child: FutureBuilder(
                   future: FirebaseFirestore.instance
                       .collection("Report Issues")
+                  .where("Repair Name",isEqualTo: name)
+                  .where("Repair Phone Number", isEqualTo: phone)
                       .get(),
                   builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {

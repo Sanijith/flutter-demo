@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fleetride/driver/driver_home.dart';
 import 'package:fleetride/driver/repairs_list.dart';
 import 'package:intl/intl.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class DriverReport extends StatefulWidget {
   const DriverReport(
@@ -18,6 +19,7 @@ class DriverReport extends StatefulWidget {
 
 class _DriverReportState extends State<DriverReport> {
   final formKey = GlobalKey<FormState>();
+  var ID;
   var driverName = TextEditingController();
   var driverPhone = TextEditingController();
   var vehicleNumber = TextEditingController();
@@ -26,6 +28,17 @@ class _DriverReportState extends State<DriverReport> {
   DateTime selectedDateTime = DateTime.now();
 
   // Dropdown controllers
+  void initState() {
+    super.initState();
+    getData();
+  }
+  Future<void> getData() async {
+    SharedPreferences spref = await SharedPreferences.getInstance();
+    setState(() {
+      ID = spref.getString('id');
+    });
+    print('Shared Preference data get');
+  }
   String? selectedVehicleName;
   String? selectedServiceItem;
   var timeController = TextEditingController();
@@ -45,7 +58,8 @@ class _DriverReportState extends State<DriverReport> {
       // Convert DateTime to timestamp
       final reportDateTimestamp = _selectedDate != null ? Timestamp.fromDate(_selectedDate!) : null;
 
-      await FirebaseFirestore.instance.collection("Report Issues").add({
+      await FirebaseFirestore.instance.collection("Booking Send").add({
+        "Driver Id":ID,
         "Driver Name": driverName.text,
         "Driver Phone Number": driverPhone.text,
         "Vehicle Name": selectedVehicleName,
@@ -53,8 +67,8 @@ class _DriverReportState extends State<DriverReport> {
         "Service Item": selectedServiceItem,
         "Repair Name": widget.userName,
         "Repair Phone Number": widget.phoneNumber,
-        "Report Date": reportDateTimestamp,
-        "Report Time": timeString,
+        "Date": reportDateTimestamp,
+        "Time": timeString,
         "Status":"0",// Store time as string
       });
 

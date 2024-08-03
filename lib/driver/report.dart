@@ -6,9 +6,14 @@ import 'package:fleetride/driver/repairs_list.dart';
 import 'package:intl/intl.dart';
 
 class DriverReport extends StatefulWidget {
-  const DriverReport({super.key, required this.userName, required this.phoneNumber});
-  final String userName;
-  final String phoneNumber;
+  const DriverReport({
+    super.key,
+    required this.repairName,
+    required this.repairPhoneNumber,
+  });
+
+  final String repairName;
+  final String repairPhoneNumber;
 
   @override
   State<DriverReport> createState() => _DriverReportState();
@@ -17,32 +22,47 @@ class DriverReport extends StatefulWidget {
 class _DriverReportState extends State<DriverReport> {
   final formKey = GlobalKey<FormState>();
   var driverName = TextEditingController();
-  var driverphone=TextEditingController();
+  var driverphone = TextEditingController();
   var vehicleNumber = TextEditingController();
   var vehicleIssue = TextEditingController();
   var reportDateController = TextEditingController(); // Controller for date text field
   DateTime? selectedDate; // Variable to hold selected date
 
-  Future<dynamic> Report() async {
-    await FirebaseFirestore.instance.collection("Report Issues").add({
-      "Driver Name": driverName.text,
-      "Driver Phone Number":driverphone.text,
-      "Vehicle Number": vehicleNumber.text,
-      "Vehicle Issue": vehicleIssue.text,
-      "Repair Name": widget.userName,
-      "Repair Phone Number": widget.phoneNumber,
-      "Report Date": reportDateController.text,
-    });
-    print('done');
-    Navigator.push(context, MaterialPageRoute(builder: (context) => RepairNamesList()));
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text(
-          "Request Sent Successfully",
-          style: TextStyle(fontSize: 15, color: Colors.green),
+  Future<void> Report() async {
+    try {
+      await FirebaseFirestore.instance.collection("Report Issues").add({
+        "Repair Name": widget.repairName,
+        "Repair Phone Number": widget.repairPhoneNumber,
+        "Driver Name": driverName.text,
+        "Driver Phone Number": driverphone.text,
+        "Vehicle Number": vehicleNumber.text,
+        "Vehicle Issue": vehicleIssue.text,
+        "Report Date": reportDateController.text,
+      });
+      print('Report submitted successfully');
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text(
+            "Request Sent Successfully",
+            style: TextStyle(fontSize: 15, color: Colors.green),
+          ),
         ),
-      ),
-    );
+      );
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => RepairNamesList()),
+      );
+    } catch (e) {
+      print('Error submitting report: $e');
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            "Failed to submit request. Please try again.",
+            style: TextStyle(fontSize: 15, color: Colors.red),
+          ),
+        ),
+      );
+    }
   }
 
   Future<void> _selectDate(BuildContext context) async {
@@ -50,12 +70,13 @@ class _DriverReportState extends State<DriverReport> {
       context: context,
       initialDate: DateTime.now(),
       firstDate: DateTime.now(),
-      lastDate: DateTime(DateTime.now().year+11),
+      lastDate: DateTime(DateTime.now().year + 11),
     );
     if (picked != null && picked != selectedDate) {
       setState(() {
         selectedDate = picked;
-        reportDateController.text = DateFormat('dd-MM-yyyy').format(selectedDate!); // Format and set date in text field
+        reportDateController.text = DateFormat('dd-MM-yyyy')
+            .format(selectedDate!); // Format and set date in text field
       });
     }
   }
@@ -134,7 +155,10 @@ class _DriverReportState extends State<DriverReport> {
                       controller: driverphone,
                       validator: (value) {
                         if (value!.isEmpty) {
-                          return "Empty Name!";
+                          return "Empty Phone Number!";
+                        } else if (value.length != 10 ||
+                            !RegExp(r'^[0-9]+$').hasMatch(value)) {
+                          return "Invalid Phone Number";
                         }
                         return null;
                       },
@@ -155,10 +179,7 @@ class _DriverReportState extends State<DriverReport> {
                       controller: vehicleNumber,
                       validator: (value) {
                         if (value!.isEmpty) {
-                          return "Empty Phone Number!";
-                        } else if (value.length != 10 ||
-                            !RegExp(r'^[0-9]+$').hasMatch(value)) {
-                          return "Invalid Phone Number";
+                          return "Empty Vehicle Number!";
                         }
                         return null;
                       },
@@ -216,14 +237,17 @@ class _DriverReportState extends State<DriverReport> {
                   SizedBox(height: 30),
                   InkWell(
                     onTap: () {
-                      if (formKey.currentState!.validate() && selectedDate != null) {
-                        Report();
+                      if (formKey.currentState!.validate() &&
+                          selectedDate != null) {
+                        setState(() {
+                          Report();
+                        });
                       } else {
                         showDialog(
                           context: context,
                           builder: (context) => AlertDialog(
-                            title: Text('Select Date'),
-                            content: Text('Please select a date.'),
+                            title: Text('Invalid'),
+                            content: Text('Please Fill The Form'),
                             actions: <Widget>[
                               TextButton(
                                 onPressed: () => Navigator.of(context).pop(),
@@ -245,7 +269,7 @@ class _DriverReportState extends State<DriverReport> {
                         ),
                         child: Center(
                           child: Text(
-                            'Book',
+                            'Report',
                             style: GoogleFonts.ubuntu(
                               fontSize: 18,
                               fontWeight: FontWeight.bold,

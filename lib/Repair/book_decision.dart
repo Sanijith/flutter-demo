@@ -64,7 +64,7 @@ class _BookDecisionState extends State<BookDecision> {
             Expanded(
               child: FutureBuilder(
                   future: FirebaseFirestore.instance
-                      .collection("Report Issues")
+                      .collection("Booking Send")
                       .get(),
                   builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
@@ -75,7 +75,7 @@ class _BookDecisionState extends State<BookDecision> {
                         child: Text("Error:${snapshot.error}"),
                       );
                     }
-                    final trip = snapshot.data?.docs ?? [];
+                    final booking = snapshot.data?.docs ?? [];
                     return ListView.builder(
                         itemBuilder: (context, index) {
                           return Card(
@@ -88,20 +88,20 @@ class _BookDecisionState extends State<BookDecision> {
                               subtitle: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text("Driver Name: ${trip[index]["Driver Name"]}"),
-                                  Text("Phone Number: ${trip[index]["Driver Phone Number"]}"),
-                                  Text("Vehicle Name: ${trip[index]["Vehicle Name"]}"),
-                                  Text("Vehicle Number: ${trip[index]["Vehicle Number"]}"),
-                                  Text("Service Item: ${trip[index]["Service Item"]}"),
-                                  trip[index]["Status"] == "0"
+                                  Text("Driver Name: ${booking[index]["Driver Name"]}"),
+                                  Text("Phone Number: ${booking[index]["Driver Phone Number"]}"),
+                                  Text("Vehicle Name: ${booking[index]["Vehicle Name"]}"),
+                                  Text("Vehicle Number: ${booking[index]["Vehicle Number"]}"),
+                                  Text("Service Item: ${booking[index]["Service Item"]}"),
+                                  booking[index]["Status"] == "0"
                                       ? Row(
                                     children: [
                                       ElevatedButton(
                                         onPressed: () {
                                           setState(() {
                                             FirebaseFirestore.instance
-                                                .collection("Report Issues")
-                                                .doc(trip[index].id)
+                                                .collection("Booking Send")
+                                                .doc(booking[index].id)
                                                 .update({
                                               'Status': "1"
                                             }); // Update the 'Status' field to 1
@@ -119,8 +119,8 @@ class _BookDecisionState extends State<BookDecision> {
                                         onPressed: () {
                                           setState(() {
                                             FirebaseFirestore.instance
-                                                .collection("Report Issues")
-                                                .doc(trip[index].id)
+                                                .collection("Booking Send")
+                                                .doc(booking[index].id)
                                                 .update({
                                               'Status': "2"
                                             }); // Update the 'Status' field to 1
@@ -133,7 +133,7 @@ class _BookDecisionState extends State<BookDecision> {
                                       ),
                                     ],
                                   )
-                                      : trip[index]["Status"] == "1"
+                                      : booking[index]["Status"] == "1"
                                       ? ElevatedButton(
                                     onPressed: () {
                                       print("object");
@@ -158,7 +158,7 @@ class _BookDecisionState extends State<BookDecision> {
                             ),
                           );
                         },
-                        itemCount: trip.length);
+                        itemCount: booking.length);
                   }),
             ),
           ],
