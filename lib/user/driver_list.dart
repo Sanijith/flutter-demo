@@ -21,7 +21,6 @@ class _DriversState extends State<Drivers> {
   List<String> locationList = ['Trip Request', 'Delivery Request'];
   String? selectedValue;
 
-  @override
   Future<void> sendRequest(String driverName, String driverPhone, String from, String to, String additionalInfo) async {
     SharedPreferences spref = await SharedPreferences.getInstance();
     userName = spref.getString('name');
@@ -42,13 +41,23 @@ class _DriversState extends State<Drivers> {
       "Status": "0",
     });
 
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text(
-          "Request Sent Successfully",
-          style: TextStyle(fontSize: 15, color: Colors.green),
-        ),
-      ),
+    // Show an alert dialog for success
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text('Success'),
+          content: Text('Request Sent Successfully'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: Text('OK'),
+            ),
+          ],
+        );
+      },
     );
   }
 
@@ -130,6 +139,7 @@ class _DriversState extends State<Drivers> {
     );
   }
 
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -202,7 +212,7 @@ class _DriversState extends State<Drivers> {
                     DateTime tripDateTime = DateFormat("dd-MM-yyyy HH:mm").parse("${trip["Date"]} ${trip["Time"]}");
 
                     // Compare with current date and time
-                    return tripDateTime.isAfter(DateTime.now()) || tripDateTime.isAtSameMomentAs(DateTime.now());
+                    return tripDateTime.isAtSameMomentAs(DateTime.now()) || tripDateTime.isAfter(DateTime.now());
                   }).toList();
 
                   return ListView.builder(

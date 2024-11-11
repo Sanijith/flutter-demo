@@ -115,7 +115,6 @@ class _DriverManageState extends State<DriverManage> {
                   final driver = snapshot.data?.docs ?? [];
                   return ListView.builder(
                       itemBuilder: (context, index) {
-                        String licensePhotoUrl = driver[index]["License Photo"];
                         return Card(
                           color: Colors.red.shade50,
                           child: ListTile(
@@ -136,27 +135,16 @@ class _DriverManageState extends State<DriverManage> {
                                 ),
                               ),
                             ),
-                            trailing: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                IconButton(
-                                  onPressed: () {
-                                    _showLicensePhoto(licensePhotoUrl);
-                                  },
-                                  icon: Icon(Icons.remove_red_eye_outlined),
-                                ),
-                                IconButton(
-                                  onPressed: () {
-                                    setState(() {
-                                      FirebaseFirestore.instance
-                                          .collection("DriverRegister")
-                                          .doc(driver[index].id)
-                                          .delete();
-                                    });
-                                  },
-                                  icon: const Icon(Icons.delete),
-                                ),
-                              ],
+                            trailing: IconButton(
+                              onPressed: () {
+                                setState(() {
+                                  FirebaseFirestore.instance
+                                      .collection("DriverRegister")
+                                      .doc(driver[index].id)
+                                      .delete();
+                                });
+                              },
+                              icon: const Icon(Icons.delete),
                             ),
                             subtitle: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,

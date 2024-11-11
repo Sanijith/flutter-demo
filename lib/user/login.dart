@@ -1,8 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fleetride/user/register.dart';
 import 'package:fleetride/user/user_home.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Login extends StatefulWidget {
@@ -51,6 +53,53 @@ class _LoginState extends State<Login> {
     }
   }
 
+  GoogleSignIn _googleSignIn = GoogleSignIn();
+  Future<void> _signInWithGoogle() async {
+    try {
+      final GoogleSignInAccount? googleSignInAccount =
+      await _googleSignIn.signIn();
+      final GoogleSignInAuthentication googleSignInAuthentication =
+      await googleSignInAccount!.authentication;
+
+      final AuthCredential credential = GoogleAuthProvider.credential(
+        accessToken: googleSignInAuthentication.accessToken,
+        idToken: googleSignInAuthentication.idToken,
+      );
+
+      final UserCredential userCredential =
+      await FirebaseAuth.instance.signInWithCredential(credential);
+      if (userCredential.user != null) {
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        String userId = userCredential.user!.uid;
+        prefs.setString('userId', userId);
+
+        String name = userCredential.user!.displayName ?? "";
+        String email = userCredential.user!.email ?? "";
+
+        String imageUrl = userCredential.user!.photoURL ?? "";
+
+        await FirebaseFirestore.instance.collection('Guser').doc(userId).set({
+          'name': name,
+          'email': email,
+          'imageUrl': imageUrl,
+          'userId': userId,
+          'phonenumber': null,
+          'pincode': null,
+          'address': null,
+        });
+
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const Userhome(),
+          ),
+        );
+      }
+    } catch (error) {
+      print("Google sign-in error: $error");
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -93,7 +142,7 @@ class _LoginState extends State<Login> {
                       hintText: "Email",
                     ),
                   ),
-                  SizedBox(height: 30),
+                  SizedBox(height: 20),
                   TextFormField(
                     obscureText: true,
                     keyboardType: TextInputType.text,
@@ -113,33 +162,30 @@ class _LoginState extends State<Login> {
                       hintText: "Password",
                     ),
                   ),
-                  SizedBox(height: 30),
+                  SizedBox(height: 20),
                   InkWell(
                       onTap: () {
                         if (formKey.currentState!.validate()) {
                           USERLogin();
                         }
                       },
-                      child: Padding(
-                        padding: const EdgeInsets.only(bottom: 10),
-                        child: Container(
-                            height: 53,
-                            width: 100,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                color: Colors.green),
-                            child: Center(
-                              child: Text('Login',
-                                  style: GoogleFonts.ubuntu(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.white)),
-                            )),
-                      )),
+                      child: Container(
+                          height: 53,
+                          width: 100,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color: Colors.green),
+                          child: Center(
+                            child: Text('Login',
+                                style: GoogleFonts.ubuntu(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white)),
+                          ))),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Text('Dont have an accout?'),
+                      const Text('Dont have an account?'),
                       TextButton(
                           onPressed: () {
                             Navigator.push(
@@ -150,6 +196,31 @@ class _LoginState extends State<Login> {
                           child: const Text('SignUp')),
                     ],
                   ),
+                  ElevatedButton(
+                      onPressed: () {
+                        setState(() {
+                          _signInWithGoogle();
+                        });
+                      },
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(Icons.g_mobiledata_rounded),
+                          SizedBox(width: 5,),
+                          Text("Google"),
+                        ],
+                      )),
+                  SizedBox(height: 10,),
+                  ElevatedButton(
+                      onPressed: () {},
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(Icons.facebook_outlined),
+                          SizedBox(width: 5,),
+                          Text("FaceBook"),
+                        ],
+                      ))
                 ],
               ),
             ),

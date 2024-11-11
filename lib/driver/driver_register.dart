@@ -20,7 +20,6 @@ class _DriverRegisterState extends State<DriverRegister> {
   var email = TextEditingController();
   var phone = TextEditingController();
   var license = TextEditingController();
-  File? licenseImage;
 
   Future<dynamic> driverreg() async {
     await FirebaseFirestore.instance.collection('DriverRegister').add({
@@ -170,7 +169,11 @@ class _DriverRegisterState extends State<DriverRegister> {
                   ),
                   SizedBox(height: 30),
                   InkWell(
-                    onTap: driverreg,
+                    onTap: () {
+                      if(formKey.currentState!.validate()){
+                        driverreg();
+                      }
+                    },
                     child: Padding(
                       padding: const EdgeInsets.only(bottom: 10),
                       child: Container(

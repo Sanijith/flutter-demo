@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fleetride/user/login.dart';
-import 'package:fleetride/user/user_home.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -168,6 +167,28 @@ class _RegisterState extends State<Register> {
                           child: const Text('Login')),
                     ],
                   ),
+                  Text("OR",style: TextStyle(fontWeight: FontWeight.bold),),
+                  ElevatedButton(
+                      onPressed: () {},
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(Icons.g_mobiledata_rounded),
+                          SizedBox(width: 5,),
+                          Text("Google"),
+                        ],
+                      )),
+                  SizedBox(height: 10,),
+                  ElevatedButton(
+                      onPressed: () {},
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(Icons.facebook_outlined),
+                          SizedBox(width: 5,),
+                          Text("FaceBook"),
+                        ],
+                      ))
                 ],
               ),
             ),
